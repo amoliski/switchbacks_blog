@@ -1,0 +1,13 @@
+.double_image {
+  max-width: 1024px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.double_image img {
+  max-width: 512px;
+  max-height: 50vh;
+}
+
+/*# sourceMappingURL=main.css.map */

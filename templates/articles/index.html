@@ -1,0 +1,19 @@
+
+
+{% set entryQuery = craft.entries().section('article') %}
+
+{# Execute the query and get the results #}
+{% set entries = entryQuery.all() %}
+
+<ul>
+    {% for entry in entries %}
+<li>
+    <a href="{{entry.url}}">{{entry.title}} - {{entry.section}}</a>
+</li>
+
+
+    {% endfor %}
+</ul>
+
+
+{% set chapterQuery = craft.entries().section('story').all() %}

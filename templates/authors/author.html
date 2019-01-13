@@ -1,0 +1,13 @@
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,400i,500,700,700i|Lekton:400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/story.css">
+</head>
+<div class="header">
+    <div class="author_block" style="margin-top: 3rem;">
+        {% if entry.image|length > 0 %}
+        <div class="image" style="background-image: url({{entry.image[0].url}})"></div>
+        {% endif %}
+        <div style="font-size: 3rem; margin-left: 2rem;">{{entry.title}}</div>
+    </div>
+</div>
