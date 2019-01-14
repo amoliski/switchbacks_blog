@@ -157,19 +157,31 @@ img {
 .head .article_info .left .chapters {
   margin-top: 3rem;
   margin-bottom: 5rem;
+  width: max-content;
+  font-family: "Lekton", sans-serif;
 }
 .head .article_info .left .chapters .title {
+  width: max-content;
   font-weight: bold;
   margin-bottom: 2rem;
 }
-.head .article_info .left .chapters a {
+.head .article_info .left .chapters .chapter-nav {
+  margin: 0 auto;
+  width: max-content;
+}
+.head .article_info .left .chapters a, .head .article_info .left .chapters span {
   text-decoration: none;
   color: #F2CC24;
+  margin: 0 auto;
+  width: max-content;
 }
-.head .article_info .left .chapters a:nth-of-type(1) {
+.head .article_info .left .chapters a.disabled, .head .article_info .left .chapters span.disabled {
+  color: grey;
+}
+.head .article_info .left .chapters a:last-child, .head .article_info .left .chapters span:last-child {
   margin-right: 2rem;
 }
-.head .article_info .left .chapters a:nth-of-type(2) {
+.head .article_info .left .chapters a:first-child(2), .head .article_info .left .chapters span:first-child(2) {
   margin-left: 2rem;
 }
 .head .article_info .left .chapters a:disabled {

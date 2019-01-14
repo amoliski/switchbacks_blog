@@ -13,6 +13,30 @@
     <meta name="theme-color" content="#000000">
 </head>
 
+{% set entryQuery = craft.entries().section('story') %}
+
+{# Execute the query and get the results #}
+{% set entries = entryQuery.all() %}
+{% set story = 0 %}
+{% set found = 0 %}
+{%  set chapter_number = 0%}
+
+{%  for e in entries %}
+    {% if found == 0 %}
+
+        {% for chapter in e.chapterList.all() %}
+        {% if found == 0 %}
+             {% if chapter.slug == entry.slug %}
+                {% set story = e %}
+                {% set chapter_number = loop.index0 %}
+                {% set found = 1 %}
+             {% endif %}
+      {% endif %}
+      {% endfor %}
+
+    {% endif %}
+{%  endfor  %}
+
 <section class="head grid">
     <nav class="navbar">
             <div class="brand"></div>
@@ -52,17 +76,30 @@
                 <div class="blurb">
                     {{entry.description ? entry.description : ''}}
                 </div>
-                {% if entry.story | length == 1 %}
+
+
+                {% if found %}
+                    {% set length = story.chapterList | length %}
                 <div class="chapters">
-                    <div class="title">{{entry.story[0].title}}</div>
-                    <a href="/{{entry.story[0].url}}"> &lt;-- </a>
-
-                    1 / {{ entry.story[0].chapterList | length }}
-
-
-                    <a href="/{{entry.story[0].url}}"> --&gt; </a>
+                    <div class="title">{{story.title}}</div>
+                    <div class="chapter-nav">
+                    {% if chapter_number > 0 %}
+                        <a href="{{story.chapterList[chapter_number - 1].url}}">&lt;-- </a>
+                    {% else %}
+                        <span>&lt;-- </span>
+                    {% endif %}
+                    {{ chapter_number + 1 }} / {{ length }}
+                    {% if chapter_number < length -1 %}
+                        <a href="{{story.chapterList[chapter_number+1].url}}"> --&gt; </a>
+                    {% else %}
+                        <span> --&gt; </span>
+                    {% endif %}
+                    </div>
                 </div>
                 {% endif %}
+
+
+
             </div>
             <div class="right">
                 <div class="stats">
