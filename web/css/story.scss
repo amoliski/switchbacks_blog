@@ -316,75 +316,93 @@
   }
 }
 
-/**
-@media screen and (min-width: 80rem) {
-  .align-center,
-  .align-half,
-  .align-full,
-  .align-full-left,
-  .align-full-right,
-  .align-half-left,
-  .align-half-right {
-    margin-left: calc(((80vw - 64rem) / 2) * -1);
-    width: 80vw;
-    display: grid;
-    grid-template-columns:
-            [full-start] minmax(1em, 1fr)
-            [wide-start] minmax(0, 1fr)
-            [content-start] minmax(0, 64rem) [content-end]
-            minmax(0, 1fr) [wide-end]
-            minmax(1em, 1fr) [full-end];
-  }
 
-  .align-half > * {
+.read_more{
+  background-color: black;
+  height: 10rem;
+}
+
+
+.share{
+  h1{
+    margin-top: 10rem;
+    margin-bottom: 4rem;
+    font-weight: bold;
+    font-size: 5rem;
+  }
+  font-family:$cabin;
+  background-color: $yellow;
+  .cta{
+    grid-column:wide;
+    width: 50%;
+    @media screen and (max-width: 800px) {
+      width: 100%;
+    }
+    font-size: 2rem;
+    a{
+      color: black;
+    }
+  }
+}
+
+
+.footer {
+  background-color: $yellow;
+
+  .footer_navbar {
+    font-family: $lekton;
+
+    padding: 2rem 0;
     grid-column: wide;
-  }
 
-  .align-full > * {
-    grid-column: full;
-  }
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: space-between;
 
-  .align-full-left a {
-    grid-column: full-start/content-end;
-    .caption {
-      grid-column: content-end/full-end;
-      align-self: end;
-      text-align: left;
-      padding-left: 1em;
+    @media screen and (max-width: 800px) {
+      grid-column: full;
     }
-  }
 
+    .brand {
+      display: flex;
+      align-items: center;
 
+      float: left;
+      font-family: $cabin;
+      font-size: 4rem;
+      color: black;
+      font-weight: bold;
 
-  .align-full-right a {
-    grid-column: content-start/full-end;
-    grid-row: 1;
-    .caption {
-      grid-column: full-start/content-start;
-      grid-row: 1;
-      align-self: end;
-      text-align: right;
-      padding-right: 1em;
+      .logo{
+        width: 7rem;
+        height: 7rem;
+        position: relative;
+        top: -4px;
+
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-image: url(/img/logo_black.png);
+      }
+      .tripleu:before {
+        content: 'w';
+        margin-right: -1.8rem;
+      }
     }
-  }
+    .links{
+      float: right;
+      width: 50%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      a{
+        text-decoration: none;
+        font-weight: bold;
+        font-family: $lekton;
+        color: black;
+        font-size: 2rem;
 
-
-  .align-half-left a {
-    grid-column: full-start/wide-end;
-    .caption {
-      grid-column: full-start/content-start;
-      grid-row: 2;
+      }
     }
-  }
-
-
-  .align-half-right a {
-    grid-column: wide-start/full-end;
-
-   .caption {
-    grid-column: content-end/full-end;
-    grid-row: 2;
   }
 }
-}
-*/
