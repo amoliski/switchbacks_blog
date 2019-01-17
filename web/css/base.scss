@@ -1,0 +1,148 @@
+
+.grid{
+  display: grid;
+
+  grid-template-columns:
+          [full-start]
+          minmax(1.6rem, 1fr)
+          [wide-start]
+          minmax(0, 30rem)
+          [content-start]
+          minmax(0, 80rem)
+          [content-end]
+          minmax(0, 30rem)
+          [wide-end]
+          minmax(1.6rem, 1fr)
+          [full-end];
+
+  @media screen and (max-width: 800px){
+    grid-template-columns:
+            [full-start]
+            1rem
+            [wide-start] 0
+            [content-start]
+            calc(100vw - 2rem)
+            [content-end] 0
+            [wide-end]
+            1rem
+            [full-end];
+  }
+
+}
+
+
+.navbar {
+  background-color: $black;
+  font-size: 2rem;
+  font-family: $cabin;
+  color: white;
+
+  nav{
+    font-family: $lekton;
+    background-color: $black;
+    height: 5rem;
+    padding: 2rem 10rem;
+    color: $grey;
+    grid-column: wide;
+
+    @media screen and (max-width: 800px) {
+      grid-column: full;
+    }
+
+    .brand {
+      float: left;
+      width: 5rem;
+      height: 5rem;
+      background-size: cover;
+      background-image: url(/img/sb_logo.png);
+    }
+
+    .links {
+      float: right;
+      a {
+        font-size: 1.6rem;
+        text-decoration: none;
+        color: #8b8b8b;
+        margin-right: 4.5rem;
+
+        &.active {
+          color: white;
+          border-bottom: 2px solid $yellow;
+        }
+
+        &.solid {
+          font-weight: bold;
+          padding: .3rem 1.4rem;
+          background-color: $yellow;
+          color: black;
+          border-radius: 3rem;
+        }
+      }
+    }
+  }
+}
+
+
+
+.footer {
+  background-color: $yellow;
+  padding-top: 10rem;
+  padding-bottom: 5rem;
+
+  .footer_navbar {
+    font-family: $lekton;
+
+    padding: 2rem 0;
+    grid-column: wide;
+
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: space-between;
+
+    @media screen and (max-width: 800px) {
+      grid-column: full;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+
+      float: left;
+      font-family: $cabin;
+      font-size: 4rem;
+      color: black;
+      font-weight: bold;
+
+      .logo{
+        width: 7rem;
+        height: 7rem;
+        position: relative;
+        top: -4px;
+
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-image: url(/img/logo_black.png);
+      }
+      .tripleu:before {
+        content: 'w';
+        margin-right: -1.8rem;
+      }
+    }
+    .links{
+      float: right;
+      width: 50%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      a{
+        text-decoration: none;
+        font-weight: bold;
+        font-family: $lekton;
+        color: black;
+        font-size: 2rem;
+
+      }
+    }
+  }
+}

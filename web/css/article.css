@@ -1,0 +1,397 @@
+/* CSS Mini Reset */
+html {
+  font-size: 62.5%;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.05rem;
+}
+
+body, div, form, fieldset, legend, label {
+  font-size: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 1.3rem;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th, td {
+  text-align: left;
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6, th, td, caption {
+  font-weight: normal;
+  margin: 0;
+}
+
+img {
+  border: 0;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: [full-start] minmax(1.6rem, 1fr) [wide-start] minmax(0, 30rem) [content-start] minmax(0, 80rem) [content-end] minmax(0, 30rem) [wide-end] minmax(1.6rem, 1fr) [full-end];
+}
+@media screen and (max-width: 800px) {
+  .grid {
+    grid-template-columns: [full-start] 1rem [wide-start] 0 [content-start] calc(100vw - 2rem) [content-end] 0 [wide-end] 1rem [full-end];
+  }
+}
+
+.navbar {
+  background-color: #111;
+  font-size: 2rem;
+  font-family: "Cabin", sans-serif;
+  color: white;
+}
+.navbar nav {
+  font-family: "Lekton", sans-serif;
+  background-color: #111;
+  height: 5rem;
+  padding: 2rem 10rem;
+  color: #8b8b8b;
+  grid-column: wide;
+}
+@media screen and (max-width: 800px) {
+  .navbar nav {
+    grid-column: full;
+  }
+}
+.navbar nav .brand {
+  float: left;
+  width: 5rem;
+  height: 5rem;
+  background-size: cover;
+  background-image: url(/img/sb_logo.png);
+}
+.navbar nav .links {
+  float: right;
+}
+.navbar nav .links a {
+  font-size: 1.6rem;
+  text-decoration: none;
+  color: #8b8b8b;
+  margin-right: 4.5rem;
+}
+.navbar nav .links a.active {
+  color: white;
+  border-bottom: 2px solid #F2CC24;
+}
+.navbar nav .links a.solid {
+  font-weight: bold;
+  padding: 0.3rem 1.4rem;
+  background-color: #F2CC24;
+  color: black;
+  border-radius: 3rem;
+}
+
+.footer {
+  background-color: #F2CC24;
+  padding-top: 10rem;
+  padding-bottom: 5rem;
+}
+.footer .footer_navbar {
+  font-family: "Lekton", sans-serif;
+  padding: 2rem 0;
+  grid-column: wide;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+@media screen and (max-width: 800px) {
+  .footer .footer_navbar {
+    grid-column: full;
+  }
+}
+.footer .footer_navbar .brand {
+  display: flex;
+  align-items: center;
+  float: left;
+  font-family: "Cabin", sans-serif;
+  font-size: 4rem;
+  color: black;
+  font-weight: bold;
+}
+.footer .footer_navbar .brand .logo {
+  width: 7rem;
+  height: 7rem;
+  position: relative;
+  top: -4px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(/img/logo_black.png);
+}
+.footer .footer_navbar .brand .tripleu:before {
+  content: "w";
+  margin-right: -1.8rem;
+}
+.footer .footer_navbar .links {
+  float: right;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.footer .footer_navbar .links a {
+  text-decoration: none;
+  font-weight: bold;
+  font-family: "Lekton", sans-serif;
+  color: black;
+  font-size: 2rem;
+}
+
+.head {
+  background-color: #111;
+  font-size: 2rem;
+  font-family: "Cabin", sans-serif;
+  color: white;
+}
+.head .title_block {
+  grid-column: wide;
+  margin: 7rem 10rem 2rem;
+}
+.head .title_block h2 {
+  color: #F2CC24;
+  font-family: "Lekton", sans-serif;
+  font-size: 1.8rem;
+}
+.head .title_block h1 {
+  font-family: "Cabin", sans-serif;
+  font-size: 4.5rem;
+  font-weight: bold;
+}
+.head .author_block {
+  grid-column: wide;
+  margin: 1rem 12rem 4rem;
+  display: flex;
+  flex-direction: row;
+}
+.head .author_block .image {
+  display: inline-block;
+  height: 4.5rem;
+  width: 4.5rem;
+  border-radius: 10rem;
+  background-size: cover;
+  background-position: center;
+}
+.head .author_block .info {
+  margin-left: 1rem;
+  display: inline-block;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+}
+.head .author_block .info a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+.head .heroImage {
+  grid-column: full;
+  height: 85vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+}
+.head .article_info {
+  grid-column: wide;
+  margin: 14rem 10rem 2rem;
+}
+.head .article_info .left {
+  display: inline-block;
+  width: 40%;
+  float: left;
+}
+.head .article_info .left .blurb {
+  line-height: 2rem;
+  letter-spacing: 0.1rem;
+}
+.head .article_info .left .chapters {
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+  width: max-content;
+  font-family: "Lekton", sans-serif;
+}
+.head .article_info .left .chapters .title {
+  width: max-content;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+.head .article_info .left .chapters .chapter-nav {
+  margin: 0 auto;
+  width: max-content;
+}
+.head .article_info .left .chapters a, .head .article_info .left .chapters span {
+  text-decoration: none;
+  color: #F2CC24;
+  margin: 0 auto;
+  width: max-content;
+}
+.head .article_info .left .chapters a.disabled, .head .article_info .left .chapters span.disabled {
+  color: grey;
+}
+.head .article_info .left .chapters a:last-child, .head .article_info .left .chapters span:last-child {
+  margin-right: 2rem;
+}
+.head .article_info .left .chapters a:first-child(2), .head .article_info .left .chapters span:first-child(2) {
+  margin-left: 2rem;
+}
+.head .article_info .left .chapters a:disabled {
+  color: #8b8b8b;
+}
+.head .article_info .right {
+  display: inline-block;
+  width: 55%;
+  float: right;
+}
+.head .article_info .right .stats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 2rem;
+  font-family: "Lekton", sans-serif;
+}
+.head .article_info .right .stats .stat_block {
+  width: 22%;
+  padding-left: 2%;
+  font-size: 1em;
+  margin-bottom: 3rem;
+}
+.head .article_info .right .stats .stat_block .title {
+  font-size: 1em;
+}
+.head .article_info .right .stats .stat_block .stat {
+  color: #F2CC24;
+  font-size: 1em;
+}
+
+.story {
+  font-family: "Cabin", sans-serif;
+  line-height: 4rem;
+  padding-top: 8rem;
+  margin: 0;
+  overflow-x: hidden;
+  font-size: 2rem;
+}
+.story h2 {
+  margin-top: 4rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+.story h2 + figure {
+  margin-top: 2rem;
+}
+.story .quote {
+  font-size: 2.5rem;
+  line-height: 3rem;
+  font-family: "Lekton", sans-serif;
+  text-align: center;
+  margin: 5rem auto auto;
+}
+.story .quote .author {
+  font-size: 1.8rem;
+}
+.story .caltopo_map {
+  display: flex;
+  margin: 2rem auto;
+  justify-content: center;
+  align-items: center;
+}
+.story .double_image {
+  max-width: 1024px;
+  display: flex;
+  flex-direction: row;
+  grid-column: wide;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+.story .double_image img {
+  flex-basis: auto;
+  flex-shrink: 1;
+  max-width: 49%;
+}
+.story figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+.story figure img, .story figure iframe {
+  width: 100%;
+}
+.story figure iframe {
+  height: 40rem;
+}
+.story figure figcaption {
+  font-family: "Lekton", sans-serif;
+}
+.story figure figcaption.caption_over {
+  position: absolute;
+  bottom: 5rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.story .single_image {
+  display: flex;
+  margin: 3rem auto;
+  justify-content: center;
+  align-items: center;
+}
+.story > * {
+  grid-column: content;
+}
+.story > .quote {
+  grid-column: wide;
+}
+.story .align-half {
+  grid-column: wide;
+}
+.story .align-full {
+  grid-column: full;
+}
+
+.read_more {
+  background-color: black;
+  height: 10rem;
+}
+
+.share {
+  font-family: "Cabin", sans-serif;
+  background-color: #F2CC24;
+}
+.share h1 {
+  margin-top: 10rem;
+  margin-bottom: 4rem;
+  font-weight: bold;
+  font-size: 5rem;
+}
+.share .cta {
+  grid-column: wide;
+  width: 50%;
+  font-size: 2rem;
+}
+@media screen and (max-width: 800px) {
+  .share .cta {
+    width: 100%;
+  }
+}
+.share .cta a {
+  color: black;
+}
+
+/*# sourceMappingURL=article.css.map */

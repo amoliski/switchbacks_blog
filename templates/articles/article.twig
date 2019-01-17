@@ -1,7 +1,7 @@
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Cabin:400,400i,500,700,700i|Lekton:400,400i,700" rel="stylesheet">
-    <link rel="stylesheet" href="/css/story.css">
     <title>{{entry.title}}</title>
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,400i,500,700,700i|Lekton:400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/article.css">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -13,41 +13,39 @@
     <meta name="theme-color" content="#000000">
 </head>
 
-{% set entryQuery = craft.entries().section('story') %}
 
-{# Execute the query and get the results #}
-{% set entries = entryQuery.all() %}
 {% set story = 0 %}
 {% set found = 0 %}
-{%  set chapter_number = 0%}
 
-{%  for e in entries %}
-    {% if found == 0 %}
 
-        {% for chapter in e.chapterList.all() %}
-        {% if found == 0 %}
-             {% if chapter.slug == entry.slug %}
-                {% set story = e %}
-                {% set chapter_number = loop.index0 %}
-                {% set found = 1 %}
-             {% endif %}
-      {% endif %}
-      {% endfor %}
+{% set storySearch = craft.entries().section('story').search('chapterList:' ~ entry.slug).all() %}
+{%  if storySearch | length > 0 %}
+    {% set found = 1 %}
+    {% set story = storySearch[0] %}
+    {% set chapters = story.chapterList %}
+    {% set story_length = chapters | length %}
+    {% set story_chapter_number = 0 %}
+    {% for chapter in story.chapterList %}
+        {% if chapter.slug == entry.slug %}
+            {% set story_chapter_number = loop.index0 %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
 
-    {% endif %}
-{%  endfor  %}
+<section class="navbar grid">
+    <nav>
+        <div class="brand"></div>
+        <div class="links">
+            <a href="/stories" class="active">Stories</a>
+            <a href="/articles">Trail Log </a>
+            <a href="#">Guidebook</a> <a href="#">Team</a>
+            <a  href="#" class="solid">Contact</a>
+        </div>
+        <div class="clearfix"></div>
+    </nav>
+</section>
 
 <section class="head grid">
-    <nav class="navbar">
-            <div class="brand"></div>
-            <div class="links">
-                <a href="/articles" class="active">Stories</a>
-                <a href="#">Trail Log </a>
-                <a href="#">Guidebook</a> <a href="#">Team</a>
-                <a  href="#" class="solid">Contact</a>
-            </div>
-            <div class="clearfix"></div>
-    </nav>
 
     <div class="title_block">
         <h2>
@@ -79,20 +77,19 @@
 
 
                 {% if found %}
-                    {% set length = story.chapterList | length %}
                 <div class="chapters">
                     <div class="title">{{story.title}}</div>
                     <div class="chapter-nav">
-                    {% if chapter_number > 0 %}
-                        <a href="{{story.chapterList[chapter_number - 1].url}}">&lt;-- </a>
+                    {% if story_chapter_number > 0 %}
+                        <a href="{{chapters[story_chapter_number - 1].url}}">&lt;—— </a>
                     {% else %}
-                        <span>&lt;-- </span>
+                        <span class="disabled">&lt;—— </span>
                     {% endif %}
-                    {{ chapter_number + 1 }} / {{ length }}
-                    {% if chapter_number < length -1 %}
-                        <a href="{{story.chapterList[chapter_number+1].url}}"> --&gt; </a>
+                    {{ story_chapter_number + 1 }} / {{ story_length }}
+                    {% if story_chapter_number < story_length - 1 %}
+                        <a href="{{chapters[story_chapter_number+1].url}}"> ——&gt; </a>
                     {% else %}
-                        <span> --&gt; </span>
+                        <span class="disabled"> ——&gt; </span>
                     {% endif %}
                     </div>
                 </div>

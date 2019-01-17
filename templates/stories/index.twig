@@ -1,0 +1,72 @@
+{% set stories =  craft.Entries.section('story').all() %}
+
+<head>
+    <title>Stories</title>
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,400i,500,700,700i|Lekton:400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/stories.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#fc9300">
+    <meta name="apple-mobile-web-app-title" content="Switchbacks">
+    <meta name="application-name" content="Switchbacks">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#000000">
+</head>
+
+<section class="navbar grid">
+    <nav>
+        <div class="brand"></div>
+        <div class="links">
+            <a href="/stories" class="active">Stories</a>
+            <a href="/articles">Trail Log </a>
+            <a href="#">Guidebook</a> <a href="#">Team</a>
+            <a  href="#" class="solid">Contact</a>
+        </div>
+        <div class="clearfix"></div>
+    </nav>
+</section>
+
+<section class="main grid">
+    <div class="featured">
+        <div class="description"></div>
+        <div class="image"></div>
+    </div>
+    <div class="storylist">
+        {%  for i in [1,2,3] %}
+        {% for story in stories %}
+            <div class="storyblock">
+                {% set story_image =  story.storyImage | length > 0 ? story.storyImage[0].url :'https://placehold.it/300/500'  %}
+                <div class="image" style="background-image: url({{ story_image }});"></div>
+                <div class="title">
+                    {{ story }}
+                </div>
+                <div class="metadata">
+                    {{ story.storyDates }} - {{ story.storyLocation }} - {{ story.chapterList | length }} {{ story.chapterList | length == 1 ? 'Chapter' : 'Chapters' }}
+                </div>
+                <div class="read_more">
+                    <a href="{{ story.url }}">Read More</a>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% endfor %}
+    </div>
+</section>
+
+
+<section class="footer grid">
+    <nav class="footer_navbar">
+        <div class="brand">
+            <div class="logo"></div>
+            <span class="wordmark">S<span class="tripleu">w</span>itchbacks</span>
+        </div>
+        <div class="links">
+            <a href="/articles" class="active">Stories</a>
+            <a href="#">Trail Log </a>
+            <a href="#">Guidebook</a> <a href="#">Team</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+</section>
