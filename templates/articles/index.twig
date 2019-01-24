@@ -1,16 +1,54 @@
 
-
 {% set entryQuery = craft.entries().section('article') %}
 
-{# Execute the query and get the results #}
-{% set entries = entryQuery.all() %}
+        {# Execute the query and get the results #}
+        {% set entries = entryQuery.all() %}
+<head>
+    <title>Switchbacks</title>
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,400i,500,700,700i|Lekton:400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/articles.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#fc9300">
+    <meta name="apple-mobile-web-app-title" content="Switchbacks">
+    <meta name="application-name" content="Switchbacks">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#000000">
+</head>
 
-<ul>
-    {% for entry in entries %}
-<li>
-    <a href="{{entry.url}}">{{entry.title}} - {{entry.section}}</a>
-</li>
+<section class="navbar grid">
+    <nav>
+        <a href="/" class="brand"></a>
+        <div class="links">
+            <a href="/stories">Stories</a>
+            <a href="/articles" class="active">Trail Log</a>
+            <a href="#">Guidebook</a> <a href="#">Team</a>
+            <a  href="#" class="solid">Contact</a>
+        </div>
+        <div class="clearfix"></div>
+    </nav>
+</section>
+
+<section class="main grid">
+    <div class="article_list">
+
+            {% for entry in entries %}
+                <a href="{{entry.url}}" class="article">
+                    {% if entry.heroImage | length > 0 %}
+
+                        {% set image_path = ( entry.heroImage[0].folderPath ~entry.heroImage[0].filename ) %}
+                        {% set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/500x300/media/"~ image_path) %}
 
 
-    {% endfor %}
-</ul>
+                    <img src="{{image_url}}"/>
+                    {% endif %}
+                    <div class="title" href="{{entry.url}}">{{entry.title}} - {{entry.section}}</div>
+                </a>
+
+
+            {% endfor %}
+        </ul>
+    </div>
+</section>

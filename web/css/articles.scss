@@ -1,0 +1,38 @@
+@import 'reset';
+@import 'vars';
+@import 'base';
+
+.article_list{
+  grid-column: content;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.article{
+  box-sizing: border-box;
+  width: 200px;
+  display: block;
+  height: 150px;
+  font-family: $cabin;
+  padding: 5px;
+  position: relative;
+  overflow: hidden;
+
+  img{
+    width: 200px;
+    height: 150px;
+  }
+
+  .title{
+    box-sizing: border-box;
+    position: absolute;
+    top: 10px;
+    padding: 1rem;
+    left: 10px;
+    width: 185px;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+  }
+
+}

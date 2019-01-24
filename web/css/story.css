@@ -41,11 +41,11 @@ img {
 
 .grid {
   display: grid;
-  grid-template-columns: [full-start] minmax(1.6rem, 1fr) [wide-start] minmax(0, 30rem) [content-start] minmax(0, 80rem) [content-end] minmax(0, 30rem) [wide-end] minmax(1.6rem, 1fr) [full-end];
+  grid-template-columns: [full-start] minmax(1.6rem, 1fr) [wide-start] minmax(0, 30rem) [content-start] minmax(auto, 80rem) [content-end] minmax(0, 30rem) [wide-end] minmax(1.6rem, 1fr) [full-end];
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
   .grid {
-    grid-template-columns: [full-start] 1rem [wide-start] 0 [content-start] calc(100vw - 2rem) [content-end] 0 [wide-end] 1rem [full-end];
+    grid-template-columns: [full-start] 4rem [wide-start] 0 [content-start] calc(100vw - 8rem) [content-end] 0 [wide-end] 4rem [full-end];
   }
 }
 
@@ -63,7 +63,7 @@ img {
   color: #8b8b8b;
   grid-column: wide;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
   .navbar nav {
     grid-column: full;
   }
@@ -110,7 +110,7 @@ img {
   align-items: center;
   justify-content: space-between;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
   .footer .footer_navbar {
     grid-column: full;
   }

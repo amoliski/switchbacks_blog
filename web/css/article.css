@@ -41,11 +41,11 @@ img {
 
 .grid {
   display: grid;
-  grid-template-columns: [full-start] minmax(1.6rem, 1fr) [wide-start] minmax(0, 30rem) [content-start] minmax(0, 80rem) [content-end] minmax(0, 30rem) [wide-end] minmax(1.6rem, 1fr) [full-end];
+  grid-template-columns: [full-start] minmax(1.6rem, 1fr) [wide-start] minmax(0, 30rem) [content-start] minmax(auto, 80rem) [content-end] minmax(0, 30rem) [wide-end] minmax(1.6rem, 1fr) [full-end];
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
   .grid {
-    grid-template-columns: [full-start] 1rem [wide-start] 0 [content-start] calc(100vw - 2rem) [content-end] 0 [wide-end] 1rem [full-end];
+    grid-template-columns: [full-start] 4rem [wide-start] 0 [content-start] calc(100vw - 8rem) [content-end] 0 [wide-end] 4rem [full-end];
   }
 }
 
@@ -63,7 +63,7 @@ img {
   color: #8b8b8b;
   grid-column: wide;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
   .navbar nav {
     grid-column: full;
   }
@@ -110,7 +110,7 @@ img {
   align-items: center;
   justify-content: space-between;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
   .footer .footer_navbar {
     grid-column: full;
   }
@@ -162,6 +162,11 @@ img {
   grid-column: wide;
   margin: 7rem 10rem 2rem;
 }
+@media screen and (max-width: 900px) {
+  .head .title_block {
+    margin: 6rem 1rem 1rem;
+  }
+}
 .head .title_block h2 {
   color: #F2CC24;
   font-family: "Lekton", sans-serif;
@@ -172,13 +177,12 @@ img {
   font-size: 4.5rem;
   font-weight: bold;
 }
-.head .author_block {
-  grid-column: wide;
-  margin: 1rem 12rem 4rem;
+.head .title_block .author_block {
+  margin: 2rem 0 4rem;
   display: flex;
   flex-direction: row;
 }
-.head .author_block .image {
+.head .title_block .author_block .image {
   display: inline-block;
   height: 4.5rem;
   width: 4.5rem;
@@ -186,13 +190,13 @@ img {
   background-size: cover;
   background-position: center;
 }
-.head .author_block .info {
+.head .title_block .author_block .info {
   margin-left: 1rem;
   display: inline-block;
   font-size: 1.5rem;
   line-height: 2.5rem;
 }
-.head .author_block .info a {
+.head .title_block .author_block .info a {
   color: white;
   text-decoration: none;
   font-weight: bold;
@@ -202,76 +206,91 @@ img {
   height: 85vh;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position-y: center;
   width: 100%;
 }
-.head .article_info {
+
+.article_info {
   grid-column: wide;
   margin: 14rem 10rem 2rem;
 }
-.head .article_info .left {
+.article_info .left {
   display: inline-block;
   width: 40%;
   float: left;
 }
-.head .article_info .left .blurb {
+.article_info .blurb {
   line-height: 2rem;
   letter-spacing: 0.1rem;
+  font-family: "Cabin", sans-serif;
 }
-.head .article_info .left .chapters {
+.article_info .blurb.bottom_spaced {
+  margin-bottom: 10rem;
+  font-size: 2rem;
+  line-height: 3rem;
+}
+.article_info .center {
+  display: block;
+  max-width: 50rem;
+  margin: 0 auto;
+  text-align: justify;
+  line-height: 3.5rem;
+}
+.article_info .chapters {
   margin-top: 3rem;
   margin-bottom: 5rem;
   width: max-content;
   font-family: "Lekton", sans-serif;
 }
-.head .article_info .left .chapters .title {
+.article_info .chapters .title {
   width: max-content;
   font-weight: bold;
   margin-bottom: 2rem;
 }
-.head .article_info .left .chapters .chapter-nav {
+.article_info .chapters .chapter-nav {
   margin: 0 auto;
   width: max-content;
 }
-.head .article_info .left .chapters a, .head .article_info .left .chapters span {
+.article_info .chapters a, .article_info .chapters span {
   text-decoration: none;
   color: #F2CC24;
   margin: 0 auto;
   width: max-content;
 }
-.head .article_info .left .chapters a.disabled, .head .article_info .left .chapters span.disabled {
+.article_info .chapters a.disabled, .article_info .chapters span.disabled {
   color: grey;
 }
-.head .article_info .left .chapters a:last-child, .head .article_info .left .chapters span:last-child {
+.article_info .chapters a:last-child, .article_info .chapters span:last-child {
   margin-right: 2rem;
 }
-.head .article_info .left .chapters a:first-child(2), .head .article_info .left .chapters span:first-child(2) {
+.article_info .chapters a:first-child(2), .article_info .chapters span:first-child(2) {
   margin-left: 2rem;
 }
-.head .article_info .left .chapters a:disabled {
+.article_info .chapters a:disabled {
   color: #8b8b8b;
 }
-.head .article_info .right {
+.article_info .right {
   display: inline-block;
   width: 55%;
   float: right;
 }
-.head .article_info .right .stats {
+.article_info .stats {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   font-size: 2rem;
   font-family: "Lekton", sans-serif;
 }
-.head .article_info .right .stats .stat_block {
+.article_info .stats .stat_block {
   width: 22%;
   padding-left: 2%;
   font-size: 1em;
   margin-bottom: 3rem;
 }
-.head .article_info .right .stats .stat_block .title {
+.article_info .stats .stat_block .title {
   font-size: 1em;
 }
-.head .article_info .right .stats .stat_block .stat {
+.article_info .stats .stat_block .stat {
   color: #F2CC24;
   font-size: 1em;
 }
@@ -283,6 +302,7 @@ img {
   margin: 0;
   overflow-x: hidden;
   font-size: 2rem;
+  margin-bottom: 10rem;
 }
 .story h2 {
   margin-top: 4rem;
@@ -365,11 +385,6 @@ img {
   grid-column: full;
 }
 
-.read_more {
-  background-color: black;
-  height: 10rem;
-}
-
 .share {
   font-family: "Cabin", sans-serif;
   background-color: #F2CC24;
@@ -385,13 +400,18 @@ img {
   width: 50%;
   font-size: 2rem;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
   .share .cta {
     width: 100%;
   }
 }
 .share .cta a {
   color: black;
+}
+
+.read_more {
+  background-color: black;
+  color: white;
 }
 
 /*# sourceMappingURL=article.css.map */

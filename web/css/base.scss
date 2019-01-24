@@ -8,23 +8,23 @@
           [wide-start]
           minmax(0, 30rem)
           [content-start]
-          minmax(0, 80rem)
+          minmax(auto, 80rem)
           [content-end]
           minmax(0, 30rem)
           [wide-end]
           minmax(1.6rem, 1fr)
           [full-end];
 
-  @media screen and (max-width: 800px){
+  @media screen and (max-width: $break-small){
     grid-template-columns:
             [full-start]
-            1rem
+            4rem
             [wide-start] 0
             [content-start]
-            calc(100vw - 2rem)
+            calc(100vw - 8rem)
             [content-end] 0
             [wide-end]
-            1rem
+            4rem
             [full-end];
   }
 
@@ -45,7 +45,7 @@
     color: $grey;
     grid-column: wide;
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: $break-small) {
       grid-column: full;
     }
 
@@ -100,7 +100,7 @@
     align-items:center;
     justify-content: space-between;
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: $break-small) {
       grid-column: full;
     }
 
