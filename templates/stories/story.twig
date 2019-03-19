@@ -11,6 +11,43 @@
     <meta name="application-name" content="Switchbacks">
     <meta name="msapplication-TileColor" content="#2b5797">
     <meta name="theme-color" content="#000000">
+
+    {% if entry.chapterList[0].heroImage | length > 0 %}
+        {% set hero_path = ( entry.chapterList[0].heroImage[0].folderPath ~ entry.chapterList[0].heroImage[0].filename ) %}
+        <style>
+            body {
+                background-color: black;
+                background-attachment: fixed;
+                background-size: cover;
+                background-position: center;
+                background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/900x0/media/"~ hero_path }});
+            }
+            @media screen and (min-width: 1920px) {
+                body {
+                    background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ hero_path }})
+                }
+
+            }
+            @media screen and (min-width: 1440px) {
+                body {
+                    background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/1440x0/media/"~ hero_path }})
+                }
+
+            }
+            @media screen and (min-width: 2560px) {
+                body {
+                    background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ hero_path }})
+                }
+
+            }
+            @media screen and (min-width: 3840px) {
+                body {
+                    background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ hero_path }})
+                }
+
+            }
+        </style>
+    {% endif %}
 </head>
 
 <section class="navbar grid">
@@ -43,24 +80,92 @@
         <div class="articleList">
 
             {% for article in entry.chapterList.all() %}
-            <div class="article">
-                <div class="articleData">
-                    <div class="articleTitle">
-                        {{ article }}
+                <div class="article">
+                    <div class="articleData">
+                        <div class="articleTitle">
+                            {{ article }}
+                        </div>
+                        <div class="articleLocation">
+                            {{ article.place }}
+                        </div>
+                        <div class="readMore">
+                            <a href="{{ article.url }}">Read More</a>
+                        </div>
                     </div>
-                    <div class="articleLocation">
-                        {{ article.place }}
-                    </div>
-                    <div class="readMore">
-                        <a href="{{ article.url }}">Read More</a>
-                    </div>
+                    {% set image_path = (article.heroImage[0].folderPath ~article.heroImage[0].filename ) %}
+                    {% set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/200x100/media/"~ image_path) %}
+
+
+                    <div class="articleImage" style="background-image:url({{ image_url }});"></div>
                 </div>
-                {% set story_image =  article.heroImage | length > 0 ? article.heroImage[0].getUrl('storyThumbnail') :'https://placehold.it/300/500'  %}
-                <div class="articleImage" style="background-image:url({{ story_image }});"></div>
-            </div>
+            {% endfor %}
+            {% for article in entry.chapterList.all() %}
+                <div class="article">
+                    <div class="articleData">
+                        <div class="articleTitle">
+                            {{ article }}
+                        </div>
+                        <div class="articleLocation">
+                            {{ article.place }}
+                        </div>
+                        <div class="readMore">
+                            <a href="{{ article.url }}">Read More</a>
+                        </div>
+                    </div>
+                    {% set image_path = (article.heroImage[0].folderPath ~article.heroImage[0].filename ) %}
+                    {% set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/300x500/media/"~ image_path) %}
+
+
+                    <div class="articleImage" style="background-image:url({{ image_url }});"></div>
+                </div>
+            {% endfor %}
+            {% for article in entry.chapterList.all() %}
+                <div class="article">
+                    <div class="articleData">
+                        <div class="articleTitle">
+                            {{ article }}
+                        </div>
+                        <div class="articleLocation">
+                            {{ article.place }}
+                        </div>
+                        <div class="readMore">
+                            <a href="{{ article.url }}">Read More</a>
+                        </div>
+                    </div>
+                    {% set image_path = (article.heroImage[0].folderPath ~article.heroImage[0].filename ) %}
+                    {% set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/300x500/media/"~ image_path) %}
+
+
+                    <div class="articleImage" style="background-image:url({{ image_url }});"></div>
+                </div>
+            {% endfor %}
+            {% for article in entry.chapterList.all() %}
+                <div class="article">
+                    <div class="articleData">
+                        <div class="articleTitle">
+                            {{ article }}
+                        </div>
+                        <div class="articleLocation">
+                            {{ article.place }}
+                        </div>
+                        <div class="readMore">
+                            <a href="{{ article.url }}">Read More</a>
+                        </div>
+                    </div>
+                    {% set image_path = (article.heroImage[0].folderPath ~article.heroImage[0].filename ) %}
+                    {% set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/300x500/media/"~ image_path) %}
+
+
+                    <div class="articleImage" style="background-image:url({{ image_url }});"></div>
+                </div>
             {% endfor %}
 
         </div>
     </div>
+
+
+
+
+    <div class="heroImage"></div>
 </section>
 </div>

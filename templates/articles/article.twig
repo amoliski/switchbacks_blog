@@ -63,7 +63,7 @@
     {% set chapters = story.chapterList %}
     {% set story_length = chapters | length %}
     {% set story_chapter_number = 0 %}
-    {% for chapter in story.chapterList %}
+    {% for chapter in story.chapterList.all() %}
         {% if chapter.slug == entry.slug %}
             {% set story_chapter_number = loop.index0 %}
         {% endif %}

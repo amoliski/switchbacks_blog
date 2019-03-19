@@ -6,11 +6,12 @@
 
 .main{
   .content{
-    width: 70rem;
+    width: 50vw;
     background-color: black;
     float: right;
     color: white;
     padding: 3rem 5rem;
+    box-sizing: border-box;
 
     h1{
       font-family:$cabin;
@@ -31,10 +32,13 @@
       .article{
         display: flex;
         flex-direction: row;
-        margin-bottom: 5rem;
+        margin: 5rem auto;
         justify-content: space-between;
+        max-width:60rem;
+
 
         .articleData{
+          width: calc(100% - 20rem);
           .articleTitle{
             font-size: 2.5rem;
             font-family: $cabin;
