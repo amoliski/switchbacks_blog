@@ -1,6 +1,6 @@
-@import 'reset';
-@import 'vars';
-@import 'base';
+@import '_base';
+@import '_colors';
+@import '_vars';
 
 .main{
   padding-top: 10rem;

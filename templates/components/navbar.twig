@@ -1,0 +1,39 @@
+<header class="navbar dark grid">
+    <a href="/" id="brand" role="link"></a>
+    <button class="menu_toggle" id="menu_button" type="button">
+        <span class="sr-only">Toggle main menu</span>
+        <span class="elements" aria-hidden="true"></span>
+    </button>
+    <nav id="mobile_menu">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/stories">Stories</a></li>
+            <li><a href="/articles">Trail Log</a></li>
+            <li><a href="#">Guidebook</a></li>
+            <li><a href="#">Team</a></li>
+            <li><a href="#" class="solid">Contact</a></li>
+        </ul>
+    </nav>
+    <nav id="top_menu" role="navigation">
+        <ul class="links">
+            <li><a href="/stories">Stories</a></li>
+            <li><a href="/articles">Trail Log</a></li>
+            <li><a href="#">Guidebook</a></li>
+            <li><a href="#">Team</a></li>
+            <li><a href="#" class="solid">Contact</a></li>
+        </ul>
+    </nav>
+    <script>
+        function toggle_menu(){
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+            document.getElementById('mobile_menu').classList.toggle('menu_open');
+            document.getElementById('menu_button').classList.toggle('menu_open');
+        }
+        document.getElementById('menu_button').addEventListener('click', toggle_menu);
+    </script>
+    <script src="https://unpkg.com/focus-visible@4.1.5/dist/focus-visible.js"></script>
+</header>

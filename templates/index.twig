@@ -15,22 +15,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=false">
 </head>
 
-<header class="navbar dark grid">
-    <nav role="navigation">
-        <a href="/" class="brand" role="link"></a>
-        <ul class="links">
-            <li><a href="/stories">Stories</a></li>
-            <li><a href="/articles">Trail Log</a></li>
-            <li><a href="#">Guidebook</a></li>
-            <li><a href="#">Team</a></li>
-            <li><a href="#" class="solid">Contact</a></li>
-        </ul>
-        <button class="menu_toggle" type="button">
-            <span class="sr-only">Toggle main menu</span>
-            <span class="elements" aria-hidden="true"></span>
-        </button>
-    </nav>
-</header>
+
+{% include 'components/navbar.twig' %}
+
 
 <section class="head dark grid">
     {% set entryQuery = craft.entries().section('article').order('random()').limit(1) %}
@@ -156,7 +143,7 @@
 
     <div class="recent_articles sm">
         {%- for entry in entries -%}
-        {%- set image_url =  'https://placehold.it/300/500'  -%}
+            {%- set image_url =  'https://placehold.it/300/500'  -%}
             <a href="{{entry.url}}" class="article">
                 {%- if entry.heroImage | length > 0 -%}
                     {%- set image_path = ( entry.heroImage[0].folderPath ~ entry.heroImage[0].filename ) -%}
@@ -222,3 +209,5 @@
         </ul>
     </nav>
 </section>
+
+

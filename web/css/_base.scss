@@ -1,5 +1,7 @@
+@import '_reset';
 @import '_breakpoints';
 @import '_colors';
+@import '_navbar';
 
 body{
   font-family: $cabin;
@@ -11,7 +13,7 @@ body{
 
   grid-template-columns:
           [full-start]
-          minmax(1.6rem, 1fr)
+          minmax(4rem, 1fr)
           [wide-start]
           minmax(0, 30rem)
           [content-start]
@@ -19,7 +21,7 @@ body{
           [content-end]
           minmax(0, 30rem)
           [wide-end]
-          minmax(1.6rem, 1fr)
+          minmax(4rem, 1fr)
           [full-end];
 
   @media screen and (max-width: $break-small){
@@ -28,7 +30,7 @@ body{
             4rem
             [wide-start] 0
             [content-start]
-            calc(100vw - 8rem)
+            calc(100% - 8rem)
             [content-end] 0
             [wide-end]
             4rem
@@ -45,119 +47,6 @@ section.dark{
   color: white;
   background-color: $black;
 }
-
-
-
-header.navbar{
-  font-size: 2rem;
-  font-family: $cabin;
-  background-color: $black;
-
-  nav{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: $lekton;
-    background-color: $black;
-    color: $grey;
-    grid-column: full;
-    height: 5rem;
-    padding: 2rem 3rem;
-    @include md{
-      padding: 2rem 0rem;
-      grid-column: wide;
-    }
-
-
-    .brand {
-      float: left;
-      width: 5rem;
-      height: 5rem;
-      background-size: cover;
-      background-image: url(/img/sb_logo.png);
-    }
-
-    ul.links{
-      display: none;
-      list-style: none;
-      li{
-        display: inline-block;
-      }
-
-      a {
-        font-size: 1.6rem;
-        text-decoration: none;
-        color: #8b8b8b;
-        margin-left: 4.5rem;
-        white-space:nowrap;
-        @media screen and (max-width: 1100px) {
-          margin-left: 1.7rem;
-        }
-        transition: margin-right .3s ease;
-
-        &.active {
-          color: white;
-          border-bottom: 2px solid $yellow;
-        }
-
-        &.solid {
-          font-weight: bold;
-          padding: .3rem 1.4rem;
-          background-color: $yellow;
-          color: black;
-          border-radius: 3rem;
-        }
-      }
-
-    }
-    .menu_toggle{
-      display: block;
-      background: none;
-      cursor: pointer;
-      border: none;
-      height: 30px;
-
-      .elements{
-        display: block;
-        width: 40px;
-        height: 1px;
-        background-color: white;
-        position: relative;
-
-        &:before, &:after{
-          display: block;
-          content: '';
-          width: 40px;
-          height: 1px;
-          background-color: white;
-          position: relative;
-        }
-        &:after{
-          top: 8px;
-        }
-        &:before{
-          top: -10px;
-        }
-
-      }
-
-    }
-  }
-
-  @include md{
-    nav {
-      ul.links{
-        display:  inline-block;
-      }
-      .menu_toggle{
-        display: none;
-      }
-    }
-  }
-
-}
-
-
 
 
 

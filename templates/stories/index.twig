@@ -15,18 +15,8 @@
     <meta name="theme-color" content="#000000">
 </head>
 
-<section class="navbar grid">
-    <nav>
-        <a href="/" class="brand"></a>
-        <div class="links">
-            <a href="/stories" class="active">Stories</a>
-            <a href="/articles">Trail Log</a>
-            <a href="#">Guidebook</a> <a href="#">Team</a>
-            <a  href="#" class="solid">Contact</a>
-        </div>
-        <div class="clearfix"></div>
-    </nav>
-</section>
+
+{% include 'components/navbar.twig' %}
 
 <section class="main grid">
     <div class="featured">
@@ -34,7 +24,6 @@
         <div class="image"></div>
     </div>
     <div class="storylist">
-        {%  for i in [1,2,3] %}
         {% for story in stories %}
             <div class="storyblock">
 
@@ -57,8 +46,6 @@
                     <a href="{{ story.url }}">Read More</a>
                 </div>
             </div>
-        {% endfor %}
-
         {% endfor %}
     </div>
 </section>

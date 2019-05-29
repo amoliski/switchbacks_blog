@@ -1,7 +1,6 @@
-@import 'reset.scss';
-@import 'vars.scss';
-@import 'base.scss';
-
+@import '_base';
+@import '_colors';
+@import '_vars';
 
 .head{
   height: 90vh;
@@ -9,6 +8,8 @@
   min-height:50rem;
   font-size: 2rem;
   font-family: $cabin;
+  position:relative;
+
   .recent_post{
     grid-column: content;
   }
@@ -26,7 +27,7 @@
       display: none;
     }
     position: absolute;
-    top: 90px;
+    top: 0;
     left: 0;
     right: 0;
     height: 90vh;

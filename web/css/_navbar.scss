@@ -1,0 +1,209 @@
+@import '_colors';
+@import '_vars';
+
+
+
+#brand {
+  position: absolute;
+  top: 2rem;
+  left: 4rem;
+  width: 5rem;
+  height: 5rem;
+  z-index: 10;
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(/img/sb_logo.png);
+  border-radius: 5rem;
+  &.focus-visible:focus {
+    background-color: #84848414;
+    outline: none;
+  }
+}
+
+.js-focus-visible *:focus:not(.focus-visible) {
+ //outline: none !important;
+}
+
+.menu_toggle{
+  @include md{
+    display: none;
+  }
+  border-radius: 5rem;
+  height: 5rem;
+  width: 5rem;
+  display: block;
+  background: none;
+  cursor: pointer;
+  border: none;
+  position: absolute;
+  top: 2.5rem;
+  right: 2.5rem;
+  z-index: 10;
+  &:focus {
+    outline: 0;
+  }
+  &.focus-visible:focus {
+    background-color: #84848414;
+  }
+
+
+
+
+  .elements{
+    display: block;
+    width: 40px;
+    height: 1px;
+    background-color: white;
+    position: relative;
+    transition: transform .2s ease, background-color .2s ease;
+
+
+    &:before, &:after{
+      display: block;
+      content: '';
+      width: 40px;
+      height: 1px;
+      background-color: white;
+      position: relative;
+      transition: transform .2s ease, background-color .2s ease;
+    }
+    &:after{
+      top: 8px;
+    }
+    &:before{
+      top: -10px;
+    }
+
+  }
+  &.menu_open{
+    .elements{
+      transform: rotate(-39deg) translate(-2px, -1px);
+      &:before{
+        transform: rotate(0deg) translate(0px, 10px);
+      }
+      &:after{
+        transform: rotate(75deg) translate(-8px, -3px);
+      }
+    }
+  }
+}
+
+header.navbar{
+  font-size: 2rem;
+  font-family: $cabin;
+  background-color: $black;
+
+  #mobile_menu{
+    position: relative;
+    will-change: margin, transform;
+    transition:
+            margin 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975),
+            opacity 0.55s cubic-bezier(0.385, 0.005, 0.215, 0.975),
+            transform 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975);
+    opacity: 1;
+    margin-top: -33rem;
+    height: -23rem;
+    z-index: 0;
+    padding-top: 1em;
+    grid-column: wide;
+    ul{
+      list-style: none;
+      li{
+        display: flex;
+        justify-content: center;
+        a{
+          color: white;
+          text-decoration: none;
+          text-align: center;
+          display: inline-block;
+          padding: 3px;
+          line-height: 1.7rem;
+          border-bottom: 1px solid white;
+          margin-bottom: 1.3rem;
+          &:focus {
+            outline:0;
+            border-bottom-color: $yellow;
+          }
+        }
+      }
+    }
+
+    &.menu_open {
+    transition:
+            margin 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975),
+            opacity 0.55s cubic-bezier(0.385, 0.005, 0.215, 0.975),
+            transform 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975);
+      margin-top: -11rem;
+      opacity: 1;
+      transform: translateY(9rem);
+      @include md{
+        margin-top: -33rem;
+      }
+    }
+  }
+
+
+  nav#top_menu{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-family: $lekton;
+    background-color: $black;
+    color: $grey;
+    grid-column: full;
+    height: 5rem;
+    padding: 2rem 3rem;
+    @include md{
+      padding: 2rem 0rem;
+      grid-column: wide;
+    }
+
+
+
+
+    ul.links{
+      display: none;
+      @include md{
+        display:  inline-block;
+      }
+      list-style: none;
+      li{
+        display: inline-block;
+      }
+
+      a {
+        font-size: 1.6rem;
+        text-decoration: none;
+        color: #8b8b8b;
+        margin-left: 4.5rem;
+        white-space:nowrap;
+        @media screen and (max-width: 1100px) {
+          margin-left: 1.7rem;
+        }
+        transition: margin-right .3s ease;
+
+        &.active {
+          color: white;
+          border-bottom: 2px solid $yellow;
+        }
+
+        &.solid {
+          font-weight: bold;
+          padding: .3rem 1.4rem;
+          background-color: $yellow;
+          color: black;
+          border-radius: 3rem;
+        }
+      }
+
+    }
+
+  }
+
+
+
+}
+
+

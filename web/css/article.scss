@@ -1,7 +1,6 @@
-@import 'reset';
-@import 'vars';
-@import 'base';
-
+@import '_base';
+@import '_colors';
+@import '_vars';
 
 .head{
   background-color: $black;
