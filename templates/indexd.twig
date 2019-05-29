@@ -53,10 +53,10 @@
             </div>
 
         </div>
+        {% set image_path = ( entry.heroImage[0].folderPath ~entry.heroImage[0].filename ) %}
+        {% set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/800x0/media/"~ image_path) %}
         <div class="image_block">
-            {% set image_path = ( entry.heroImage[0].folderPath ~entry.heroImage[0].filename ) %}
-            {% set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/800x0/media/"~ image_path) %}
-            <img src="{{image_url}}"/>
+            <img src="{{ image_url }}"/>
         </div>
     </div>
 

@@ -1,3 +1,10 @@
+@import '_breakpoints';
+@import '_colors';
+
+body{
+  font-family: $cabin;
+  font-size: 2rem;
+}
 
 .grid{
   display: grid;
@@ -30,24 +37,37 @@
 
 }
 
+.wide{
+  grid-column: wide;
+}
 
-.navbar {
+section.dark{
+  color: white;
   background-color: $black;
+}
+
+
+
+header.navbar{
   font-size: 2rem;
   font-family: $cabin;
-  color: white;
+  background-color: $black;
 
   nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-family: $lekton;
     background-color: $black;
-    height: 5rem;
-    padding: 2rem 10rem;
     color: $grey;
-    grid-column: wide;
-
-    @media screen and (max-width: $break-small) {
-      grid-column: full;
+    grid-column: full;
+    height: 5rem;
+    padding: 2rem 3rem;
+    @include md{
+      padding: 2rem 0rem;
+      grid-column: wide;
     }
+
 
     .brand {
       float: left;
@@ -57,13 +77,23 @@
       background-image: url(/img/sb_logo.png);
     }
 
-    .links {
-      float: right;
+    ul.links{
+      display: none;
+      list-style: none;
+      li{
+        display: inline-block;
+      }
+
       a {
         font-size: 1.6rem;
         text-decoration: none;
         color: #8b8b8b;
-        margin-right: 4.5rem;
+        margin-left: 4.5rem;
+        white-space:nowrap;
+        @media screen and (max-width: 1100px) {
+          margin-left: 1.7rem;
+        }
+        transition: margin-right .3s ease;
 
         &.active {
           color: white;
@@ -78,9 +108,59 @@
           border-radius: 3rem;
         }
       }
+
+    }
+    .menu_toggle{
+      display: block;
+      background: none;
+      cursor: pointer;
+      border: none;
+      height: 30px;
+
+      .elements{
+        display: block;
+        width: 40px;
+        height: 1px;
+        background-color: white;
+        position: relative;
+
+        &:before, &:after{
+          display: block;
+          content: '';
+          width: 40px;
+          height: 1px;
+          background-color: white;
+          position: relative;
+        }
+        &:after{
+          top: 8px;
+        }
+        &:before{
+          top: -10px;
+        }
+
+      }
+
     }
   }
+
+  @include md{
+    nav {
+      ul.links{
+        display:  inline-block;
+      }
+      .menu_toggle{
+        display: none;
+      }
+    }
+  }
+
 }
+
+
+
+
+
 
 
 
@@ -102,6 +182,7 @@
 
     @media screen and (max-width: $break-small) {
       grid-column: full;
+      flex-direction: column;
     }
 
     .brand {
@@ -135,6 +216,10 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+
+      @media screen and (max-width: $break-small) {
+       flex-direction: column
+      }
       a{
         text-decoration: none;
         font-weight: bold;
@@ -145,4 +230,17 @@
       }
     }
   }
+}
+
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
 }

@@ -1,0 +1,200 @@
+/* CSS Mini Reset */
+html {
+  font-size: 62.5%;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.05rem;
+}
+
+body, div, form, fieldset, legend, label {
+  font-size: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 1.3rem;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th, td {
+  text-align: left;
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6, th, td, caption {
+  font-weight: normal;
+  margin: 0;
+}
+
+img {
+  border: 0;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: [full-start] minmax(1.6rem, 1fr) [wide-start] minmax(0, 30rem) [content-start] minmax(auto, 80rem) [content-end] minmax(0, 30rem) [wide-end] minmax(1.6rem, 1fr) [full-end];
+}
+@media screen and (max-width: 900px) {
+  .grid {
+    grid-template-columns: [full-start] 4rem [wide-start] 0 [content-start] calc(100vw - 8rem) [content-end] 0 [wide-end] 4rem [full-end];
+  }
+}
+
+.navbar {
+  background-color: #111;
+  font-size: 2rem;
+  font-family: "Cabin", sans-serif;
+  color: white;
+}
+.navbar nav {
+  font-family: "Lekton", sans-serif;
+  background-color: #111;
+  height: 5rem;
+  padding: 2rem 10rem;
+  color: #8b8b8b;
+  grid-column: wide;
+}
+@media screen and (max-width: 900px) {
+  .navbar nav {
+    grid-column: full;
+  }
+}
+.navbar nav .brand {
+  float: left;
+  width: 5rem;
+  height: 5rem;
+  background-size: cover;
+  background-image: url(/img/sb_logo.png);
+}
+.navbar nav .links {
+  float: right;
+}
+.navbar nav .links a {
+  font-size: 1.6rem;
+  text-decoration: none;
+  color: #8b8b8b;
+  margin-right: 4.5rem;
+}
+.navbar nav .links a.active {
+  color: white;
+  border-bottom: 2px solid #F2CC24;
+}
+.navbar nav .links a.solid {
+  font-weight: bold;
+  padding: 0.3rem 1.4rem;
+  background-color: #F2CC24;
+  color: black;
+  border-radius: 3rem;
+}
+
+.footer {
+  background-color: #F2CC24;
+  padding-top: 10rem;
+  padding-bottom: 5rem;
+}
+.footer .footer_navbar {
+  font-family: "Lekton", sans-serif;
+  padding: 2rem 0;
+  grid-column: wide;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+@media screen and (max-width: 900px) {
+  .footer .footer_navbar {
+    grid-column: full;
+  }
+}
+.footer .footer_navbar .brand {
+  display: flex;
+  align-items: center;
+  float: left;
+  font-family: "Cabin", sans-serif;
+  font-size: 4rem;
+  color: black;
+  font-weight: bold;
+}
+.footer .footer_navbar .brand .logo {
+  width: 7rem;
+  height: 7rem;
+  position: relative;
+  top: -4px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(/img/logo_black.png);
+}
+.footer .footer_navbar .brand .tripleu:before {
+  content: "w";
+  margin-right: -1.8rem;
+}
+.footer .footer_navbar .links {
+  float: right;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.footer .footer_navbar .links a {
+  text-decoration: none;
+  font-weight: bold;
+  font-family: "Lekton", sans-serif;
+  color: black;
+  font-size: 2rem;
+}
+
+.main {
+  padding-top: 10rem;
+}
+.main .storylist {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.main .storylist .storyblock {
+  font-size: 1.5rem;
+}
+.main .storylist .storyblock .image {
+  width: 57rem;
+  height: 38rem;
+  background-size: cover;
+}
+.main .storylist .storyblock .title {
+  font-family: "Cabin", sans-serif;
+  font-size: 3rem;
+  font-weight: bold;
+  padding: 2rem 0;
+}
+.main .storylist .storyblock .metadata {
+  font-family: "Lekton", sans-serif;
+}
+.main .storylist .storyblock .read_more {
+  margin-bottom: 5rem;
+}
+.main .storylist .storyblock .read_more a {
+  font-weight: bold;
+  font-family: "Lekton", sans-serif;
+  text-decoration: none;
+  border-bottom: 1px solid black;
+  color: black;
+}
+
+.featured {
+  grid-column: wide;
+}
+
+.storylist {
+  grid-column: wide;
+}
+
+/*# sourceMappingURL=stories.css.map */
