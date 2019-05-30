@@ -1,44 +1,77 @@
 
 {% set entryQuery = craft.entries().section('article') %}
-
-        {# Execute the query and get the results #}
-        {% set entries = entryQuery.all() %}
-<head>
-    <title>Switchbacks</title>
-    <link href="https://fonts.googleapis.com/css?family=Cabin:400,400i,500,700,700i|Lekton:400,400i,700" rel="stylesheet">
-    <link rel="stylesheet" href="/css/articles.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#fc9300">
-    <meta name="apple-mobile-web-app-title" content="Switchbacks">
-    <meta name="application-name" content="Switchbacks">
-    <meta name="msapplication-TileColor" content="#2b5797">
-    <meta name="theme-color" content="#000000">
-</head>
+{% set entries = entryQuery.all() %}
 
 
+{% include 'components/html_head.twig' with {'css': 'articles'} %}
 {% include 'components/navbar.twig' %}
 
-<section class="main grid">
-    <div class="article_list">
-
-            {% for entry in entries %}
-                <a href="{{entry.url}}" class="article">
-                    {% if entry.heroImage | length > 0 %}
-
-                        {% set image_path = ( entry.heroImage[0].folderPath ~entry.heroImage[0].filename ) %}
-                        {% set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/500x300/media/"~ image_path) %}
-
-
-                    <img src="{{image_url}}"/>
-                    {% endif %}
-                    <div class="title" href="{{entry.url}}">{{entry.title}} - {{entry.section}}</div>
-                </a>
-
-
-            {% endfor %}
-        </ul>
+<section class="posts dark grid">
+    <div class="heading">
+        <h2>TrailLog Posts</h2>
     </div>
+    <div class="wide">
+        <p class="trail_log_intro">
+            Connect with nature, get some fresh air, find yourself, and have fun. Take the extra step (or 10,000) and join us on one of the thousands of backcountry trails the country has to offer!
+        </p>
+    </div>
+
+    <div class="wide">
+        <div class="trail_log_menu">
+            <button class="filter_option active">Most Recent</button>
+            <button class="filter_option">Region</button>
+            <button class="filter_option">Park</button>
+            <button class="filter_option">Difficulty</button>
+            <button class="filter_option">Recreation</button>
+        </div>
+    </div>
+
+    {%- set entryQuery = craft.entries().section('article').orderBy('postDate desc') -%} {#.limit(9)#}
+    {%- set entries = entryQuery.all() -%}
+
+    <div class="recent_articles sm">
+        {%- for entry in entries -%}
+            {%- set image_url =  'https://placehold.it/300/500'  -%}
+            <a href="{{entry.url}}" class="article">
+                {%- if entry.heroImage | length > 0 -%}
+                    {%- set image_path = ( entry.heroImage[0].folderPath ~ entry.heroImage[0].filename ) -%}
+                    {%- set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/800x450/media/"~ image_path) -%}
+                {%- endif -%}
+                <div class="article_image" style="background-image: url({{ image_url }})"></div>
+                <div class="metadata">
+                    {% if entry.place %}<div class="location">{{ entry.place }}</div>{% endif %}
+                    <div class="title">{{entry.title}}</div>
+                </div>
+            </a>
+        {%- endfor -%}
+    </div>
+
+    {% set section = "" %}
+    <div class="recent_articles md">
+    {%- for entry in entries -%}
+        {%- set month =  entry.postDate.format("F") -%}
+    {% if section is not same as(month) %}
+        </div>
+        <h3 class="wide">{{ month }}</h3>
+        <hr class="wide"/>
+        <div class="recent_articles md">
+        {% set section = month %}
+    {% endif %}
+            {%- set image_url =  'https://placehold.it/300/500'  -%}
+            {%- set month = entry.postDate.format("F") -%}
+            <div class="article">
+                {%- if entry.heroImage | length > 0 -%}
+                    {%- set image_path = ( entry.heroImage[0].folderPath ~ entry.heroImage[0].filename ) -%}
+                    {%- set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/800x450/media/"~ image_path) -%}
+                {%- endif -%}
+                <div class="article_image" style="background-image: url({{ image_url }})">
+                    {% if entry.place %}<div class="location">{{ entry.place }}</div>{% endif %}
+                </div>
+                <div class="title">{{entry.title}}</div>
+                <a href="{{entry.url}}" class="read_more">Read More</a>
+            </div>
+    {%- endfor -%}
+    </div>
+
+
 </section>

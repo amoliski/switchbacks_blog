@@ -1,7 +1,4 @@
-@import '_colors';
 @import '_vars';
-
-
 
 #brand {
   position: absolute;
@@ -104,7 +101,6 @@ header.navbar{
             transform 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975);
     opacity: 1;
     margin-top: -33rem;
-    height: -23rem;
     z-index: 0;
     padding-top: 1em;
     grid-column: wide;
@@ -139,7 +135,7 @@ header.navbar{
       opacity: 1;
       transform: translateY(9rem);
       @include md{
-        margin-top: -33rem;
+        margin-top: -35rem;
       }
     }
   }

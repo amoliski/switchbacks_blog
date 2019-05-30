@@ -96,14 +96,13 @@ img {
 header.navbar {
   font-size: 2rem;
   font-family: "Cabin", sans-serif;
-  background-color: #111; }
+  background-color: #050505; }
   header.navbar #mobile_menu {
     position: relative;
     will-change: margin, transform;
     transition: margin 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975), opacity 0.55s cubic-bezier(0.385, 0.005, 0.215, 0.975), transform 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975);
     opacity: 1;
     margin-top: -33rem;
-    height: -23rem;
     z-index: 0;
     padding-top: 1em;
     grid-column: wide; }
@@ -131,13 +130,13 @@ header.navbar {
       transform: translateY(9rem); }
       @media (min-width: 768px) {
         header.navbar #mobile_menu.menu_open {
-          margin-top: -33rem; } }
+          margin-top: -35rem; } }
   header.navbar nav#top_menu {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     font-family: "Lekton", sans-serif;
-    background-color: #111;
+    background-color: #050505;
     color: #8b8b8b;
     grid-column: full;
     height: 5rem;
@@ -190,7 +189,7 @@ body {
 
 section.dark {
   color: white;
-  background-color: #111; }
+  background-color: #050505; }
 
 .footer {
   background-color: #F2CC24;

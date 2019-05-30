@@ -96,14 +96,13 @@ img {
 header.navbar {
   font-size: 2rem;
   font-family: "Cabin", sans-serif;
-  background-color: #111; }
+  background-color: #050505; }
   header.navbar #mobile_menu {
     position: relative;
     will-change: margin, transform;
     transition: margin 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975), opacity 0.55s cubic-bezier(0.385, 0.005, 0.215, 0.975), transform 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975);
     opacity: 1;
     margin-top: -33rem;
-    height: -23rem;
     z-index: 0;
     padding-top: 1em;
     grid-column: wide; }
@@ -131,13 +130,13 @@ header.navbar {
       transform: translateY(9rem); }
       @media (min-width: 768px) {
         header.navbar #mobile_menu.menu_open {
-          margin-top: -33rem; } }
+          margin-top: -35rem; } }
   header.navbar nav#top_menu {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     font-family: "Lekton", sans-serif;
-    background-color: #111;
+    background-color: #050505;
     color: #8b8b8b;
     grid-column: full;
     height: 5rem;
@@ -190,7 +189,7 @@ body {
 
 section.dark {
   color: white;
-  background-color: #111; }
+  background-color: #050505; }
 
 .footer {
   background-color: #F2CC24;
@@ -254,25 +253,173 @@ section.dark {
   clip: rect(0, 0, 0, 0);
   border: 0; }
 
-.article_list {
+section.posts .heading {
+  grid-column: wide; }
+  section.posts .heading h2 {
+    font-family: "Lekton", sans-serif;
+    font-size: 2.7rem;
+    margin: 9rem 0 2rem;
+    font-weight: normal; }
+
+section.posts .trail_log_intro {
+  max-width: 80rem;
+  font-size: 1.8rem;
+  font-weight: 400; }
+
+section.posts .trail_log_menu {
+  padding-bottom: 8rem; }
+  section.posts .trail_log_menu .filter_option {
+    background-color: black;
+    border: 3px solid #F2CC24;
+    color: white;
+    font-family: "Lekton", sans-serif;
+    margin-right: 2rem;
+    padding: 0 3rem;
+    font-size: 1.7rem; }
+    section.posts .trail_log_menu .filter_option.active {
+      color: black;
+      background-color: #F2CC24;
+      font-weight: bold; }
+
+section.posts .read_more_stories {
+  grid-column: wide;
+  margin-bottom: 4rem;
+  margin-top: 2rem; }
+  section.posts .read_more_stories .read_more_button {
+    color: black;
+    background-color: #F2CC24;
+    font-weight: bold;
+    border: 3px solid #F2CC24;
+    text-decoration: none;
+    font-family: "Lekton", sans-serif;
+    margin-right: 2rem;
+    padding: 0 3rem;
+    font-size: 1.7rem; }
+
+@media (max-width: 768px) {
+  section.posts .trail_log_menu {
+    display: none; }
+  section.posts .recent_articles.md {
+    display: none; }
+  section.posts .recent_articles {
+    display: grid;
+    grid-column: wide; }
+  section.posts .article {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2rem;
+    text-decoration: none; }
+    section.posts .article .article_image {
+      display: inline-block;
+      background-size: cover;
+      background-position: center;
+      width: 10rem;
+      height: 10rem;
+      margin-right: 1rem;
+      flex-grow: 0;
+      flex-shrink: 0; }
+    section.posts .article .metadata {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; }
+      section.posts .article .metadata .location {
+        font-family: "Lekton", sans-serif;
+        color: white;
+        text-decoration: none;
+        font-size: 1.3rem; }
+      section.posts .article .metadata .title {
+        color: white;
+        text-decoration: none; }
+    section.posts .article a .read_more {
+      color: white; } }
+
+@media (min-width: 768px) {
+  section.posts .recent_articles {
+    display: grid;
+    grid-column: wide;
+    grid-template-columns: 1fr; }
+    section.posts .recent_articles .article_image {
+      width: 30px;
+      padding-top: 56.25%; }
+  section.posts hr {
+    border-top: 1px solid white;
+    display: block;
+    width: 100%;
+    margin-bottom: 3rem; }
+  section.posts .recent_articles.sm {
+    display: none; }
+  section.posts .recent_articles {
+    display: grid;
+    grid-column: wide;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 4rem; } }
+  @media screen and (min-width: 768px) and (max-width: 1100px) {
+    section.posts .recent_articles {
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 4rem; } }
+
+@media (min-width: 768px) {
+    section.posts .recent_articles .article {
+      margin-bottom: 5rem; }
+    section.posts .recent_articles .title {
+      margin: 2.5rem 0 1rem; }
+    section.posts .recent_articles .article_image {
+      width: 100%;
+      position: relative;
+      padding-top: 56.25%;
+      background-size: cover; }
+      section.posts .recent_articles .article_image .location {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: black;
+        color: white;
+        font-family: "Lekton", sans-serif;
+        padding: 0 1rem;
+        font-size: 1.7rem; }
+    section.posts .recent_articles .read_more {
+      color: #F2CC24;
+      padding-bottom: 2rem;
+      font-size: 1.5rem; }
+  section.posts .read_more_stories {
+    grid-column: wide;
+    font-family: "Lekton", sans-serif;
+    padding-top: 7rem;
+    padding-bottom: 15rem; }
+    section.posts .read_more_stories a {
+      background-color: #F2CC24;
+      color: black;
+      font-weight: bold;
+      padding: 1rem 4rem;
+      text-decoration: none;
+      font-size: 1.7rem; } }
+
+/**
+.article_list{
   grid-column: content;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+}
 
-.article {
+.article{
   box-sizing: border-box;
   width: 200px;
   display: block;
   height: 150px;
-  font-family: "Cabin", sans-serif;
+  font-family: $cabin;
   padding: 5px;
   position: relative;
-  overflow: hidden; }
-  .article img {
+  overflow: hidden;
+
+  img{
     width: 200px;
-    height: 150px; }
-  .article .title {
+    height: 150px;
+  }
+
+  .title{
     box-sizing: border-box;
     position: absolute;
     top: 10px;
@@ -280,4 +427,8 @@ section.dark {
     left: 10px;
     width: 185px;
     background-color: rgba(0, 0, 0, 0.75);
-    color: white; }
+    color: white;
+  }
+
+}
+**/

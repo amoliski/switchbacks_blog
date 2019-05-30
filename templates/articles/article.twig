@@ -90,7 +90,7 @@
             <div class="image" style="background-image: url({{ entry.articleAuthor[0].image[0].url }})"></div>
             <div class="info">
                 Article by <a href="/author/{{entry.articleAuthor[0].slug}}">{{entry.articleAuthor[0].title}}</a> <br>
-                {{entry.articleDate | date("F d, Y")}}
+                {{(entry.articleDate  ?? entry.postDate) | date("F d, Y")}}
             </div>
         </div>
         {% endif %}

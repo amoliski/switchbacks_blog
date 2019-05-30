@@ -1,5 +1,4 @@
 @import '_base';
-@import '_colors';
 @import '_vars';
 
 .head{
@@ -64,8 +63,8 @@
   }
 
   .read_post{
-    background-color: #F2CC24;
-    color: #111;
+    background-color: $yellow;
+    color: $black;
     width: min-content;
     white-space: nowrap;
     padding: 1rem 3rem;
@@ -307,9 +306,9 @@ section.posts {
   }
 
 
-@include sm{
+  @include sm{
   .trail_log_menu {
-  display: none;
+    display: none;
   }
 
   .recent_articles.md {
