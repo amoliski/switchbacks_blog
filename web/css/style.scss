@@ -1,0 +1,33 @@
+@import '_reset';
+@import '_base_style';
+
+section.style_guide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10rem;
+}
+
+section.preview{
+  margin-top: 5rem;
+  article, header{
+    width: 800px;
+    margin-bottom: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.style_guide_container{
+  display: grid;
+  grid-template-columns:1fr 20px 1fr;
+
+  .light {
+    padding: 20px;
+  grid-column: 1;
+  }
+  .dark{
+    padding: 20px;
+    grid-column: 3;
+  }
+}

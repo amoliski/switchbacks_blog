@@ -120,7 +120,7 @@ header.navbar{
           margin-bottom: 1.3rem;
           &:focus {
             outline:0;
-            border-bottom-color: $yellow;
+            border-bottom-color: $primary;
           }
         }
       }
@@ -152,7 +152,7 @@ header.navbar{
     height: 5rem;
     padding: 2rem 3rem;
     @include md{
-      padding: 2rem 0rem;
+      padding: 2rem 0;
       grid-column: wide;
     }
 
@@ -182,13 +182,13 @@ header.navbar{
 
         &.active {
           color: white;
-          border-bottom: 2px solid $yellow;
+          border-bottom: 2px solid $primary;
         }
 
         &.solid {
           font-weight: bold;
           padding: .3rem 1.4rem;
-          background-color: $yellow;
+          background-color: $primary;
           color: black;
           border-radius: 3rem;
         }

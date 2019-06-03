@@ -32,7 +32,7 @@
     height: 90vh;
     max-height: 100rem;
     min-height:50rem;
-    border-left: 3px solid $yellow;
+    border-left: 3px solid $primary;
     overflow: hidden;
     z-index: 0;
     img{
@@ -63,7 +63,7 @@
   }
 
   .read_post{
-    background-color: $yellow;
+    background-color: $primary;
     color: $black;
     width: min-content;
     white-space: nowrap;
@@ -94,7 +94,7 @@
         margin: 0 5rem;
         h2{
           display: block;
-          color: $yellow;
+          color: $primary;
           font-family: $lekton;
           font-size: 1.8rem;
           background: none;
@@ -276,11 +276,11 @@ section.posts {
     .filter_option {
       &.active {
         color: black;
-        background-color: $yellow;
+        background-color: $primary;
         font-weight: bold;
       }
       background-color: black;
-      border: 3px solid $yellow;
+      border: 3px solid $primary;
       color: white;
       font-family: $lekton;
       margin-right: 2rem;
@@ -294,9 +294,9 @@ section.posts {
     margin-top: 2rem;
     .read_more_button {
       color: black;
-      background-color: $yellow;
+      background-color: $primary;
       font-weight: bold;
-      border: 3px solid $yellow;
+      border: 3px solid $primary;
       text-decoration: none;
       font-family: $lekton;
       margin-right: 2rem;
@@ -407,7 +407,7 @@ section.posts {
         }
       }
       .read_more {
-        color: $yellow;
+        color: $primary;
         padding-bottom: 2rem;
         font-size: 1.5rem;
       }
@@ -419,7 +419,7 @@ section.posts {
       padding-bottom: 15rem;
 
       a {
-        background-color: $yellow;
+        background-color: $primary;
         color: black;
         font-weight: bold;
         padding: 1rem 4rem;
@@ -439,7 +439,7 @@ section.posts {
     font-size: 5rem;
   }
   font-family:$cabin;
-  background-color: $yellow;
+  background-color: $primary;
   .cta{
     grid-column:wide;
     width: 50%;
