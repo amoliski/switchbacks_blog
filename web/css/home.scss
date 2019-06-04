@@ -1,12 +1,9 @@
 @import 'base';
-@import 'style_guide';
 
 .head{
   height: 90vh;
   max-height: 100rem;
   min-height:50rem;
-  font-size: 2rem;
-  font-family: $cabin;
   position:relative;
 
   .recent_post{
@@ -48,14 +45,11 @@
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
-    h2{
-      display: none;
+
+    .caption, .description{
+      margin-top: 1rem;
     }
-    h1{
-      font-family: $cabin;
-      font-size: 4.5rem;
-      font-weight: bold;
-    }
+
     > div{
       position: relative;
       bottom: 12rem;
@@ -63,16 +57,9 @@
   }
 
   .read_post{
-    background-color: $primary;
-    color: $black;
-    width: min-content;
+    margin-top: 2rem;
     white-space: nowrap;
-    padding: 1rem 3rem;
-    margin-top: 3rem;
-    font-family: $lekton;
-    font-weight: bold;
-    display: block;
-    text-decoration: none;
+    display: inline-block;
   }
 }
 
@@ -94,9 +81,6 @@
         margin: 0 5rem;
         h2{
           display: block;
-          color: $primary;
-          font-family: $lekton;
-          font-size: 1.8rem;
           background: none;
         }
         > div{
@@ -157,18 +141,11 @@
 section.stories{
   .read_more{
     a{
-      font-size: 1.3rem;
-      font-weight: bold;
-      font-family: $cabin;
-      text-decoration: none;
-      border-bottom: 1px solid black;
-      color: black;
       transition: background-color .2s ease;
       &:hover{
         background-color: rgba(0,0,0,0.1)
       }
     }
-    margin-bottom: 5rem;
   }
   .featured_story {
     grid-column: wide;
@@ -186,21 +163,11 @@ section.stories{
         display: flex;
         flex-direction: column;
         justify-content: center;
-      font-family: $cabin;
-      font-size: 3rem;
-      font-weight: bold;
       padding: 2rem 0;
     }
-      font-size: 2rem;
-      font-weight: bold;
-      font-family: $cabin;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
     }
     .metadata{
-      margin-bottom:1rem;
-      font-size: 2rem;
-      font-weight: initial;
+      margin-bottom:3rem;
     }
 
     .metadata {
@@ -219,75 +186,33 @@ section.stories{
   .more_stories{
     grid-column: wide;
     display: grid;
+    column-gap:2rem;
+
     grid-template-columns: 1fr;
     @include md {
       grid-template-columns: 1fr 1fr;
     }
-    column-gap:2rem;
 
-    .title{
-      font-size: 2rem;
-      font-weight: bold;
-      font-family: $cabin;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
     .metadata{
       font-family:$lekton;
       margin-bottom:1rem;
     }
     .image{
+      display: block;
       padding-top: 66%;
       background-size: cover;
     }
   }
   .read_more_stories{
     grid-column: wide;
-    font-family: $lekton;
     padding-top: 7rem;
-    padding-bottom: 15rem;
-    a{
-      color: white;
-      background-color: black;
-      padding: 1rem 4rem;
-      text-decoration: none;
-      font-size: 1.7rem;
-    }
-
+    padding-bottom: 7rem;
   }
 
 }
 
 section.posts {
-  .heading h2{
-    font-family: $lekton;
-    font-size: 2.7rem;
-    margin: 9rem 0 2rem;
-    font-weight: normal;
-  }
-  .trail_log_intro{
-    max-width: 80rem;
-    font-size:1.8rem;
-    font-weight:400;
-  }
-  .trail_log_menu {
-    padding-bottom: 8rem;
 
-    .filter_option {
-      &.active {
-        color: black;
-        background-color: $primary;
-        font-weight: bold;
-      }
-      background-color: black;
-      border: 3px solid $primary;
-      color: white;
-      font-family: $lekton;
-      margin-right: 2rem;
-      padding: 0 3rem;
-      font-size: 1.7rem;
-    }
-  }
   .read_more_stories{
     grid-column: wide;
     margin-bottom: 4rem;
@@ -303,6 +228,11 @@ section.posts {
       padding: 0 3rem;
       font-size: 1.7rem;
     }
+  }
+
+  .trail_log_intro{
+    max-width: 65rem;
+    margin-bottom: 5rem;
   }
 
 
@@ -393,8 +323,9 @@ section.posts {
       .article_image {
         width: 100%;
         position: relative;
-        padding-top: 56.25%;
+        padding-top: 75%;
         background-size: cover;
+        display: block;
         .location {
           position: absolute;
           top: 0;
@@ -415,41 +346,16 @@ section.posts {
     .read_more_stories {
       grid-column: wide;
       font-family: $lekton;
-      padding-top: 7rem;
-      padding-bottom: 15rem;
-
-      a {
-        background-color: $primary;
-        color: black;
-        font-weight: bold;
-        padding: 1rem 4rem;
-        text-decoration: none;
-        font-size: 1.7rem;
-      }
+      padding-top: 0;
+      padding-bottom: 7rem;
     }
   }
 }
 
-
-.share{
-  h1{
-    margin-top: 10rem;
-    margin-bottom: 4rem;
-    font-weight: bold;
-    font-size: 5rem;
-  }
-  font-family:$cabin;
-  background-color: $primary;
-  .cta{
-    grid-column:wide;
-    width: 50%;
-    @media screen and (max-width: $break-small) {
-      width: 100%;
-    }
-    font-size: 2rem;
-    a{
-      color: black;
-    }
-  }
+section > header{
+  grid-column: wide;
+  margin: 6rem 0 5rem 0;
+  border-top: 1px solid #999;
+  padding-top: 1rem;
 }
 

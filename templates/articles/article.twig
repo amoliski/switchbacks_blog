@@ -11,29 +11,29 @@
 <style>
 
     .heroImage {
-        background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/900x0/media/"~ hero_path }})
+        background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/0x900/media/"~ hero_path }})
     }
     @media screen and (min-width: 1920px) {
         .heroImage {
-            background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ hero_path }})
+            background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/0x1920/media/"~ hero_path }})
         }
 
     }
     @media screen and (min-width: 1440px) {
         .heroImage {
-            background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/1440x0/media/"~ hero_path }})
+            background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/0x1440/media/"~ hero_path }})
         }
 
     }
     @media screen and (min-width: 2560px) {
         .heroImage {
-            background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ hero_path }})
+            background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/0x2560/media/"~ hero_path }})
         }
 
     }
     @media screen and (min-width: 3840px) {
         .heroImage {
-            background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ hero_path }})
+            background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/0x3840/media/"~ hero_path }})
         }
 
     }
@@ -273,31 +273,7 @@
     </div>
 </section>
 
-<section class="share grid">
-    <div class="cta">
-        <h1>Share your story</h1>
-        <p>
-            Want to share a story of your own? We would love to feature you!<br/>
-            Shoot us an email or a privatemessage on Instagram and we'll work something out. <br/>
-            For high resolution photos or anything else, please contact <a href="/author/alexander-moliski">Alex</a>.
-        </p>
-    </div>
 
-</section>
 
-<section class="page_footer grid">
-
-    <nav class="footer_navbar">
-        <div class="brand">
-            <div class="logo"></div>
-            <span class="wordmark">S<span class="tripleu">w</span>itchbacks</span>
-        </div>
-        <div class="links">
-            <a href="/stories" class="active">Stories</a>
-            <a href="/articles">Trail Log </a>
-            <a href="#">Guidebook</a>
-            <a href="#">Team</a>
-            <a href="#">Contact</a>
-        </div>
-    </nav>
-</section>
+{% include 'components/share.twig' %}
+{% include 'components/footer.twig' %}

@@ -1,0 +1,270 @@
+/* CSS Mini Reset */
+html {
+  font-size: 62.5%;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.05rem;
+}
+
+body, div, form, fieldset, legend, label, blockquote {
+  font-size: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 1.3rem;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th, td {
+  text-align: left;
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6, th, td, caption {
+  font-weight: normal;
+  margin: 0;
+}
+
+img {
+  border: 0;
+}
+
+.clearfix {
+  clear: both;
+}
+
+input[type=search] {
+  -webkit-appearance: textfield;
+}
+
+input[type=search]::-webkit-search-decoration,
+input[type=search]::-webkit-search-cancel-button,
+input[type=search]::-webkit-search-results-button,
+input[type=search]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+h1, h1 > a {
+  font-size: 3.5rem;
+  line-height: 4rem;
+  font-family: "Libre Baskerville", serif;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+h2, h2 > a {
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+  font-family: "Libre Baskerville", serif;
+  font-weight: normal;
+  margin-top: 10rem;
+  margin-bottom: 5rem;
+  text-decoration: none;
+}
+h2.tight, h2 > a.tight {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+h2 + figure, h2 > a + figure {
+  margin-top: -2rem !important;
+}
+
+h3, h3 > a {
+  font-size: 2rem;
+  letter-spacing: 0.3px;
+  line-height: 2.5rem;
+  font-family: "Libre Baskerville", serif;
+  font-weight: bold;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+p {
+  font-family: "Cabin", sans-serif;
+  font-weight: normal;
+  font-size: 1.5rem;
+  letter-spacing: 0.05rem;
+  line-height: 2rem;
+}
+article p {
+  font-family: "Cabin", sans-serif;
+  font-weight: normal;
+  font-size: 1.9rem;
+  line-height: 3.8rem;
+  letter-spacing: 0.6px;
+}
+
+blockquote {
+  font-family: "Lekton", sans-serif;
+  font-size: 1.8rem;
+  line-height: 3.8rem;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+blockquote footer {
+  font-family: "Cabin", sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+}
+
+.caption, figcaption {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  letter-spacing: 0.5px;
+  font-family: "Lekton", sans-serif;
+}
+
+a {
+  font-family: "Lekton", sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: black;
+  letter-spacing: 0.2px;
+}
+.dark a {
+  color: white;
+}
+article a {
+  font-family: "Cabin", sans-serif;
+  letter-spacing: 0.6px;
+  font-size: 1.9rem;
+  line-height: 3.8rem;
+}
+
+a.primary_button {
+  background-color: #F2CC24;
+  text-decoration: none;
+  padding: 0.5rem 2rem;
+  border-radius: 100rem;
+  white-space: nowrap;
+}
+.dark a.primary_button {
+  color: #050505;
+}
+
+.dark {
+  background-color: black;
+  color: white;
+}
+.dark a {
+  color: white;
+}
+
+/**
+ * Author: Kevin Weber
+ *
+ * Follow me: @kevinweber (https://twitter.com/kevinweber)
+ * Website: http://kevinw.de
+ *
+ * License: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+ */
+.primary {
+  color: #F2CC24 !important;
+}
+
+.primary_bg {
+  background-color: #F2CC24;
+}
+
+.js-focus-visible *:focus:not(.focus-visible) {
+  outline: 0 !important;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+input {
+  font-family: "Cabin", sans-serif;
+  font-weight: normal;
+  font-size: 1.5rem;
+  letter-spacing: 0.05rem;
+  line-height: 2rem;
+}
+
+.input-container.search {
+  background-color: #FFF;
+  width: 25rem;
+  border-radius: 40rem;
+  border: 1px solid black;
+}
+.input-container.search:focus-within .icon {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24'   height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23F2CC24' d='M23.809   21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365   0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238   6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877   6.877c-3.793 0-6.877-3.085-6.877-6.877z'/%3E%3C/svg%3E") no-repeat;
+  background-position-y: center;
+  background-position-x: 1rem;
+  background-size: 1.5rem;
+}
+.input-container.search label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 2rem;
+}
+.input-container.search label .icon {
+  display: inline-block;
+  width: 3rem;
+  height: 2rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24'   height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23050505' d='M23.809   21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365   0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238   6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877   6.877c-3.793 0-6.877-3.085-6.877-6.877z'/%3E%3C/svg%3E") no-repeat;
+  background-position-y: center;
+  background-position-x: 1rem;
+  background-size: 1.5rem;
+  flex: 0 1 auto;
+}
+.input-container.search label input {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  background-color: transparent !important;
+  width: 100%;
+}
+.input-container.search label input:focus {
+  outline: 0 !important;
+}
+
+section.style_guide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10rem;
+}
+
+section.preview {
+  margin-top: 5rem;
+}
+section.preview article, section.preview header {
+  width: 800px;
+  margin-bottom: 5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.style_guide_container {
+  display: grid;
+  grid-template-columns: 1fr 20px 1fr;
+}
+.style_guide_container .light {
+  padding: 20px;
+  grid-column: 1;
+}
+.style_guide_container .dark {
+  padding: 20px;
+  grid-column: 3;
+}
+
+/*# sourceMappingURL=style.css.map */

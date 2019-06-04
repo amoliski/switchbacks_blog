@@ -20,9 +20,9 @@
                     </div>
                 {%- endif -%}
                 <div class="description">
-                    {{- entry.description -}}
+                    <p>{{- entry.description -}}</p>
                 </div>
-                <a class="read_post" href="{{entry.url}}">
+                <a class="read_post primary" href="{{entry.url}}">
                     Read Post
                 </a>
             </div>
@@ -39,9 +39,10 @@
 </section>
 
 <section class="stories light grid storylist">
-    <div class="heading">
-        <h2>Stories</h2>
-    </div>
+    <header class="caption">
+        Stories
+    </header>
+
 
     {%- set story_image =  'https://placehold.it/300/500'  -%}
     {%- set main_story =  craft.Entries.section('story').orderBy('postDate desc').first() -%}
@@ -52,75 +53,66 @@
 
     <div class="featured_story">
         <div class="title">
-            <div class="title">
-                {{- main_story -}}
-            </div>
-            <div class="metadata">
-                {{- main_story.storyDates -}} -
-                {{- main_story.storyLocation -}} -
-                {{- main_story.chapterList | length -}}
-                {{- main_story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
+            <h1 class='md-only'> <a href="{{ main_story.url }}">{{- main_story -}}</a> </h1>
+            <h2 class='tight sm-only'> <a href="{{ main_story.url }}">{{- main_story -}}</a> </h1>
+            <p> {{ main_story.storyDescription }}</p>
+            <div class="metadata caption">
+                {% if main_story.storyDates %}{{- main_story.storyDates -}} - {% endif %}
+                {% if main_story.storyLocation %}{{- main_story.storyLocation -}} - {% endif %}
+                {{- main_story.chapterList | length -}}&nbsp;{{- main_story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
             </div>
             <div class="read_more">
                 <a href="{{ main_story.url }}">Read More</a>
             </div>
         </div>
-        <div class="image" style="background-image: url({{ story_image }})"></div>
+        <a href="{{ main_story.url }}" class="image" style="background-image: url({{ story_image }})"></a>
 
     </div>
 
     <div class="more_stories">
         {%- set stories =  craft.Entries.section('story').orderBy('postDate desc').limit(2).offset(1) -%}
-        {%- set story_image =  'https://placehold.it/700/550'  -%}
         {%- for story in stories -%}
-            {%- if story.storyImage | length > 0 -%}
-                <div class="storyblock">
-                    {%- if story.storyImage | length > 0 -%}
+            <div class="story_block">
+                {%- if story.storyImage | length > 0 -%}
+                    {%- set image_path = ( story.storyImage[0].folderPath ~ story.storyImage[0].filename ) -%}
+                    {%- set story_image = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/700x550/media/"~ image_path ~ " ") -%}
+                {% else %}
+                    {%- set story_image =  'https://placehold.it/700/550'  -%}
+                {%- endif -%}
 
-                        {%- set image_path = ( story.storyImage[0].folderPath ~ story.storyImage[0].filename ) -%}
-                        {%- set story_image = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/700x550/media/"~ image_path ~ " ") -%}
-
-                    {%- endif -%}
-
-                    <div class="image" style="background-image: url({{ story_image }})"></div>
-                    <div class="title">
-                        {{ story }}
-                    </div>
-                    <div class="metadata">
-                        {{ story.storyDates }} - {{ story.storyLocation }} - {{ story.chapterList | length }} {{ story.chapterList | length == 1 ? 'Chapter' : 'Chapters' }}
-                    </div>
-                    <div class="read_more">
-                        <a href="{{ story.url }}">Read More</a>
-                    </div>
+                <a href="{{ story.url }}" class="image" style="background-image: url({{ story_image }})"></a>
+                <h2 class="tight"><a href="{{ story.url }}"> {{ story }} </a></h2>
+                <div class="metadata caption">
+                    {% if story.storyDates %}{{- story.storyDates -}} - {% endif %}
+                    {% if story.storyLocation %}{{- story.storyLocation -}} - {% endif %}
+                    {{- story.chapterList | length -}}&nbsp;{{- story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
                 </div>
-            {%- endif -%}
+                <div class="read_more">
+                    <a href="{{ story.url }}">Read More</a>
+                </div>
+            </div>
         {%- endfor -%}
 
     </div>
     <div class="read_more_stories">
-        <a href="/stories">More Stories</a>
+        <a class="primary_button" href="/stories">More Stories</a>
     </div>
 
 </section>
 
 <section class="posts dark grid">
+    <header class="caption">
+        Recent Posts
+    </header>
+
     <div class="heading">
-        <h2>TrailLog Posts</h2>
+        <h1>TrailLog Posts</h1>
     </div>
     <div class="wide">
         <p class="trail_log_intro">
-            Connect with nature, get some fresh air, find yourself, and have fun. Take the extra step (or 10,000) and join us on one of the thousands of backcountry trails the country has to offer!
+            Connect with nature, get some fresh air, find yourself, and have fun. Take the extra step
+            (or 10,000) and join us on one of the thousands of backcountry trails the country has to offer!
         </p>
-    </div>
-
-    <div class="wide">
-        <div class="trail_log_menu">
-            <button class="filter_option active">Most Recent</button>
-            <button class="filter_option">Region</button>
-            <button class="filter_option">Park</button>
-            <button class="filter_option">Difficulty</button>
-            <button class="filter_option">Recreation</button>
-        </div>
     </div>
 
     {%- set entryQuery = craft.entries().section('article').orderBy('postDate desc').limit(9) -%}
@@ -145,16 +137,17 @@
 
     <div class="recent_articles md">
         {%- for entry in entries -%}
-            {%- set image_url =  'https://placehold.it/300/500'  -%}
             <div class="article">
                 {%- if entry.heroImage | length > 0 -%}
                     {%- set image_path = ( entry.heroImage[0].folderPath ~ entry.heroImage[0].filename ) -%}
                     {%- set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/800x450/media/"~ image_path) -%}
+                {% else %}
+                    {%- set image_url =  'https://placehold.it/300/500'  -%}
                 {%- endif -%}
-                <div class="article_image" style="background-image: url({{ image_url }})">
-                    {% if entry.place %}<div class="location">{{ entry.place }}</div>{% endif %}
-                </div>
-                <div class="title" href="{{entry.url}}">{{entry.title}}</div>
+
+                <a href="{{entry.url}}" class="article_image" style="background-image: url({{ image_url }})"></a>
+                <h3 class="tight"><a href="{{entry.url}}">{{entry.title}}</a></h2>
+                {% if entry.place %}<div class="caption">{{ entry.place }}</div>{% endif %}
                 <a href="{{entry.url}}" class="read_more">Read More</a>
             </div>
         {%- endfor -%}
@@ -162,37 +155,13 @@
     </div>
 
     <div class="read_more_stories">
-        <a href="/articles" class="read_more_button">More Posts</a>
+        <a href="/articles" class="primary_button">More Posts</a>
     </div>
 
 
 </section>
 
-<section class="share grid">
-    <div class="cta">
-        <h1>Share your story</h1>
-        <p>
-            Want to share a story of your own? We would love to feature you!<br/>
-            Shoot us an email or a privatemessage on Instagram and we'll work something out. <br/>
-            For high resolution photos or anything else, please contact <a href="/author/alexander-moliski">Alex</a>.
-        </p>
-    </div>
-
-</section>
-<section class="page_footer grid">
-    <nav class="footer_navbar">
-        <div class="brand">
-            <div class="logo"></div>
-            <span class="wordmark">S<span class="tripleu">w</span>itchbacks</span>
-        </div>
-        <ul class="links">
-            <li><a href="/stories" class="active">Stories</a></li>
-            <li><a href="/articles">Trail Log </a></li>
-            <li><a href="#">Guidebook</a></li>
-            <li><a href="#">Team</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
-</section>
 
 
+{% include 'components/share.twig' %}
+{% include 'components/footer.twig' %}

@@ -1,17 +1,12 @@
-@import '_reset';
+@import 'reset';
 @import 'style_guide';
 
-@import '_breakpoints';
-@import '_navbar';
+@import 'breakpoints';
+@import 'navbar';
 
 body{
   font-family: $cabin;
   font-size: 2rem;
-}
-
-
-.js-focus-visible *:focus:not(.focus-visible) {
- outline: none !important;
 }
 
 .grid{
@@ -50,50 +45,37 @@ body{
 }
 
 
-.page_footer {
-  background-color: $primary;
-  padding-top: 10rem;
+section.page_footer{
+  background-color: $black;
+  border-top: .6rem solid $primary;
+  padding-top: 2rem;
   padding-bottom: 5rem;
 
-  .footer_navbar {
-    font-family: $lekton;
-
-    padding: 2rem 0;
+  footer{
     grid-column: wide;
-
-    display:flex;
-    flex-direction: row;
-    align-items:center;
-    justify-content: space-between;
-
-    @media screen and (max-width: $break-small) {
-      grid-column: full;
-      flex-direction: column;
-    }
 
     .brand {
       display: flex;
       align-items: center;
-
       float: left;
       font-family: $cabin;
-      font-size: 4rem;
-      color: $black;
+      font-size: 2.5rem;
+      color: $white;
       font-weight: bold;
 
       .logo{
-        width: 7rem;
-        height: 7rem;
+        width: 5rem;
+        height: 4rem;
         position: relative;
         top: -4px;
 
         background-size: contain;
         background-repeat: no-repeat;
-        background-image: url(/img/logo_black.png);
+        background-image: url(/img/logo_white.png);
       }
       .tripleu:before {
         content: 'w';
-        margin-right: -1.8rem;
+        margin-right: -0.43em;
       }
     }
     .links{
@@ -110,22 +92,39 @@ body{
         text-decoration: none;
         font-weight: bold;
         font-family: $lekton;
-        color: $black;
+        color: $white;
         font-size: 2rem;
       }
     }
   }
 }
 
+section.share{
+  .cta{
+    margin-top: 7rem;
+    margin-bottom: 7rem;
+    padding-top: 2rem;
+    grid-column:wide;
+    width: 50%;
+    @media screen and (max-width: $break-small) {
+      width: 100%;
+    }
+    p{
+      margin-bottom: 4rem;
+      margin-top: 2.5rem;
+    }
 
-/* Screen reader only */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  border: 0;
+  }
+}
+
+
+.md-only{
+  @include sm(){
+    display: none !important;
+  }
+}
+.sm-only{
+  @include md(){
+    display: none !important;
+  }
 }

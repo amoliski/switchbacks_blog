@@ -12,23 +12,41 @@ $break-small:900px;
 $break-medium:1100px;
 
 
-h1{
+h1, h1>a{
   font-size: 3.5rem;
   line-height: 4rem;
   font-family: $baskerville;
   font-weight: bold;
+  text-decoration: none;
 }
 
-h2{
+
+h2, h2>a{
   font-size: 2.5rem;
   line-height: 2.5rem;
   font-family: $baskerville;
   font-weight: normal;
   margin-top: 10rem;
   margin-bottom: 5rem;
+  &.tight{
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  text-decoration: none;
   + figure {
     margin-top: -2rem !important;
   }
+}
+
+h3, h3>a{
+  font-size: 2rem;
+  letter-spacing: 0.3px;
+  line-height: 2.5rem;
+  font-family: "Libre Baskerville", serif;
+  font-weight: bold;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 p{
@@ -36,6 +54,7 @@ p{
   font-weight: normal;
   font-size: 1.5rem;
   letter-spacing: .05rem;
+  line-height: 2rem;
   article &{
     font-family: $cabin;
     font-weight: normal;
@@ -75,9 +94,6 @@ a{
   .dark &{
     color: white;
   }
-  &.primary{
-    color: $primary;
-  }
   article &{
     font-family: $cabin;
     letter-spacing: 0.6px;
@@ -86,20 +102,113 @@ a{
   }
 }
 
+a.primary_button{
+  background-color: #F2CC24;
+  text-decoration: none;
+  padding: 0.5rem 2rem;
+  border-radius: 100rem;
+  white-space: nowrap;
+  .dark &{
+    color: $black;
+  }
+}
+
 .dark{
   background-color: black;
   color: white;
   a{
     color: white;
-    &.primary{
-      color: $primary;
-    }
   }
 }
 
-.primary{
-  color: $primary;
+
+@import 'svg_encode';
+
+@function icon_search($fill-color){
+  @return svg-encode('<svg xmlns="http://www.w3.org/2000/svg" width="24" \
+  height="24" viewBox="0 0 24 24"><path fill="' + $fill-color + '" d="M23.809 \
+  21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 \
+  0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 \
+  6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 \
+  6.877c-3.793 0-6.877-3.085-6.877-6.877z"/></svg>');
 }
+
+
+
+.primary{
+  color: $primary !important;
+}
+
 .primary_bg{
   background-color: $primary;
+}
+
+.js-focus-visible *:focus:not(.focus-visible) {
+  outline: 0 !important;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+input{
+  font-family: $cabin;
+  font-weight: normal;
+  font-size: 1.5rem;
+  letter-spacing: .05rem;
+  line-height: 2rem;
+}
+
+.input-container.search{
+  background-color: $white;
+  &:focus-within{
+    .icon{
+      background: url(icon_search($primary)) no-repeat;
+      background-position-y: center;
+      background-position-x: 1rem;
+      background-size: 1.5rem;
+    }
+  }
+  width: 25rem;
+  border-radius: 40rem;
+  border: 1px solid black;
+
+
+  label{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 2rem;
+    .icon{
+      display: inline-block;
+      width: 3rem;
+      height: 2rem;
+      background: url(icon_search($black)) no-repeat;
+      background-position-y: center;
+      background-position-x: 1rem;
+      background-size: 1.5rem;
+      flex: 0 1 auto;
+    }
+
+
+    input{
+      flex: 1;
+      padding: 1rem;
+      border: none;
+      background-color: transparent !important;
+      width: 100%;
+      &:focus{
+        outline: 0 !important;
+      }
+    }
+  }
+
 }
