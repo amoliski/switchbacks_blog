@@ -1,11 +1,13 @@
-@import '_base';
-@import '_vars';
+@import 'base';
+@import 'style_guide';
 
 .head{
   background-color: $black;
-  font-size: 2rem;
   font-family: $cabin;
   color: white;
+  font-weight: normal;
+  font-size: 1.5rem;
+  letter-spacing: .5px;
 
   .title_block{
     grid-column: wide;
@@ -13,20 +15,15 @@
     @media screen and (max-width: $break-small) {
       margin: 6rem 1rem 1rem;
     }
-    h2{
-      color: $primary;
-      font-family: $lekton;
-      font-size: 1.8rem;
+    .caption{
+      margin-top: 0.5rem;
     }
-    h1{
-      font-family: $cabin;
-      font-size: 4.5rem;
-      font-weight: bold;
-    }
+
     .author_block {
-      margin: 2rem 0 4rem;
+      margin: 3rem 0 4rem;
       display: flex;
       flex-direction: row;
+      align-items: center;
       .image {
         display: inline-block;
         height: 4.5rem;
@@ -36,21 +33,25 @@
         background-position: center;
       }
       .info {
-        margin-left: 1rem;
+        margin-left: 2rem;
         display: inline-block;
-        font-size: 1.5rem;
-        line-height: 2.5rem;
+        div{
+          margin-top: .3rem;
+          margin-bottom: .3rem;
+        }
         a {
           color: white;
           text-decoration: none;
-          font-weight: bold;
+          font-family: $cabin;
+          letter-spacing: 0.6px;
+          font-size: 1.5rem;
         }
       }
     }
   }
   .heroImage{
     grid-column: full;
-    height: 85vh;
+    height: 60vh;
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y:center;
@@ -137,10 +138,6 @@
       .title{
         font-size: 1em;
       }
-      .stat{
-        color: $primary;
-        font-size: 1em;
-      }
     }
   }
 }
@@ -155,9 +152,6 @@
   margin-bottom: 10rem;
 
   h2{
-    margin-top: 4rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
 
     & + figure{
       margin-top: 2rem;
@@ -214,9 +208,9 @@
     }
 
     figcaption{
-      font-family: $lekton;
       &.caption_under{
-
+        align-self: start;
+        margin-top: 1rem;
       }
 
       &.caption_over{

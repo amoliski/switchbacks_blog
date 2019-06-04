@@ -1,11 +1,17 @@
 @import '_reset';
-@import '_breakpoints';
+@import 'style_guide';
 
+@import '_breakpoints';
 @import '_navbar';
 
 body{
   font-family: $cabin;
   font-size: 2rem;
+}
+
+
+.js-focus-visible *:focus:not(.focus-visible) {
+ outline: none !important;
 }
 
 .grid{
@@ -15,11 +21,11 @@ body{
           [full-start]
           minmax(4rem, 1fr)
           [wide-start]
-          minmax(0, 30rem)
+          minmax(0, 15rem)
           [content-start]
           minmax(auto, 80rem)
           [content-end]
-          minmax(0, 30rem)
+          minmax(0, 15rem)
           [wide-end]
           minmax(4rem, 1fr)
           [full-end];
@@ -43,17 +49,8 @@ body{
   grid-column: wide;
 }
 
-section.dark{
-  color: white;
-  background-color: $black;
-}
 
-
-
-
-
-
-.footer {
+.page_footer {
   background-color: $primary;
   padding-top: 10rem;
   padding-bottom: 5rem;
@@ -81,7 +78,7 @@ section.dark{
       float: left;
       font-family: $cabin;
       font-size: 4rem;
-      color: black;
+      color: $black;
       font-weight: bold;
 
       .logo{
@@ -113,9 +110,8 @@ section.dark{
         text-decoration: none;
         font-weight: bold;
         font-family: $lekton;
-        color: black;
+        color: $black;
         font-size: 2rem;
-
       }
     }
   }

@@ -1,55 +1,47 @@
-<head>
-    <title>{{entry.title}}</title>
-    <link href="https://fonts.googleapis.com/css?family=Cabin:400,400i,500,700,700i|Lekton:400,400i,700" rel="stylesheet">
-    <link rel="stylesheet" href="/css/article.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#fc9300">
-    <meta name="apple-mobile-web-app-title" content="Switchbacks">
-    <meta name="application-name" content="Switchbacks">
-    <meta name="msapplication-TileColor" content="#2b5797">
-    <meta name="theme-color" content="#000000">
 
-    {% if entry.heroImage | length > 0 %}
-    {% set hero_path = ( entry.heroImage[0].folderPath ~ entry.heroImage[0].filename ) %}
-    <style>
 
+
+{% include 'components/html_head.twig' with {'css': 'article', 'title': entry.title} %}
+{% include 'components/navbar.twig' %}
+
+
+
+{% if entry.heroImage | length > 0 %}
+{% set hero_path = ( entry.heroImage[0].folderPath ~ entry.heroImage[0].filename ) %}
+<style>
+
+    .heroImage {
+        background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/900x0/media/"~ hero_path }})
+    }
+    @media screen and (min-width: 1920px) {
         .heroImage {
-            background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/900x0/media/"~ hero_path }})
-        }
-        @media screen and (min-width: 1920px) {
-            .heroImage {
-                background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ hero_path }})
-            }
-
-        }
-        @media screen and (min-width: 1440px) {
-            .heroImage {
-                background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/1440x0/media/"~ hero_path }})
-            }
-
-        }
-        @media screen and (min-width: 2560px) {
-            .heroImage {
-                background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ hero_path }})
-            }
-
-        }
-        @media screen and (min-width: 3840px) {
-            .heroImage {
-                background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ hero_path }})
-            }
-
+            background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ hero_path }})
         }
 
+    }
+    @media screen and (min-width: 1440px) {
+        .heroImage {
+            background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/1440x0/media/"~ hero_path }})
+        }
 
-    </style>
-    {% endif %}
+    }
+    @media screen and (min-width: 2560px) {
+        .heroImage {
+            background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ hero_path }})
+        }
+
+    }
+    @media screen and (min-width: 3840px) {
+        .heroImage {
+            background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ hero_path }})
+        }
+
+    }
 
 
-</head>
+</style>
+{% endif %}
+
 
 
 {% set story = 0 %}
@@ -71,26 +63,27 @@
 {% endif %}
 
 
-{% include 'components/navbar.twig' %}
 
 <section class="head grid">
-
     <div class="title_block">
-        {% if entry.place != "NA" %}
-        <h2>
-            {{entry.place}}
-        </h2>
-        {% endif %}
         <h1>
             {{entry.title}}
         </h1>
 
+        {% if entry.place != "NA" %}
+            <div class="caption">{{entry.place}}</div>
+        {% endif %}
+
         {% if entry.articleAuthor | length > 0 %}
         <div class="author_block">
+            {% if entry.articleAuthor[0].image | length > 0  %}
             <div class="image" style="background-image: url({{ entry.articleAuthor[0].image[0].url }})"></div>
+            {% else %}
+                <div class="image" style="background-image: url(https://placehold.it/30x30)"></div>
+            {% endif %}
             <div class="info">
-                Article by <a href="/author/{{entry.articleAuthor[0].slug}}">{{entry.articleAuthor[0].title}}</a> <br>
-                {{(entry.articleDate  ?? entry.postDate) | date("F d, Y")}}
+                <div>Article by <a href="/author/{{entry.articleAuthor[0].slug}}">{{entry.articleAuthor[0].title}}</a></div>
+                <div>{{(entry.articleDate  ?? entry.postDate) | date("F d, Y")}}</div>
             </div>
         </div>
         {% endif %}
@@ -131,15 +124,15 @@
             {% if entry.showTrailInfo %}
             <div class="right">
                 <div class="stats">
-                    <div class="stat_block"><div class="title">Miles</div><div class="stat">{{entry.miles}}</div></div>
-                    <div class="stat_block"><div class="title">Days</div><div class="stat">{{entry.days}}</div></div>
-                    <div class="stat_block"><div class="title">Difficulty</div><div class="stat">{{entry.difficulty}}</div></div>
-                    <div class="stat_block"><div class="title">Trail</div><div class="stat">{{entry.trailType}}</div></div>
+                    <div class="stat_block"><div class="title">Miles</div><div class="caption primary">{{entry.miles}}</div></div>
+                    <div class="stat_block"><div class="title">Days</div><div class="caption primary">{{entry.days}}</div></div>
+                    <div class="stat_block"><div class="title">Difficulty</div><div class="caption primary">{{entry.difficulty}}</div></div>
+                    <div class="stat_block"><div class="title">Trail</div><div class="caption primary">{{entry.trailType}}</div></div>
 
-                    <div class="stat_block"><div class="title">Camping</div><div class="stat">{{entry.camping}}</div></div>
-                    <div class="stat_block"><div class="title">Month</div><div class="stat">{{entry.month}}</div></div>
-                    <div class="stat_block"><div class="title">Park Type</div><div class="stat">{{entry.parkType}}</div></div>
-                    <div class="stat_block"><div class="title">Traffic</div><div class="stat">{{entry.traffic}}</div></div>
+                    <div class="stat_block"><div class="title">Camping</div><div class="caption primary">{{entry.camping}}</div></div>
+                    <div class="stat_block"><div class="title">Month</div><div class="caption primary">{{entry.month}}</div></div>
+                    <div class="stat_block"><div class="title">Park Type</div><div class="caption primary">{{entry.parkType}}</div></div>
+                    <div class="stat_block"><div class="title">Traffic</div><div class="caption primary">{{entry.traffic}}</div></div>
                 </div>
             </div>
             {% endif %}
@@ -149,108 +142,108 @@
 </section>
 
 <section class="story grid">
-    {% for block in entry.mainContent.all() %}
+    <article>
+        {% for block in entry.mainContent.all() %}
+        {% if block.type == "paragraph" %}
 
-    {% if block.type == "paragraph" %}
+        {{ block.textMarkdown|markdown }}
 
-    {{ block.textMarkdown|markdown }}
+        {% elseif block.type == "blockQuote" %}
+            <blockquote>
+                {{ block.quote | markdown }}
+                <footer>{{ block.author }}</footer>
+            </blockquote>
 
-    {% elseif block.type == "blockQuote" %}
-    <div class="quote">
+        {% elseif block.type == "sectionTitle" %}
 
-        <div class="quote_text">{{ block.quote | markdown }}</div>
-        <div class="author">{{ block.author }}</div>
+            <h2>{{block.text}}</h2>
 
-    </div>
+        {% elseif block.type == "image" %}
+        <figure class="single_image {{block.imageSize ? block.imageSize:''}}">
 
-
-    {% elseif block.type == "sectionTitle" %}
-    <h2>{{block.text}}</h2>
-
-
-    {% elseif block.type == "image" %}
-    <figure class="single_image {{block.imageSize ? block.imageSize:''}}">
-
-        {% set sizes = '100vw' %}
-        {% if block.imageSize %}
-            {% if block.imageSize == 'align-center' %}
-                {% set sizes = '(max-width: 900px) 100vw, 800px' %}
-            {% elseif block.imageSize == 'align-half' %}
-                {% set sizes = '(max-width: 900px) 100vw, 1400px' %}
+            {% set sizes = '100vw' %}
+            {% if block.imageSize %}
+                {% if block.imageSize == 'align-center' %}
+                    {% set sizes = '(max-width: 900px) 100vw, 800px' %}
+                {% elseif block.imageSize == 'align-half' %}
+                    {% set sizes = '(max-width: 900px) 100vw, 1400px' %}
+                {% endif %}
             {% endif %}
-        {% endif %}
-        {% set image_path = ( block.image[0].folderPath ~ block.image[0].filename ) %}
-        {% set srcset = ("
-        https://dv38fo0xkn5dz.cloudfront.net/fit-in/600x0/media/"~ image_path ~ " 600w,
-        https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x0/media/"~ image_path ~ " 800w,
-        https://dv38fo0xkn5dz.cloudfront.net/fit-in/1400x0/media/"~ image_path ~ " 1400w,
-        https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ image_path ~ " 1920w,
-        https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ image_path ~ " 2560w,
-        https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ image_path ~ " 3840w
-        ") %}
-
-        <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.image[0].folderPath }}{{ block.image[0].filename }}"
-             sizes="{{ sizes }}"
-             srcset="{{ srcset }}">
-        <figcaption class="{{block.captionLocation}}"> {{ block.caption }}</figcaption>
-    </figure>
-
-    {% elseif block.type == "caltopoMap" %}
-    <figure class="caltopo_map {{block.size ? block.size:''}}">
-        <iframe src="https://caltopo.com/m/{{block.mapCode}}"></iframe>
-    </figure>
-
-
-    {% elseif block.type == "list" %}
-        <ul>
-            {% for row in block.list %}
-                <li>{{ row.item }}</li>
-            {% endfor %}
-        </ul>
-
-    {% elseif block.type == "doubleImage" %}
-    <div class="double_image">
-        {% set sizes = '50vw' %}
-        {% if block.imageSize %}
-            {% if block.imageSize == 'align-center' %}
-                {% set sizes = '(max-width: 900px) 50vw, 400px' %}
-            {% elseif block.imageSize == 'align-half' %}
-                {% set sizes = '(max-width: 900px) 50vw, 700px' %}
-            {% endif %}
-        {% endif %}
-
-        {% set image_path = (block.imageOne[0].folderPath ~ block.imageOne[0].filename ) %}
-        {% set srcset = ("
+            {% set image_path = ( block.image[0].folderPath ~ block.image[0].filename ) %}
+            {% set srcset = ("
             https://dv38fo0xkn5dz.cloudfront.net/fit-in/600x0/media/"~ image_path ~ " 600w,
             https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x0/media/"~ image_path ~ " 800w,
             https://dv38fo0xkn5dz.cloudfront.net/fit-in/1400x0/media/"~ image_path ~ " 1400w,
             https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ image_path ~ " 1920w,
             https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ image_path ~ " 2560w,
             https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ image_path ~ " 3840w
-        ") %}
+            ") %}
 
-        <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.imageOne[0].folderPath }}{{ block.imageOne[0].filename }}"
-             sizes="{{ sizes }}"
-             srcset="{{ srcset }}">
+            <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.image[0].folderPath }}{{ block.image[0].filename }}"
+                 sizes="{{ sizes }}"
+                 srcset="{{ srcset }}"
+                 alt="{{ block.image[0].description }}"
+            >
+            <figcaption class="{{block.captionLocation}}"> {{ block.caption }}</figcaption>
+        </figure>
 
-        {% set image_path = ( block.imageTwo[0].folderPath ~ block.imageTwo[0].filename ) %}
-        {% set srcset = ("
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/600x0/media/"~ image_path ~ " 600w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x0/media/"~ image_path ~ " 800w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/1400x0/media/"~ image_path ~ " 1400w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ image_path ~ " 1920w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ image_path ~ " 2560w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ image_path ~ " 3840w
-        ") %}
-
-        <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.imageTwo[0].folderPath }}{{ block.imageTwo[0].filename }}"
-             sizes="{{ sizes }}"
-             srcset="{{ srcset }}">
-    </div>
-    {% endif %}
+        {% elseif block.type == "caltopoMap" %}
+        <figure class="caltopo_map {{block.size ? block.size:''}}">
+            <iframe src="https://caltopo.com/m/{{block.mapCode}}"></iframe>
+        </figure>
 
 
-    {% endfor %}
+        {% elseif block.type == "list" %}
+            <ul>
+                {% for row in block.list %}
+                    <li>{{ row.item }}</li>
+                {% endfor %}
+            </ul>
+
+        {% elseif block.type == "doubleImage" %}
+        <div class="double_image">
+            {% set sizes = '50vw' %}
+            {% if block.imageSize %}
+                {% if block.imageSize == 'align-center' %}
+                    {% set sizes = '(max-width: 900px) 50vw, 400px' %}
+                {% elseif block.imageSize == 'align-half' %}
+                    {% set sizes = '(max-width: 900px) 50vw, 700px' %}
+                {% endif %}
+            {% endif %}
+
+            {% set image_path = (block.imageOne[0].folderPath ~ block.imageOne[0].filename ) %}
+            {% set srcset = ("
+                https://dv38fo0xkn5dz.cloudfront.net/fit-in/600x0/media/"~ image_path ~ " 600w,
+                https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x0/media/"~ image_path ~ " 800w,
+                https://dv38fo0xkn5dz.cloudfront.net/fit-in/1400x0/media/"~ image_path ~ " 1400w,
+                https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ image_path ~ " 1920w,
+                https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ image_path ~ " 2560w,
+                https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ image_path ~ " 3840w
+            ") %}
+
+            <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.imageOne[0].folderPath }}{{ block.imageOne[0].filename }}"
+                 sizes="{{ sizes }}"
+                 srcset="{{ srcset }}">
+
+            {% set image_path = ( block.imageTwo[0].folderPath ~ block.imageTwo[0].filename ) %}
+            {% set srcset = ("
+                https://dv38fo0xkn5dz.cloudfront.net/fit-in/600x0/media/"~ image_path ~ " 600w,
+                https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x0/media/"~ image_path ~ " 800w,
+                https://dv38fo0xkn5dz.cloudfront.net/fit-in/1400x0/media/"~ image_path ~ " 1400w,
+                https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ image_path ~ " 1920w,
+                https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ image_path ~ " 2560w,
+                https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ image_path ~ " 3840w
+            ") %}
+
+            <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.imageTwo[0].folderPath }}{{ block.imageTwo[0].filename }}"
+                 sizes="{{ sizes }}"
+                 srcset="{{ srcset }}">
+        </div>
+        {% endif %}
+
+
+        {% endfor %}
+    </article>
 </section>
 <section class="read_more grid">
     <div class="article_info">
@@ -292,7 +285,7 @@
 
 </section>
 
-<section class="footer grid">
+<section class="page_footer grid">
 
     <nav class="footer_navbar">
         <div class="brand">

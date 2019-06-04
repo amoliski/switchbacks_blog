@@ -1,4 +1,4 @@
-@import '_vars';
+@import 'style_guide';
 
 #brand {
   position: absolute;
@@ -19,9 +19,6 @@
   }
 }
 
-.js-focus-visible *:focus:not(.focus-visible) {
- //outline: none !important;
-}
 
 .menu_toggle{
   @include md{
@@ -42,7 +39,7 @@
     outline: 0;
   }
   &.focus-visible:focus {
-    background-color: #84848414;
+    background-color: $faded-text;
   }
 
 

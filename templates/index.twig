@@ -11,14 +11,14 @@
 
         <div class="title_block">
             <div>
-                {%- if entry.place != "NA" -%}
-                    <h2>
-                        {{- entry.place -}}
-                    </h2>
-                {%- endif -%}
                 <h1>
                     {{- entry.title -}}
                 </h1>
+                {%- if entry.place != "NA" -%}
+                    <div class="caption">
+                        {{- entry.place -}}
+                    </div>
+                {%- endif -%}
                 <div class="description">
                     {{- entry.description -}}
                 </div>
@@ -179,7 +179,7 @@
     </div>
 
 </section>
-<section class="footer grid">
+<section class="page_footer grid">
     <nav class="footer_navbar">
         <div class="brand">
             <div class="logo"></div>

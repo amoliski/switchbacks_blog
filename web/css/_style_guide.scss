@@ -1,4 +1,16 @@
-@import '_vars';
+$primary: #F2CC24;
+$black: #050505;
+$white: #FFF;
+$grey: #8b8b8b;
+$faded-text: #84848414;
+
+$lekton: 'Lekton', sans-serif;
+$cabin: 'Cabin', sans-serif;
+$baskerville: 'Libre Baskerville', serif;
+
+$break-small:900px;
+$break-medium:1100px;
+
 
 h1{
   font-size: 3.5rem;
@@ -14,6 +26,9 @@ h2{
   font-weight: normal;
   margin-top: 10rem;
   margin-bottom: 5rem;
+  + figure {
+    margin-top: -2rem !important;
+  }
 }
 
 p{
@@ -44,6 +59,13 @@ blockquote{
   }
 }
 
+.caption, figcaption{
+  font-size: 1.5rem;
+  line-height: 2rem;
+  letter-spacing: 0.5px;
+  font-family: $lekton;
+}
+
 a{
   font-family: $lekton;
   font-weight: bold;
@@ -67,6 +89,12 @@ a{
 .dark{
   background-color: black;
   color: white;
+  a{
+    color: white;
+    &.primary{
+      color: $primary;
+    }
+  }
 }
 
 .primary{
