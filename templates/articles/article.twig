@@ -92,56 +92,73 @@
     {% if entry.heroImage | length == 1 %}
     <div class="heroImage"></div>
     {% endif %}
+
     <div class="article_info">
-            <div class="{{ entry.showTrailInfo?'left':'center' }}">
+            <div class="blurb_and_chapters">
                 <div class="blurb">
                     {{entry.description ? entry.description : ''}}
                 </div>
-
 
                 {% if found %}
                 <div class="chapters">
                     <div class="title">{{story.title}}</div>
                     <div class="chapter-nav">
                     {% if story_chapter_number > 0 %}
-                        <a href="{{chapters[story_chapter_number - 1].url}}">&lt;—— </a>
+                        <a href="{{chapters[story_chapter_number - 1].url}}">
+                            <span class="sr-only">Previous Article</span>
+                            <i class="arrow left primary"></i>
+                        </a>
                     {% else %}
-                        <span class="disabled">&lt;—— </span>
+                        <a disabled>
+                            <span class="sr-only">Disabled, No Previous Article</span>
+                            <i class="arrow left disabled"></i>
+                        </a>
                     {% endif %}
-                    {{ story_chapter_number + 1 }} / {{ story_length }}
+                    <div class='chapter_display'>{{ story_chapter_number + 1 }} / {{ story_length }}</div>
                     {% if story_chapter_number < story_length - 1 %}
-                        <a href="{{chapters[story_chapter_number+1].url}}"> ——&gt; </a>
+                        <a href="{{chapters[story_chapter_number+1].url}}">
+                            <span class="sr-only">Next Article</span>
+                            <i class="arrow right primary"></i>
+                        </a>
                     {% else %}
-                        <span class="disabled"> ——&gt; </span>
+                        <a disabled>
+                            <span class="sr-only">Disabled, No Next Article</span>
+                            <i class="arrow right disabled"></i>
+                        </a>
                     {% endif %}
                     </div>
                 </div>
                 {% endif %}
 
-
-
             </div>
             {% if entry.showTrailInfo %}
-            <div class="right">
+            <div class="stat_display">
+                <input id="show_stats" type="checkbox"/>
+                <label for="show_stats" class="caption primary"> Trail Info</label>
                 <div class="stats">
-                    <div class="stat_block"><div class="title">Miles</div><div class="caption primary">{{entry.miles}}</div></div>
-                    <div class="stat_block"><div class="title">Days</div><div class="caption primary">{{entry.days}}</div></div>
-                    <div class="stat_block"><div class="title">Difficulty</div><div class="caption primary">{{entry.difficulty}}</div></div>
-                    <div class="stat_block"><div class="title">Trail</div><div class="caption primary">{{entry.trailType}}</div></div>
+                    {% if entry.miles %}<div class="stat_block"><div class="title">Miles</div><div class="caption primary">{{entry.miles}}</div></div>{% endif %}
+                    {% if entry.days %}<div class="stat_block"><div class="title">Days</div><div class="caption primary">{{entry.days}}</div></div>{% endif %}
+                    {% if entry.difficulty %}<div class="stat_block"><div class="title">Difficulty</div><div class="caption primary">{{entry.difficulty}}</div></div>{% endif %}
+                    {% if entry.trailType %}<div class="stat_block"><div class="title">Trail</div><div class="caption primary">{{entry.trailType}}</div></div>{% endif %}
 
-                    <div class="stat_block"><div class="title">Camping</div><div class="caption primary">{{entry.camping}}</div></div>
-                    <div class="stat_block"><div class="title">Month</div><div class="caption primary">{{entry.month}}</div></div>
-                    <div class="stat_block"><div class="title">Park Type</div><div class="caption primary">{{entry.parkType}}</div></div>
-                    <div class="stat_block"><div class="title">Traffic</div><div class="caption primary">{{entry.traffic}}</div></div>
+                    {% if entry.camping %}<div class="stat_block"><div class="title">Camping</div><div class="caption primary">{{entry.camping}}</div></div>{% endif %}
+                    {% if entry.month %}<div class="stat_block"><div class="title">Month</div><div class="caption primary">{{entry.month}}</div></div>{% endif %}
+                    {% if entry.parkType %}<div class="stat_block"><div class="title">Park Type</div><div class="caption primary">{{entry.parkType}}</div></div>{% endif %}
+                    {% if entry.traffic %}<div class="stat_block"><div class="title">Traffic</div><div class="caption primary">{{entry.traffic}}</div></div>{% endif %}
                 </div>
             </div>
             {% endif %}
 
-            <div class="clearfix"></div>
     </div>
 </section>
 
 <section class="story grid">
+    <div class="text-size-picker">
+        <button class='option small_text'>A <span class="sr-only">Change text size: small</span></button>
+        <button class='option regular_text'>A <span class="sr-only">Change text size: medium</span></button>
+        <button class='option large_text'>A <span class="sr-only">Change text size: large</span></button>
+    </div>
+
     <article>
         {% for block in entry.mainContent.all() %}
         {% if block.type == "paragraph" %}
@@ -277,3 +294,21 @@
 
 {% include 'components/share.twig' %}
 {% include 'components/footer.twig' %}
+<script>
+  (function(){
+    const size_picker = document.querySelector('.story .text-size-picker');
+    const article = document.querySelector('.story article');
+    size_picker.querySelector('.small_text').addEventListener('click', function(){
+      article.classList.add('small_text');
+      article.classList.remove('large_text');
+    });
+    size_picker.querySelector('.regular_text').addEventListener('click', function(){
+      article.classList.remove('small_text');
+      article.classList.remove('large_text');
+    });
+    size_picker.querySelector('.large_text').addEventListener('click', function(){
+      article.classList.remove('small_text');
+      article.classList.add('large_text');
+    });
+  })()
+</script>

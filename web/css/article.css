@@ -57,6 +57,14 @@ h1, h1 > a {
   font-weight: bold;
   text-decoration: none;
 }
+.large_text h1, .large_text h1 > a {
+  font-size: 5rem;
+  line-height: 4.5rem;
+}
+.small_text h1, .small_text h1 > a {
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+}
 
 h2, h2 > a {
   font-size: 2.5rem;
@@ -74,16 +82,32 @@ h2.tight, h2 > a.tight {
 h2 + figure, h2 > a + figure {
   margin-top: -2rem !important;
 }
+.large_text h2, .large_text h2 > a {
+  font-size: 3.5rem;
+  line-height: 3.5rem;
+}
+.small_text h2, .small_text h2 > a {
+  font-size: 2rem;
+  line-height: 2rem;
+}
 
 h3, h3 > a {
   font-size: 2rem;
   letter-spacing: 0.3px;
   line-height: 2.5rem;
   font-family: "Libre Baskerville", serif;
-  font-weight: bold;
+  font-weight: normal;
   text-decoration: none;
   margin-bottom: 1rem;
   margin-top: 1rem;
+}
+.large_text h3, .large_text h3 > a {
+  font-size: 3rem;
+  line-height: 3rem;
+}
+.small_text h3, .small_text h3 > a {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
 }
 
 p {
@@ -100,6 +124,16 @@ article p {
   line-height: 3.8rem;
   letter-spacing: 0.6px;
 }
+.large_text p, .large_text article p {
+  font-size: 2.5rem;
+  line-height: 3rem;
+  letter-spacing: 1.5px;
+  word-spacing: 4px;
+}
+.small_text p {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
 
 blockquote {
   font-family: "Lekton", sans-serif;
@@ -114,12 +148,36 @@ blockquote footer {
   font-weight: bold;
   letter-spacing: 0.2px;
 }
+.large_text blockquote footer {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text blockquote footer {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
+.large_text blockquote {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text blockquote {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
 
 .caption, figcaption {
   font-size: 1.5rem;
   line-height: 2rem;
   letter-spacing: 0.5px;
   font-family: "Lekton", sans-serif;
+}
+.large_text .caption, .large_text figcaption {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text .caption, .small_text figcaption {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
 }
 
 a {
@@ -137,6 +195,14 @@ article a {
   letter-spacing: 0.6px;
   font-size: 1.9rem;
   line-height: 3.8rem;
+}
+.large_text article a {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text article a {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
 }
 
 a.primary_button {
@@ -166,6 +232,23 @@ a.primary_button {
  *
  * License: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
  */
+i.arrow {
+  display: inline-block;
+  background-size: 2rem;
+  width: 2rem;
+  height: 2rem;
+  background: url("data:image/svg+xml,%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'     x='0px' y='0px' viewBox='0 0 31.49 31.49' style='' xml:space='preserve'%3E     %3Cpath fill='%23FFF' d='M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111       C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587       c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z'/%3E     %3C/svg%3E") no-repeat;
+}
+i.arrow.primary {
+  background: url("data:image/svg+xml,%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'     x='0px' y='0px' viewBox='0 0 31.49 31.49' style='' xml:space='preserve'%3E     %3Cpath fill='%23F2CC24' d='M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111       C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587       c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z'/%3E     %3C/svg%3E") no-repeat;
+}
+i.arrow.disabled {
+  background: url("data:image/svg+xml,%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'     x='0px' y='0px' viewBox='0 0 31.49 31.49' style='' xml:space='preserve'%3E     %3Cpath fill='%238b8b8b' d='M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111       C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587       c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z'/%3E     %3C/svg%3E") no-repeat;
+}
+i.arrow.left {
+  transform: scaleX(-1);
+}
+
 .primary {
   color: #F2CC24 !important;
 }
@@ -520,6 +603,14 @@ h1, h1 > a {
   font-weight: bold;
   text-decoration: none;
 }
+.large_text h1, .large_text h1 > a {
+  font-size: 5rem;
+  line-height: 4.5rem;
+}
+.small_text h1, .small_text h1 > a {
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+}
 
 h2, h2 > a {
   font-size: 2.5rem;
@@ -537,16 +628,32 @@ h2.tight, h2 > a.tight {
 h2 + figure, h2 > a + figure {
   margin-top: -2rem !important;
 }
+.large_text h2, .large_text h2 > a {
+  font-size: 3.5rem;
+  line-height: 3.5rem;
+}
+.small_text h2, .small_text h2 > a {
+  font-size: 2rem;
+  line-height: 2rem;
+}
 
 h3, h3 > a {
   font-size: 2rem;
   letter-spacing: 0.3px;
   line-height: 2.5rem;
   font-family: "Libre Baskerville", serif;
-  font-weight: bold;
+  font-weight: normal;
   text-decoration: none;
   margin-bottom: 1rem;
   margin-top: 1rem;
+}
+.large_text h3, .large_text h3 > a {
+  font-size: 3rem;
+  line-height: 3rem;
+}
+.small_text h3, .small_text h3 > a {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
 }
 
 p {
@@ -563,6 +670,16 @@ article p {
   line-height: 3.8rem;
   letter-spacing: 0.6px;
 }
+.large_text p, .large_text article p {
+  font-size: 2.5rem;
+  line-height: 3rem;
+  letter-spacing: 1.5px;
+  word-spacing: 4px;
+}
+.small_text p {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
 
 blockquote {
   font-family: "Lekton", sans-serif;
@@ -577,12 +694,36 @@ blockquote footer {
   font-weight: bold;
   letter-spacing: 0.2px;
 }
+.large_text blockquote footer {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text blockquote footer {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
+.large_text blockquote {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text blockquote {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
 
 .caption, figcaption {
   font-size: 1.5rem;
   line-height: 2rem;
   letter-spacing: 0.5px;
   font-family: "Lekton", sans-serif;
+}
+.large_text .caption, .large_text figcaption {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text .caption, .small_text figcaption {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
 }
 
 a {
@@ -600,6 +741,14 @@ article a {
   letter-spacing: 0.6px;
   font-size: 1.9rem;
   line-height: 3.8rem;
+}
+.large_text article a {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text article a {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
 }
 
 a.primary_button {
@@ -629,6 +778,23 @@ a.primary_button {
  *
  * License: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
  */
+i.arrow {
+  display: inline-block;
+  background-size: 2rem;
+  width: 2rem;
+  height: 2rem;
+  background: url("data:image/svg+xml,%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'     x='0px' y='0px' viewBox='0 0 31.49 31.49' style='' xml:space='preserve'%3E     %3Cpath fill='%23FFF' d='M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111       C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587       c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z'/%3E     %3C/svg%3E") no-repeat;
+}
+i.arrow.primary {
+  background: url("data:image/svg+xml,%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'     x='0px' y='0px' viewBox='0 0 31.49 31.49' style='' xml:space='preserve'%3E     %3Cpath fill='%23F2CC24' d='M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111       C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587       c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z'/%3E     %3C/svg%3E") no-repeat;
+}
+i.arrow.disabled {
+  background: url("data:image/svg+xml,%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'     x='0px' y='0px' viewBox='0 0 31.49 31.49' style='' xml:space='preserve'%3E     %3Cpath fill='%238b8b8b' d='M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111       C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587       c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z'/%3E     %3C/svg%3E") no-repeat;
+}
+i.arrow.left {
+  transform: scaleX(-1);
+}
+
 .primary {
   color: #F2CC24 !important;
 }
@@ -724,11 +890,11 @@ input {
 }
 .head .title_block {
   grid-column: wide;
-  margin: 7rem 10rem 2rem;
+  margin: 2rem 1rem 2rem;
 }
-@media screen and (max-width: 900px) {
+@media (min-width: 768px) {
   .head .title_block {
-    margin: 6rem 1rem 1rem;
+    margin: 7rem 10rem 2rem;
   }
 }
 .head .title_block .caption {
@@ -790,67 +956,111 @@ input {
 
 .article_info {
   grid-column: wide;
-  margin: 14rem 10rem 2rem;
+  min-width: 0;
+  margin: 4rem 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
-.article_info .left {
-  display: inline-block;
-  width: 40%;
-  float: left;
+@media (min-width: 768px) {
+  .article_info {
+    margin: 10rem 10rem 4rem;
+  }
+}
+@media (min-width: 1200px) {
+  .article_info {
+    flex-direction: row;
+  }
+}
+.article_info .blurb_and_chapters {
+  min-width: 0;
+  flex-shrink: 1;
 }
 .article_info .blurb {
+  box-sizing: border-box;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto 2rem;
+  padding: 0.5rem 2rem 6rem;
+  min-width: 0;
   line-height: 2rem;
   letter-spacing: 0.1rem;
   font-family: "Cabin", sans-serif;
+  text-align: justify;
 }
 .article_info .blurb.bottom_spaced {
   margin-bottom: 10rem;
   font-size: 2rem;
   line-height: 3rem;
 }
-.article_info .center {
-  display: block;
-  max-width: 50rem;
-  margin: 0 auto;
-  text-align: justify;
-  line-height: 3.5rem;
-}
 .article_info .chapters {
+  padding-left: 2rem;
+  padding-right: 2rem;
   margin-top: 3rem;
   margin-bottom: 5rem;
-  width: max-content;
   font-family: "Lekton", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.article_info .chapters .arrow.left {
+  margin-right: 1rem;
+}
+.article_info .chapters .arrow.right {
+  margin-left: 1rem;
 }
 .article_info .chapters .title {
   width: max-content;
   font-weight: bold;
-  margin-bottom: 2rem;
 }
 .article_info .chapters .chapter-nav {
-  margin: 0 auto;
-  width: max-content;
+  display: flex;
+  align-items: center;
 }
-.article_info .chapters a, .article_info .chapters span {
-  text-decoration: none;
-  color: #F2CC24;
-  margin: 0 auto;
-  width: max-content;
-}
-.article_info .chapters a.disabled, .article_info .chapters span.disabled {
-  color: grey;
-}
-.article_info .chapters a:last-child, .article_info .chapters span:last-child {
-  margin-right: 2rem;
-}
-.article_info .chapters a:first-child(2), .article_info .chapters span:first-child(2) {
-  margin-left: 2rem;
-}
-.article_info .chapters a:disabled {
-  color: #8b8b8b;
-}
-.article_info .right {
+.article_info .chapters .chapter-nav .chapter-display {
   display: inline-block;
-  width: 55%;
-  float: right;
+}
+.article_info .chapters a {
+  text-decoration: none;
+}
+.article_info #show_stats {
+  display: none;
+}
+.article_info label[for=show_stats] {
+  display: inline-block;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  user-select: none;
+}
+.article_info label[for=show_stats]:before {
+  content: "Hide ";
+}
+.article_info #show_stats:not(:checked) + label:before {
+  content: "Show ";
+}
+.article_info #show_stats:not(:checked) + label + .stats {
+  display: none;
+}
+@media (min-width: 768px) {
+  .article_info #show_stats:not(:checked) + label + .stats {
+    display: flex;
+  }
+}
+@media (min-width: 768px) {
+  .article_info label[for=show_stats] {
+    display: none;
+  }
+}
+.article_info .stat_display {
+  flex-grow: 0;
+  flex-shrink: 0;
+  max-width: 100%;
+}
+@media (min-width: 1200px) {
+  .article_info .stat_display {
+    width: 45rem;
+  }
 }
 .article_info .stats {
   display: flex;
@@ -860,16 +1070,23 @@ input {
   font-family: "Lekton", sans-serif;
 }
 .article_info .stats .stat_block {
-  width: 22%;
+  width: 45%;
+  text-align: center;
   padding-left: 2%;
   font-size: 1em;
   margin-bottom: 3rem;
+}
+@media (min-width: 768px) {
+  .article_info .stats .stat_block {
+    width: 22%;
+  }
 }
 .article_info .stats .stat_block .title {
   font-size: 1em;
 }
 
 .story {
+  position: relative;
   font-family: "Cabin", sans-serif;
   line-height: 4rem;
   padding-top: 8rem;
@@ -877,6 +1094,41 @@ input {
   overflow-x: hidden;
   font-size: 2rem;
   margin-bottom: 10rem;
+}
+.story .text-size-picker {
+  position: absolute;
+  top: -2px;
+  right: 7rem;
+  grid-column: end;
+  display: flex;
+  width: 12rem;
+  justify-content: center;
+}
+.story .text-size-picker .option {
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid black;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 0;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+.story .text-size-picker .option:not(:last-child) {
+  border-right: none;
+}
+.story .text-size-picker .option.large_text {
+  font-size: 2.5rem;
+}
+.story .text-size-picker .option.regular_text {
+  font-size: 1.9rem;
+}
+.story .text-size-picker .option.small_text {
+  font-size: 1.2rem;
 }
 .story h2 + figure {
   margin-top: 2rem;

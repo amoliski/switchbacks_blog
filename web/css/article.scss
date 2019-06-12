@@ -20,9 +20,9 @@
 
   .title_block{
     grid-column: wide;
-    margin: 7rem 10rem 2rem;
-    @media screen and (max-width: $break-small) {
-      margin: 6rem 1rem 1rem;
+    margin: 2rem 1rem 2rem;
+    @include md{
+      margin: 7rem 10rem 2rem;
     }
     .caption{
       margin-top: 0.5rem;
@@ -83,68 +83,109 @@
 }
 .article_info{
   grid-column: wide;
-  margin: 14rem 10rem 2rem;
-  .left{
-    display: inline-block;
-    width: 40%;
-    float: left;
+  min-width:0;
+  margin: 4rem 4rem 2rem;
+  @include md(){
+    margin: 10rem 10rem 4rem;
+  }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  @include xl(){
+    flex-direction: row;
+  }
+  .blurb_and_chapters{
+    min-width: 0;
+    flex-shrink: 1;
   }
   .blurb{
+    box-sizing: border-box;
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto 2rem;
+    padding: .5rem 2rem 6rem;
+    min-width:0;
     line-height: 2rem;
     letter-spacing: .1rem;
     font-family: $cabin;
+    text-align: justify;
+
     &.bottom_spaced{
       margin-bottom: 10rem;
       font-size: 2rem;
       line-height: 3rem;
     }
   }
-  .center{
-    display: block;
-    max-width: 50rem;
-    margin: 0 auto;
-    text-align: justify;
-    line-height: 3.5rem;
-  }
   .chapters{
+    padding-left: 2rem;
+    padding-right: 2rem;
     margin-top: 3rem;
     margin-bottom:5rem;
-    width: max-content;
     font-family:$lekton;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
+    .arrow.left{
+      margin-right: 1rem;
+    }
+    .arrow.right{
+      margin-left: 1rem;
+    }
     .title{
       width: max-content;
       font-weight: bold;
-      margin-bottom: 2rem;
     }
     .chapter-nav{
-      margin: 0 auto;
-      width: max-content;
+      display: flex;
+      align-items: center;
+      .chapter-display{
+        display: inline-block;
+      }
     }
-    a,span{
+    a{
       text-decoration: none;
-      color: $primary;
-      margin: 0 auto;
-      width: max-content;
-      &.disabled{
-        color: grey;
-      }
-      &:last-child{
-        margin-right: 2rem;
-      }
-      &:first-child(2){
-        margin-left: 2rem;
-      }
-
-    }
-    a:disabled{
-      color: $grey;
     }
   }
-  .right{
+
+  #show_stats{
+    display: none;
+  }
+  label[for="show_stats"]{
     display: inline-block;
-    width: 55%;
-    float: right;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    user-select: none;
+    &:before{
+      content: "Hide "
+    }
+  }
+  #show_stats:not(:checked) + label {
+    &:before{
+      content: 'Show ';
+    }
+    + .stats{
+      display: none;
+      @include md(){
+        display: flex;
+      }
+    }
+  }
+  @include md(){
+    label[for="show_stats"]{
+      display: none;
+    }
+  }
+
+  .stat_display{
+    @include xl(){
+      width: 45rem;
+    }
+    flex-grow: 0;
+    flex-shrink: 0;
+    max-width: 100%;
   }
   .stats{
     display: flex;
@@ -153,7 +194,11 @@
     font-size: 2rem;
     font-family: $lekton;
     .stat_block{
-      width: 22%;
+      width: 45%;
+      text-align: center;
+      @include md(){
+        width: 22%;
+      }
       padding-left: 2%;
       font-size:1em;
       margin-bottom: 3rem;
@@ -165,6 +210,7 @@
 }
 
 .story{
+  position:relative;
   font-family: $cabin;
   line-height: 4rem;
   padding-top: 8rem;
@@ -173,8 +219,44 @@
   font-size:2rem;
   margin-bottom: 10rem;
 
-  h2{
+  .text-size-picker{
+    position: absolute;
+    top: -2px;
+    right: 7rem;
+    grid-column: end;
+    display: flex;
+    width: 12rem;
+    justify-content: center;
+    .option{
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid black;
+      &:not(:last-child){
+        border-right: none;
+      }
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      line-height:0;
+      flex-shrink: 0;
+      flex-grow: 0;
+      &.large_text{
+        font-size: 2.5rem;
+      }
+      &.regular_text{
+        font-size: 1.9rem;
+      }
+      &.small_text{
+        font-size: 1.2rem;
+      }
+    }
 
+  }
+
+  h2{
     & + figure{
       margin-top: 2rem;
     }

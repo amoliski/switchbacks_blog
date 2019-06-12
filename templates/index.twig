@@ -54,7 +54,7 @@
     <div class="featured_story">
         <div class="title">
             <h1 class='md-only'> <a href="{{ main_story.url }}">{{- main_story -}}</a> </h1>
-            <h2 class='tight sm-only'> <a href="{{ main_story.url }}">{{- main_story -}}</a> </h1>
+            <h2 class='tight sm-only'> <a href="{{ main_story.url }}">{{- main_story -}}</a> </h2>
             <p> {{ main_story.storyDescription }}</p>
             <div class="metadata caption">
                 {% if main_story.storyDates %}{{- main_story.storyDates -}} - {% endif %}
@@ -124,7 +124,7 @@
             <a href="{{entry.url}}" class="article">
                 {%- if entry.heroImage | length > 0 -%}
                     {%- set image_path = ( entry.heroImage[0].folderPath ~ entry.heroImage[0].filename ) -%}
-                    {%- set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/800x450/media/"~ image_path) -%}
+                    {%- set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x450/media/"~ image_path) -%}
                 {%- endif -%}
                 <div class="article_image" style="background-image: url({{ image_url }})"></div>
                 <div class="metadata">
@@ -140,13 +140,13 @@
             <div class="article">
                 {%- if entry.heroImage | length > 0 -%}
                     {%- set image_path = ( entry.heroImage[0].folderPath ~ entry.heroImage[0].filename ) -%}
-                    {%- set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/800x450/media/"~ image_path) -%}
+                    {%- set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x450/media/"~ image_path) -%}
                 {% else %}
                     {%- set image_url =  'https://placehold.it/300/500'  -%}
                 {%- endif -%}
 
                 <a href="{{entry.url}}" class="article_image" style="background-image: url({{ image_url }})"></a>
-                <h3 class="tight"><a href="{{entry.url}}">{{entry.title}}</a></h2>
+                <h3 class="tight"><a href="{{entry.url}}">{{entry.title}}</a></h3>
                 {% if entry.place %}<div class="caption">{{ entry.place }}</div>{% endif %}
                 <a href="{{entry.url}}" class="read_more">Read More</a>
             </div>

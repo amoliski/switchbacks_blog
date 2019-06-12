@@ -57,6 +57,14 @@ h1, h1 > a {
   font-weight: bold;
   text-decoration: none;
 }
+.large_text h1, .large_text h1 > a {
+  font-size: 5rem;
+  line-height: 4.5rem;
+}
+.small_text h1, .small_text h1 > a {
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+}
 
 h2, h2 > a {
   font-size: 2.5rem;
@@ -74,16 +82,32 @@ h2.tight, h2 > a.tight {
 h2 + figure, h2 > a + figure {
   margin-top: -2rem !important;
 }
+.large_text h2, .large_text h2 > a {
+  font-size: 3.5rem;
+  line-height: 3.5rem;
+}
+.small_text h2, .small_text h2 > a {
+  font-size: 2rem;
+  line-height: 2rem;
+}
 
 h3, h3 > a {
   font-size: 2rem;
   letter-spacing: 0.3px;
   line-height: 2.5rem;
   font-family: "Libre Baskerville", serif;
-  font-weight: bold;
+  font-weight: normal;
   text-decoration: none;
   margin-bottom: 1rem;
   margin-top: 1rem;
+}
+.large_text h3, .large_text h3 > a {
+  font-size: 3rem;
+  line-height: 3rem;
+}
+.small_text h3, .small_text h3 > a {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
 }
 
 p {
@@ -100,6 +124,16 @@ article p {
   line-height: 3.8rem;
   letter-spacing: 0.6px;
 }
+.large_text p, .large_text article p {
+  font-size: 2.5rem;
+  line-height: 3rem;
+  letter-spacing: 1.5px;
+  word-spacing: 4px;
+}
+.small_text p {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
 
 blockquote {
   font-family: "Lekton", sans-serif;
@@ -114,12 +148,36 @@ blockquote footer {
   font-weight: bold;
   letter-spacing: 0.2px;
 }
+.large_text blockquote footer {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text blockquote footer {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
+.large_text blockquote {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text blockquote {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
 
 .caption, figcaption {
   font-size: 1.5rem;
   line-height: 2rem;
   letter-spacing: 0.5px;
   font-family: "Lekton", sans-serif;
+}
+.large_text .caption, .large_text figcaption {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text .caption, .small_text figcaption {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
 }
 
 a {
@@ -137,6 +195,14 @@ article a {
   letter-spacing: 0.6px;
   font-size: 1.9rem;
   line-height: 3.8rem;
+}
+.large_text article a {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text article a {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
 }
 
 a.primary_button {
@@ -166,6 +232,23 @@ a.primary_button {
  *
  * License: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
  */
+i.arrow {
+  display: inline-block;
+  background-size: 2rem;
+  width: 2rem;
+  height: 2rem;
+  background: url("data:image/svg+xml,%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'     x='0px' y='0px' viewBox='0 0 31.49 31.49' style='' xml:space='preserve'%3E     %3Cpath fill='%23FFF' d='M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111       C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587       c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z'/%3E     %3C/svg%3E") no-repeat;
+}
+i.arrow.primary {
+  background: url("data:image/svg+xml,%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'     x='0px' y='0px' viewBox='0 0 31.49 31.49' style='' xml:space='preserve'%3E     %3Cpath fill='%23F2CC24' d='M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111       C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587       c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z'/%3E     %3C/svg%3E") no-repeat;
+}
+i.arrow.disabled {
+  background: url("data:image/svg+xml,%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'     x='0px' y='0px' viewBox='0 0 31.49 31.49' style='' xml:space='preserve'%3E     %3Cpath fill='%238b8b8b' d='M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111       C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587       c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z'/%3E     %3C/svg%3E") no-repeat;
+}
+i.arrow.left {
+  transform: scaleX(-1);
+}
+
 .primary {
   color: #F2CC24 !important;
 }
@@ -520,6 +603,14 @@ h1, h1 > a {
   font-weight: bold;
   text-decoration: none;
 }
+.large_text h1, .large_text h1 > a {
+  font-size: 5rem;
+  line-height: 4.5rem;
+}
+.small_text h1, .small_text h1 > a {
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+}
 
 h2, h2 > a {
   font-size: 2.5rem;
@@ -537,16 +628,32 @@ h2.tight, h2 > a.tight {
 h2 + figure, h2 > a + figure {
   margin-top: -2rem !important;
 }
+.large_text h2, .large_text h2 > a {
+  font-size: 3.5rem;
+  line-height: 3.5rem;
+}
+.small_text h2, .small_text h2 > a {
+  font-size: 2rem;
+  line-height: 2rem;
+}
 
 h3, h3 > a {
   font-size: 2rem;
   letter-spacing: 0.3px;
   line-height: 2.5rem;
   font-family: "Libre Baskerville", serif;
-  font-weight: bold;
+  font-weight: normal;
   text-decoration: none;
   margin-bottom: 1rem;
   margin-top: 1rem;
+}
+.large_text h3, .large_text h3 > a {
+  font-size: 3rem;
+  line-height: 3rem;
+}
+.small_text h3, .small_text h3 > a {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
 }
 
 p {
@@ -563,6 +670,16 @@ article p {
   line-height: 3.8rem;
   letter-spacing: 0.6px;
 }
+.large_text p, .large_text article p {
+  font-size: 2.5rem;
+  line-height: 3rem;
+  letter-spacing: 1.5px;
+  word-spacing: 4px;
+}
+.small_text p {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
 
 blockquote {
   font-family: "Lekton", sans-serif;
@@ -577,12 +694,36 @@ blockquote footer {
   font-weight: bold;
   letter-spacing: 0.2px;
 }
+.large_text blockquote footer {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text blockquote footer {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
+.large_text blockquote {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text blockquote {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
 
 .caption, figcaption {
   font-size: 1.5rem;
   line-height: 2rem;
   letter-spacing: 0.5px;
   font-family: "Lekton", sans-serif;
+}
+.large_text .caption, .large_text figcaption {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text .caption, .small_text figcaption {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
 }
 
 a {
@@ -600,6 +741,14 @@ article a {
   letter-spacing: 0.6px;
   font-size: 1.9rem;
   line-height: 3.8rem;
+}
+.large_text article a {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+.small_text article a {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
 }
 
 a.primary_button {
@@ -629,6 +778,23 @@ a.primary_button {
  *
  * License: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
  */
+i.arrow {
+  display: inline-block;
+  background-size: 2rem;
+  width: 2rem;
+  height: 2rem;
+  background: url("data:image/svg+xml,%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'     x='0px' y='0px' viewBox='0 0 31.49 31.49' style='' xml:space='preserve'%3E     %3Cpath fill='%23FFF' d='M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111       C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587       c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z'/%3E     %3C/svg%3E") no-repeat;
+}
+i.arrow.primary {
+  background: url("data:image/svg+xml,%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'     x='0px' y='0px' viewBox='0 0 31.49 31.49' style='' xml:space='preserve'%3E     %3Cpath fill='%23F2CC24' d='M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111       C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587       c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z'/%3E     %3C/svg%3E") no-repeat;
+}
+i.arrow.disabled {
+  background: url("data:image/svg+xml,%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'     x='0px' y='0px' viewBox='0 0 31.49 31.49' style='' xml:space='preserve'%3E     %3Cpath fill='%238b8b8b' d='M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111       C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587       c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z'/%3E     %3C/svg%3E") no-repeat;
+}
+i.arrow.left {
+  transform: scaleX(-1);
+}
+
 .primary {
   color: #F2CC24 !important;
 }
