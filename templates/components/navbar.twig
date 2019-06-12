@@ -1,5 +1,9 @@
 <header class="navbar dark grid">
     <a href="/" id="brand" role="link"></a>
+    {#
+       {{ craft.app.requestedParams[0] }}
+    #}
+
     <button class="menu_toggle" id="menu_button" type="button">
         <span class="sr-only">Toggle main menu</span>
         <span class="elements" aria-hidden="true"></span>
@@ -15,11 +19,21 @@
     </nav>
     <nav id="top_menu" role="navigation">
         <ul class="links">
-            <li><a href="/stories">Stories</a></li>
-            <li><a href="/articles">Trail Log</a></li>
-            <li><a href="#">Guidebook</a></li>
-            <li><a href="#">Team</a></li>
-            <li><a href="#" class="solid">Contact</a></li>
+            <li><a href="/stories" {% if craft.app.requestedParams[0] in ['stories', 'stories/story.twig'] %} class="active" {% endif %}>
+                Stories
+            </a></li>
+            <li><a href="/articles" {% if craft.app.requestedParams[0] in  ['articles', 'articles/article.twig'] %} class="active" {% endif %}>
+                Trail Log
+            </a></li>
+            <li><a href="#">
+                Guidebook
+                </a></li>
+            <li><a href="#">
+                Team
+            </a></li>
+            <li><a href="#" class="solid">
+                Contact
+            </a></li>
         </ul>
     </nav>
     <script>

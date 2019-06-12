@@ -567,6 +567,9 @@ section.page_footer footer .links a {
   font-size: 2rem;
 }
 
+section.share {
+  background-color: #FFF;
+}
 section.share .cta {
   margin-top: 7rem;
   margin-bottom: 7rem;

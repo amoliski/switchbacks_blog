@@ -1,0 +1,26 @@
+<form action="{{ url('search') }}">
+    <input type="search" name="q" placeholder="Search">
+    <input type="submit" value="Go">
+</form>
+
+{% if craft.app.request.getParam('q') %}
+<h1>Search Results</h1>
+
+{% set searchQuery = craft.app.request.getParam('q') %}
+    {% set entries = craft.entries()
+        .search(searchQuery)
+        .orderBy('score')
+        .all() %}
+
+    {% if entries|length %}
+        <p>{{ entries|length }} results:</p>
+
+        <ul>
+            {% for entry in entries %}
+                <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Your search for “{{ searchQuery }}” didn't return any results.</p>
+    {% endif %}
+{% endif %}

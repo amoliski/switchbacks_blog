@@ -42,14 +42,16 @@
 
 <section class="main">
 
-    <div class="content">
+    <div class="content dark">
         <h1>{{ entry }}</h1>
         <div class="description">
-            {{ entry.storyDescription }}
+            <p>{{ entry.storyDescription }}</p>
         </div>
 
-        <div class="metadata">
-            {{ entry.storyDates }} - {{ entry.storyLocation }} - {{ entry.chapterList | length }} {{ entry.chapterList | length == 1 ? 'Chapter' : 'Chapters' }}
+        <div class="metadata caption">
+            {% if entry.storyDates %}{{- entry.storyDates -}} - {% endif %}
+            {% if entry.storyLocation %}{{- entry.storyLocation -}} - {% endif %}
+            {{- entry.chapterList | length -}}&nbsp;{{- entry.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
         </div>
 
         <hr>
@@ -57,24 +59,23 @@
         <div class="articleList">
 
             {% for article in entry.chapterList.all() %}
-                <div class="article">
-                    <div class="articleData">
-                        <div class="articleTitle">
-                            {{ article }}
+                    <div class="article">
+                        <div class="articleData">
+                            <h2 class="tight"><a href="{{ article.url }}"> {{ article }} </a></h2>
+
+                            <div class="caption">
+                                {{ article.place }}
+                            </div>
+                            <div class="readMore">
+                                <a class="primary" href="{{ article.url }}">Read More</a>
+                            </div>
                         </div>
-                        <div class="articleLocation">
-                            {{ article.place }}
-                        </div>
-                        <div class="readMore">
-                            <a href="{{ article.url }}">Read More</a>
-                        </div>
+                        {% set image_path = (article.heroImage[0].folderPath ~article.heroImage[0].filename ) %}
+                        {% set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/250x150/media/"~ image_path) %}
+                        <a href="{{ article.url }}">
+                            <div class="articleImage" style="background-image:url({{ image_url }});"></div>
+                        </a>
                     </div>
-                    {% set image_path = (article.heroImage[0].folderPath ~article.heroImage[0].filename ) %}
-                    {% set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/200x100/media/"~ image_path) %}
-
-
-                    <div class="articleImage" style="background-image:url({{ image_url }});"></div>
-                </div>
             {% endfor %}
 
 
@@ -87,4 +88,7 @@
     <div class="heroImage"></div>
 </section>
 </div>
+
+
+{% include 'components/share.twig' %}
 {% include 'components/footer.twig' %}

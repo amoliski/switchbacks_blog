@@ -1,61 +1,43 @@
 @import 'base';
 @import 'style_guide';
 
-.main{
-  .content{
-    width: 50vw;
-    background-color: black;
-    float: right;
-    color: white;
-    padding: 3rem 5rem;
-    box-sizing: border-box;
+hr{
+  border-bottom: 1px solid white;
+  border-top: none;
+}
 
-    h1{
-      font-family:$cabin;
-      font-size: 5rem;
-    }
+.main{
+  display: grid;
+  grid-template-columns: [left-start] 90rem [left-end]5rem[right-start] auto [right-end] 5rem;
+  min-height: 80vh;
+  .content{
+    background-color: black;
+    grid-column: left;
+    color: white;
+    padding: 3rem 10rem;
 
     .description{
-      font-family:$lekton;
       margin-top: 2rem;
       margin-bottom: 2rem;
     }
     .metadata{
       margin-bottom: 4rem;
-      font-family:$lekton;
     }
 
     .articleList{
       .article{
         display: flex;
         flex-direction: row;
-        margin: 5rem auto;
+        margin: 8rem auto;
         justify-content: space-between;
-        max-width:60rem;
 
-
-        .articleData{
-          width: calc(100% - 20rem);
-          .articleTitle{
-            font-size: 2.5rem;
-            font-family: $cabin;
-          }
-          .articleLocation{
-            font-family:$lekton;
-            padding: .5rem 0;
-          }
-          .readMore{
-            a{
-              color: $primary;
-            }
-          }
-        }
 
         .articleImage{
-          width: 20rem;
-          height: 10rem;
+          width: 25rem;
+          height: 15rem;
           background-color: white;
           background-size: cover;
+          margin-left: 5rem;
         }
 
       }

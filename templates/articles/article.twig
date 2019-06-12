@@ -201,7 +201,7 @@
                  srcset="{{ srcset }}"
                  alt="{{ block.image[0].description }}"
             >
-            <figcaption class="{{block.captionLocation}}"> {{ block.caption }}</figcaption>
+            <figcaption class="{{block.captionLocation}} {{block.imageSize ? block.imageSize:''}}"> {{ block.caption }}</figcaption>
         </figure>
 
         {% elseif block.type == "caltopoMap" %}

@@ -24,7 +24,14 @@
         <div class="image"></div>
     </div>
     <div class="storylist">
+        {% set stories =  craft.Entries.section('story').all() %}
         {% for story in stories %}
+
+
+
+
+
+
             <div class="story_block">
 
                 {% set story_image =  'https://placehold.it/300/500'  %}
@@ -51,4 +58,5 @@
 </section>
 
 
+{% include 'components/share.twig' %}
 {% include 'components/footer.twig' %}
