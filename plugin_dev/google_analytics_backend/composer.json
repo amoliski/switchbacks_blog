@@ -1,0 +1,40 @@
+{
+    "name": "moliski/backend-google-analytics",
+    "description": "Allows submitting analytical data to GA without relying on the (blockable) frontend JS code",
+    "type": "craft-plugin",
+    "version": "0.0.1",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "backendgoogleanalytics"
+    ],
+    "support": {
+        "docs": "https://github.com/amoliski/backend-google-analytics/blob/master/README.md",
+        "issues": "https://github.com/amoliski/backend-google-analytics/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adam Moliski",
+            "homepage": "moliski.net"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+          "moliski\\backendgoogleanalytics\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "BackendGoogleAnalytics",
+        "handle": "backend-google-analytics",
+        "hasCpSettings": true,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/amoliski/backend-google-analytics/master/CHANGELOG.md",
+        "class": "moliski\\backendgoogleanalytics\\BackendGoogleAnalytics"
+    }
+}

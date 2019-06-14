@@ -5,7 +5,7 @@
 
 
 <section class="head dark grid">
-    {% set entryQuery = craft.entries().section('article').order('random()').limit(1) %}
+    {% set entryQuery = craft.entries().section('article').orderBy('random()').limit(1) %}
     {% set entry = entryQuery.one() %}
     <div class="recent_post">
 
@@ -45,7 +45,7 @@
 
 
     {%- set story_image =  'https://placehold.it/300/500'  -%}
-    {%- set main_story =  craft.Entries.section('story').orderBy('postDate desc').first() -%}
+    {%- set main_story =  craft.Entries.section('story').orderBy('postDate desc').one() -%}
     {%- if main_story.storyImage | length > 0 -%}
         {% set image_path = ( main_story.storyImage[0].folderPath ~ main_story.storyImage[0].filename ) %}
         {% set story_image = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/875x550/media/"~ image_path ~ " ") %}
@@ -70,7 +70,7 @@
     </div>
 
     <div class="more_stories">
-        {%- set stories =  craft.Entries.section('story').orderBy('postDate desc').limit(2).offset(1) -%}
+        {%- set stories =  craft.Entries.section('story').orderBy('postDate desc').limit(2).offset(1).all() -%}
         {%- for story in stories -%}
             <div class="story_block">
                 {%- if story.storyImage | length > 0 -%}

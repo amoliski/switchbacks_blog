@@ -1,53 +1,146 @@
 @import 'base';
 @import 'style_guide';
 
-.main{
+section.grid .intro{
+  display: flex;
+  grid-column: wide;
   padding-top: 10rem;
-  .featured{
-
+  padding-bottom: 15rem;
+  justify-content: space-between;
+  align-items: center;
+  @media screen and (max-width: 1300px){
+    flex-direction: column;
+    .intro_text{
+      margin-bottom: 2rem;
+    }
+    h1{
+      text-align: center;
+    }
   }
-  .storylist{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
 
-    .story_block{
-      font-size: 1.5rem;
-      .image{
-        width: 57rem;
-        height: 38rem;
-        background-size: cover;
-      }
-      .title{
-        font-family: $cabin;
-        font-size: 3rem;
-        font-weight: bold;
-        padding: 2rem 0;
-      }
-      .metadata{
-        font-family:$lekton;
-      }
-      .read_more{
-        a{
-          font-weight: bold;
-          font-family: $lekton;
-          text-decoration: none;
-          border-bottom: 1px solid black;
-          color: black;
+  .slider{
+    overflow: hidden;
+    width: 61rem;
+    height: 43rem;
+    position:relative;
+    .progress{
+      position: absolute;
+      z-index: 100;
+      bottom: 15px;
+      left: 2px;
+      width: 7rem;
+      display: flex;
+      justify-content: space-between;
+      .circle{
+        height: 8px;
+        width: 8px;
+        background-color: #AAA;
+        border-radius: 100%;
+        cursor: pointer;
+        display: inline-block;
+        &.active{
+          background-color: #333;
         }
-        margin-bottom: 5rem;
+      }
+    }
+    .slides{
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      width: 185rem;
+      will-change: transform;
+      transition: transform .5s ease;
+
+
+      .slide{
+        display: flex;
+        flex-direction: column;
+        .image{
+          width: 60rem;
+          height: 40rem;
+          background-size: cover;
+          background-position: center;
+        }
+        .caption{
+          align-self: flex-end;
+        }
       }
     }
 
 
   }
+
 }
 
-.featured{
-  grid-column: wide;
-}
+section.stories{
+  .read_more{
+    a{
+      transition: background-color .2s ease;
+      &:hover{
+        background-color: rgba(0,0,0,0.1)
+      }
+    }
+  }
+  .featured_story {
+    grid-column: wide;
+    display: grid;
+    @include md {
+      grid-template-columns: 3fr 5fr;
+    }
+    grid-template-columns: 1fr;
+    margin-bottom: 3rem;
 
-.storylist{
-  grid-column: wide;
+    .title {
+      grid-row:2;
+      @include md{
+        grid-row: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 2rem 0;
+      }
+    }
+    .metadata{
+      margin-bottom:3rem;
+    }
+
+    .image {
+      background-size: cover;
+      grid-row:1;
+      padding-top: 56.25%;
+      @include md{
+        grid-row: 1;
+      }
+    }
+  }
+  .more_stories{
+    grid-column: wide;
+    display: grid;
+    column-gap:2rem;
+    row-gap: 4rem;
+    grid-template-columns: 1fr;
+    @include md {
+      grid-template-columns: 1fr 1fr;
+    }
+    .story_block{
+      display: flex;
+      flex-direction: column;
+    }
+    .metadata{
+      font-family:$lekton;
+      margin-bottom:1rem;
+      flex-grow: 1;
+    }
+    .image{
+      display: block;
+      padding-top: 66%;
+      background-size: cover;
+    }
+  }
+  .read_more_stories{
+    grid-column: wide;
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+
 }
