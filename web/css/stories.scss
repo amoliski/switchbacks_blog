@@ -26,11 +26,13 @@ section.grid .intro{
     .progress{
       position: absolute;
       z-index: 100;
-      bottom: 15px;
-      left: 2px;
+      bottom: 14px;
+      left: 0;
       width: 7rem;
       display: flex;
       justify-content: space-between;
+      padding: .4rem 7rem 0.4rem 1rem;
+      background: linear-gradient(90deg, white 80%, transparent);
       .circle{
         height: 8px;
         width: 8px;
@@ -49,7 +51,7 @@ section.grid .intro{
       flex-direction: row;
       width: 185rem;
       will-change: transform;
-      transition: transform .5s ease;
+      transition: transform .75s ease;
 
 
       .slide{

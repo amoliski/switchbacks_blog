@@ -1,38 +1,28 @@
 {% include 'components/html_head.twig' with {'css': 'story', 'title': entry.title} %}
 
     {% if entry.chapterList[0].heroImage | length > 0 %}
-        {% set hero_path = ( entry.chapterList[0].heroImage[0].folderPath ~ entry.chapterList[0].heroImage[0].filename ) %}
         <style>
             body {
                 background-color: black;
                 background-attachment: fixed;
                 background-size: cover;
                 background-position: center;
-                background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/900x0/media/"~ hero_path }});
+                background-image: url({{get_image_from_media(entry.chapterList[0].heroImage, 900) }});
             }
-            @media screen and (min-width: 1920px) {
+            @media screen and (min-width: 1900px) {
                 body {
-                    background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ hero_path }})
+                    background-image: url({{get_image_from_media(entry.chapterList[0].heroImage, 1920) }});
                 }
-
             }
-            @media screen and (min-width: 1440px) {
+            @media screen and (min-width: 2500px) {
                 body {
-                    background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/1440x0/media/"~ hero_path }})
+                    background-image: url({{get_image_from_media(entry.chapterList[0].heroImage, 2560) }});
                 }
-
             }
-            @media screen and (min-width: 2560px) {
+            @media screen and (min-width: 3800px) {
                 body {
-                    background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ hero_path }})
+                    background-image: url({{get_image_from_media(entry.chapterList[0].heroImage, 3840) }});
                 }
-
-            }
-            @media screen and (min-width: 3840px) {
-                body {
-                    background-image: url({{"https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ hero_path }})
-                }
-
             }
         </style>
     {% endif %}
@@ -70,10 +60,8 @@
                                 <a class="primary" href="{{ article.url }}">Read More</a>
                             </div>
                         </div>
-                        {% set image_path = (article.heroImage[0].folderPath ~article.heroImage[0].filename ) %}
-                        {% set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/250x150/media/"~ image_path) %}
                         <a href="{{ article.url }}">
-                            <div class="articleImage" style="background-image:url({{ image_url }});"></div>
+                            <div class="articleImage" style="background-image:url({{ get_image_from_media(article.heroImage, 250, 150) }});"></div>
                         </a>
                     </div>
             {% endfor %}
@@ -82,12 +70,9 @@
         </div>
     </div>
 
-
-
-
     <div class="heroImage"></div>
 </section>
-</div>
+
 
 
 {% include 'components/share.twig' %}

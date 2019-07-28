@@ -11,20 +11,15 @@
             {% set randomEntries = craft.Entries.section('story').orderBy('RANDOM()').limit(3) %}
             <div class="slider">
                 <div class="progress">
-                    {% for slide in randomEntries %}
+                    {% for slide in randomEntries.all() %}
                         <div class="indicator"><div class="circle {% if loop.first %}active{% endif %}"></div></div>
                     {% endfor %}
                 </div>
 
                 <div class="slides">
                     {% for slide in randomEntries %}
-                        {%- set story_image =  'https://placehold.it/300/500'  -%}
-                        {%- if slide.storyImage | length > 0 -%}
-                            {% set image_path = ( slide.storyImage[0].folderPath ~ slide.storyImage[0].filename ) %}
-                            {% set story_image = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/875x550/media/"~ image_path ~ " ") %}
-                        {%- endif -%}
                         <div class="slide">
-                            <div class="image" style="background-image: url({{ story_image }});"></div>
+                            <div class="image" style="background-image: url({{ get_image_from_media(slide.storyImage, 875, 550) }});"></div>
                             <div class="caption">{{ slide.title }}</div>
                         </div>
                     {% endfor %}
@@ -66,7 +61,7 @@
             cur_slide += 1;
             cur_slide %= max_slides;
             navigate_to(cur_slide);
-        }, 3000)
+        }, 3000);
 
         indicators.forEach(function(e, i){
             e.addEventListener('click', function(){clearInterval(interval); cur_slide = i; navigate_to(i)});
@@ -74,12 +69,7 @@
     </script>
 </section>
 <section class="stories grid">
-    {%- set story_image =  'https://placehold.it/300/500'  -%}
     {%- set main_story =  craft.Entries.section('story').orderBy('postDate desc').one() -%}
-    {%- if main_story.storyImage | length > 0 -%}
-        {% set image_path = ( main_story.storyImage[0].folderPath ~ main_story.storyImage[0].filename ) %}
-        {% set story_image = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/875x550/media/"~ image_path ~ " ") %}
-    {%- endif -%}
 
     <div class="featured_story">
         <div class="title">
@@ -95,22 +85,15 @@
                 <a href="{{ main_story.url }}">Read More</a>
             </div>
         </div>
-        <a href="{{ main_story.url }}" class="image" style="background-image: url({{ story_image }})"></a>
+        <a href="{{ main_story.url }}" class="image" style="background-image: url({{ get_image_from_media(main_story.storyImage, 875, 550) }})"></a>
 
     </div>
 
     <div class="more_stories">
         {%- set stories =  craft.Entries.section('story').orderBy('postDate desc').limit(6).offset(1) -%}
-        {%- for story in stories -%}
+        {%- for story in stories.all() -%}
             <div class="story_block">
-                {%- if story.storyImage | length > 0 -%}
-                    {%- set image_path = ( story.storyImage[0].folderPath ~ story.storyImage[0].filename ) -%}
-                    {%- set story_image = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/700x550/media/"~ image_path ~ " ") -%}
-                {% else %}
-                    {%- set story_image =  'https://placehold.it/700/550'  -%}
-                {%- endif -%}
-
-                <a href="{{ story.url }}" class="image" style="background-image: url({{ story_image }})"></a>
+                <a href="{{ story.url }}" class="image" style="background-image: url({{ get_image_from_media(story.storyImage, 700, 550) }})"></a>
                 <h2 class="tight"><a href="{{ story.url }}"> {{ story }} </a></h2>
                 <div class="metadata caption">
                     {% if story.storyDates %}{{- story.storyDates -}} - {% endif %}

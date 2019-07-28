@@ -1,0 +1,41 @@
+{%- header "Content-Type: application/json" -%}
+{#- Arguments -#}
+{%- set query = craft.app.request.queryString  -%}
+{%- set category = craft.app.request.getQueryParam('category')  -%}
+{%- set page = craft.app.request.getQueryParam('page')  -%}
+{%- set query = craft.entries().section('article') -%}
+{#- date -#}
+{#- region -#}
+{#- park -#}
+{#- recreation -#}
+{%- if category == "difficulty" -%}
+    {%- set mod = query.difficulty('Moderate').orderBy('postDate desc').all() -%}
+    {%- set hard = query.difficulty('Difficult').orderBy('postDate desc').all() -%}
+    {%- set result = [] -%}
+
+    {%- for difficulty in ['Easy', 'Moderate', 'Difficult'] -%}
+        {%- set obj = {'title':difficulty, 'articles':[]} -%}
+        {%- set articles = [] -%}
+        {%- set query = craft.entries().section('article').difficulty(difficulty).orderBy('postDate desc').all() -%}
+        {%- for result in query -%}
+            {% set articles = articles | merge([{
+                'title': result.title,
+                'thumb': get_image_from_media(result.heroImage, 800, 450),
+                'location': result.place,
+                'url': result.url,
+            }]) -%}
+            {% set obj = obj|merge({'articles':articles}) -%}
+        {%- endfor %}
+        {%- set result = result | merge([obj]) -%}
+
+    {%- endfor -%}
+    {{ result | json_encode |raw}}
+{%- endif -%}
+
+{%- if category == "park" -%}
+    {%- set query = craft.categories().group().asArray().all() -%}
+    {%- for result in query -%}
+        {{ result }}
+    {% endfor %}
+{%- endif -%}
+

@@ -1,0 +1,40 @@
+{
+    "name": "moliski/awsimagetransform",
+    "description": "Creates a twig extension that allows the template to make easy calls to an AWS serverless image transform server",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "awsimagetransform"
+    ],
+    "support": {
+        "docs": "https://github.com/Craft3ServerlessImageConnector/awsimage-transform/blob/master/README.md",
+        "issues": "https://github.com/Craft3ServerlessImageConnector/awsimage-transform/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adam Moliski",
+            "homepage": "moliski.net"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+          "moliski\\awsimagetransform\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "AWSImageTransform",
+        "handle": "awsimage-transform",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/Craft3ServerlessImageConnector/awsimage-transform/master/CHANGELOG.md",
+        "class": "moliski\\awsimagetransform\\AWSImageTransform"
+    }
+}

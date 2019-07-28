@@ -8,7 +8,6 @@
     {% set entryQuery = craft.entries().section('article').orderBy('random()').limit(1) %}
     {% set entry = entryQuery.one() %}
     <div class="recent_post">
-
         <div class="title_block">
             <div>
                 <h1>
@@ -28,12 +27,9 @@
             </div>
 
         </div>
-        {%- set image_path = ( entry.heroImage[0].folderPath ~entry.heroImage[0].filename ) -%}
-        {%- set v_image_url = ("https://dv38fo0xkn5dz.cloudfront.net/767x1000/media/"~ image_path) -%}
-        {%- set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/0x1080/media/"~ image_path) -%}
         <div class="image_block">
-            <img class="vertical" src="{{ v_image_url }}"/>
-            <img class="horizontal" src="{{ image_url }}"/>
+            <img class="vertical" src="{{ get_image_from_media(entry.heroImage, 760, 1000) }}"/>
+            <img class="horizontal" src="{{ get_image_from_media(entry.heroImage, 0, 1080) }}"/>
         </div>
     </div>
 </section>
@@ -43,14 +39,7 @@
         Stories
     </header>
 
-
-    {%- set story_image =  'https://placehold.it/300/500'  -%}
-    {%- set main_story =  craft.Entries.section('story').orderBy('postDate desc').one() -%}
-    {%- if main_story.storyImage | length > 0 -%}
-        {% set image_path = ( main_story.storyImage[0].folderPath ~ main_story.storyImage[0].filename ) %}
-        {% set story_image = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/875x550/media/"~ image_path ~ " ") %}
-    {%- endif -%}
-
+    {%- set main_story =  craft.Entries.section('story').orderBy('postDate desc').limit(1).one() -%}
     <div class="featured_story">
         <div class="title">
             <h1 class='md-only'> <a href="{{ main_story.url }}">{{- main_story -}}</a> </h1>
@@ -65,7 +54,7 @@
                 <a href="{{ main_story.url }}">Read More</a>
             </div>
         </div>
-        <a href="{{ main_story.url }}" class="image" style="background-image: url({{ story_image }})"></a>
+        <a href="{{ main_story.url }}" class="image" style="background-image: url({{ get_image_from_media(main_story.storyImage, 875, 550) }})"></a>
 
     </div>
 
@@ -73,14 +62,7 @@
         {%- set stories =  craft.Entries.section('story').orderBy('postDate desc').limit(2).offset(1).all() -%}
         {%- for story in stories -%}
             <div class="story_block">
-                {%- if story.storyImage | length > 0 -%}
-                    {%- set image_path = ( story.storyImage[0].folderPath ~ story.storyImage[0].filename ) -%}
-                    {%- set story_image = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/700x550/media/"~ image_path ~ " ") -%}
-                {% else %}
-                    {%- set story_image =  'https://placehold.it/700/550'  -%}
-                {%- endif -%}
-
-                <a href="{{ story.url }}" class="image" style="background-image: url({{ story_image }})"></a>
+                <a href="{{ story.url }}" class="image" style="background-image: url({{ get_image_from_media(story.storyImage, 700, 550) }})"></a>
                 <h2 class="tight"><a href="{{ story.url }}"> {{ story }} </a></h2>
                 <div class="metadata caption">
                     {% if story.storyDates %}{{- story.storyDates -}} - {% endif %}
@@ -120,13 +102,8 @@
 
     <div class="recent_articles sm">
         {%- for entry in entries -%}
-            {%- set image_url =  'https://placehold.it/300/500'  -%}
             <a href="{{entry.url}}" class="article">
-                {%- if entry.heroImage | length > 0 -%}
-                    {%- set image_path = ( entry.heroImage[0].folderPath ~ entry.heroImage[0].filename ) -%}
-                    {%- set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x450/media/"~ image_path) -%}
-                {%- endif -%}
-                <div class="article_image" style="background-image: url({{ image_url }})"></div>
+                <div class="article_image" style="background-image: url({{ get_image_from_media(entry.heroImage, 800, 450) }})"></div>
                 <div class="metadata">
                     {% if entry.place %}<div class="location">{{ entry.place }}</div>{% endif %}
                     <div class="title">{{entry.title}}</div>
@@ -138,14 +115,7 @@
     <div class="recent_articles md">
         {%- for entry in entries -%}
             <div class="article">
-                {%- if entry.heroImage | length > 0 -%}
-                    {%- set image_path = ( entry.heroImage[0].folderPath ~ entry.heroImage[0].filename ) -%}
-                    {%- set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x450/media/"~ image_path) -%}
-                {% else %}
-                    {%- set image_url =  'https://placehold.it/300/500'  -%}
-                {%- endif -%}
-
-                <a href="{{entry.url}}" class="article_image" style="background-image: url({{ image_url }})"></a>
+                <a href="{{entry.url}}" class="article_image" style="background-image: url({{ get_image_from_media(entry.heroImage, 800, 450) }})"></a>
                 <h3 class="tight"><a href="{{entry.url}}">{{entry.title}}</a></h3>
                 {% if entry.place %}<div class="caption">{{ entry.place }}</div>{% endif %}
                 <a href="{{entry.url}}" class="read_more">Read More</a>

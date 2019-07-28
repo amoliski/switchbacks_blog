@@ -21,23 +21,18 @@
             <button class="filter_option active">Most Recent</button>
             <button class="filter_option">Region</button>
             <button class="filter_option">Park</button>
-            <button class="filter_option">Difficulty</button>
+            <button class="filter_option difficulty">Difficulty</button>
             <button class="filter_option">Recreation</button>
         </div>
     </div>
 
     {%- set entryQuery = craft.entries().section('article').orderBy('postDate desc') -%} {#.limit(9)#}
     {%- set entries = entryQuery.all() -%}
-
+    <div class="sm_container"  style="display: contents">
     <div class="recent_articles sm">
         {%- for entry in entries -%}
-            {%- set image_url =  'https://placehold.it/300/500'  -%}
             <a href="{{entry.url}}" class="article">
-                {%- if entry.heroImage | length > 0 -%}
-                    {%- set image_path = ( entry.heroImage[0].folderPath ~ entry.heroImage[0].filename ) -%}
-                    {%- set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/800x450/media/"~ image_path) -%}
-                {%- endif -%}
-                <div class="article_image" style="background-image: url({{ image_url }})"></div>
+                <div class="article_image" style="background-image: url({{ get_image_from_media(entry.heroImage, 800, 450) }})"></div>
                 <div class="metadata">
                     {% if entry.place %}<div class="location">{{ entry.place }}</div>{% endif %}
                     <div class="title">{{entry.title}}</div>
@@ -45,7 +40,8 @@
             </a>
         {%- endfor -%}
     </div>
-
+    </div>
+    <div class="md_container" style="display: contents">
     {% set section = "" %}
     <div class="recent_articles md">
     {%- for entry in entries -%}
@@ -57,14 +53,9 @@
         <div class="recent_articles md">
         {% set section = month %}
     {% endif %}
-            {%- set image_url =  'https://placehold.it/300/500'  -%}
             {%- set month = entry.postDate.format("F") -%}
             <div class="article">
-                {%- if entry.heroImage | length > 0 -%}
-                    {%- set image_path = ( entry.heroImage[0].folderPath ~ entry.heroImage[0].filename ) -%}
-                    {%- set image_url = ("https://dv38fo0xkn5dz.cloudfront.net/800x450/media/"~ image_path) -%}
-                {%- endif -%}
-                <div class="article_image" style="background-image: url({{ image_url }})">
+                <div class="article_image" style="background-image: url({{ get_image_from_media(entry.heroImage, 800, 450) }})">
                     {% if entry.place %}<div class="location">{{ entry.place }}</div>{% endif %}
                 </div>
                 <div class="title">{{entry.title}}</div>
@@ -72,7 +63,62 @@
             </div>
     {%- endfor -%}
     </div>
-
+    </div>
 
 </section>
+<script>
+    var sm = document.querySelector('.sm_container');
+    var md = document.querySelector('.md_container');
+    document.querySelectorAll('.filter_option.difficulty').forEach(function(e){
+      e.addEventListener('click',function(e){
+        document.querySelectorAll('.filter_option').forEach(function(e){e.classList.remove('active')});
+        e.target.classList.add('active');
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/api/articles?category=difficulty');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            console.log(data);
+
+            var sm_result = "";
+            var md_result = "";
+
+            for(var i = 0; i < data.length; i++){
+              var category = data[i];
+              console.log({category});
+              var category_title = category.title;
+              var category_articles = category.articles;
+
+              md_result += `
+                <h3 class="wide">${ category_title }</h3>
+                <hr class="wide"/>
+                <div class="recent_articles md">
+              `;
+              category_articles.forEach(function(e){
+                md_result += `
+                  <div class="article">
+                    <div class="article_image" style="background-image: url(${e.thumb })">
+
+                    </div>
+                    <div class="title">${e.title}</div>
+                    <a href="${e.url}" class="read_more">Read More</a>
+                </div>
+                `
+              });
+              md_result+= '</div>'
+
+            }
+            console.log(md_result);
+            sm.innerHTML = sm_result;
+            md.innerHTML = md_result;
+
+
+          }
+        };
+        xhr.send();
+      })
+    })
+</script>
 {% include 'components/footer.twig' %}

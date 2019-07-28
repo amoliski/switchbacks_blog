@@ -13,7 +13,7 @@
             <li><a href="/stories">Stories</a></li>
             <li><a href="/articles">Trail Log</a></li>
             <li><a href="#">Guidebook</a></li>
-            <li><a href="#">Team</a></li>
+            <li><a href="/team">Team</a></li>
             <li><a href="#" class="solid">Contact</a></li>
         </ul>
     </nav>
@@ -28,7 +28,7 @@
             <li><a href="#">
                 Guidebook
                 </a></li>
-            <li><a href="#">
+            <li><a href="/team" {% if craft.app.requestedParams[0] in  ['team', 'articles/team.twig'] %} class="active" {% endif %}>
                 Team
             </a></li>
             <li><a href="#" class="solid">

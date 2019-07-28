@@ -23,6 +23,7 @@ section.posts {
     padding-bottom: 8rem;
 
     .filter_option {
+      cursor: pointer;
       &.active {
         color: black;
         background-color: $primary;
@@ -159,7 +160,7 @@ section.posts {
           color: white;
           font-family: "Lekton", sans-serif;
           padding: 0 1rem;
-          font-size: 1.7rem;
+          font-size: 1.3rem;
         }
       }
       .read_more {
