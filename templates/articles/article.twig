@@ -5,7 +5,7 @@
 {% include 'components/navbar.twig' %}
 
 
-
+{% cache for 3 weeks %}
 {% if entry.heroImage | length > 0 %}
 <style>
 
@@ -298,3 +298,4 @@
     });
   })()
 </script>
+{% endcache %}

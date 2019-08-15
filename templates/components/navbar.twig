@@ -1,3 +1,4 @@
+<!--suppress HtmlUnknownTarget -->
 <header class="navbar dark grid">
     <a href="/" id="brand" role="link"></a>
     {#
@@ -10,9 +11,10 @@
     </button>
     <nav id="mobile_menu">
         <ul>
-            <li><a href="/stories">Stories</a></li>
+            <li>
+                <a href="/stories">Stories</a></li>
             <li><a href="/articles">Trail Log</a></li>
-            <li><a href="#">Guidebook</a></li>
+            <!--li><a href="#">Guidebook</a></li-->
             <li><a href="/team">Team</a></li>
             <li><a href="#" class="solid">Contact</a></li>
         </ul>
@@ -25,9 +27,9 @@
             <li><a href="/articles" {% if craft.app.requestedParams[0] in  ['articles', 'articles/article.twig'] %} class="active" {% endif %}>
                 Trail Log
             </a></li>
-            <li><a href="#">
+            <!--li><a href="#">
                 Guidebook
-                </a></li>
+                </a></li-->
             <li><a href="/team" {% if craft.app.requestedParams[0] in  ['team', 'articles/team.twig'] %} class="active" {% endif %}>
                 Team
             </a></li>

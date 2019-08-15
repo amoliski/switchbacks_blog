@@ -1,7 +1,50 @@
 {% include 'components/html_head.twig' with {'css': 'team', 'title':'team'} %}
 {% include 'components/navbar.twig' %}
 
+{% set entryQuery = craft.entries().section('author').orderBy('postDate asc') %}
+{% set entries = entryQuery.all() %}
 
+<section class="head dark grid">
+    <div class="intro">
+        <h1>Team</h1>
+        <p class="intro_text">
+            The Lord of the Rings, Star Wars, the Lewis and Clark expedition, Roosevelt’s exploration of the River of Doubt, and
+            every other great adventure have a single common denominator - a fellowship, a crew, a team. A loyal and dedicated crew
+            can make any ordinary trip a remarkable adventure.
+        </p>
+    </div>
+</section>
+<section class="grid main">
+    <div class="team">
+        {%- for entry in entries -%}
+        <div class="author_block">
+            <div class="image">
+                <img src="{{get_image_from_media(entry.image, 300, 300)}}"
+                     alt="Author Name"
+                >
+            </div>
+            <div class="data">
+                <h3>{{ entry.title }}</h3>
+                {% if entry.nickname %}<p>"{{entry.nickname}}"</p>{% endif %}
+                <ul class="jobs">
+                    {%- for row in entry.jobs -%}
+                        <li>{{ row.job }}</li>
+                    {%- endfor -%}
+                </ul>
+                <p>
+                    {{entry.author_description}}
+                </p>
+                <ul class="social_links">
+                    {%- for link in entry.socialMedia -%}
+                        <li><a href="{{ link.url }}" class="fa fa-{{ link.icon }}"></a></li>
+                    {%- endfor -%}
+                </ul>
+            </div>
+        </div>
+        {%- endfor -%}
+    </div>
+
+</section>
 
 {% include 'components/share.twig' %}
 {% include 'components/footer.twig' %}

@@ -6,6 +6,7 @@
 {% include 'components/html_head.twig' with {'css': 'articles'} %}
 {% include 'components/navbar.twig' %}
 
+{% cache for 3 weeks %}
 <section class="posts dark grid">
     <div class="heading">
         <h2>TrailLog Posts</h2>
@@ -122,3 +123,4 @@
     })
 </script>
 {% include 'components/footer.twig' %}
+{% endcache %}

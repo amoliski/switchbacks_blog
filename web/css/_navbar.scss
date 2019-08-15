@@ -30,7 +30,7 @@
   cursor: pointer;
   border: none;
   position: absolute;
-  top: 2.5rem;
+  top: 2rem;
   right: 2.5rem;
   z-index: 10;
   &:focus {
@@ -46,7 +46,7 @@
   .elements{
     display: block;
     width: 40px;
-    height: 1px;
+    height: 2px;
     background-color: white;
     position: relative;
     transition: transform .2s ease, background-color .2s ease;
@@ -56,7 +56,7 @@
       display: block;
       content: '';
       width: 40px;
-      height: 1px;
+      height: 2px;
       background-color: white;
       position: relative;
       transition: transform .2s ease, background-color .2s ease;
@@ -90,6 +90,7 @@ header.navbar{
   #mobile_menu{
     position: relative;
     will-change: margin, transform;
+    user-select: none;
     transition:
             margin 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975),
             opacity 0.55s cubic-bezier(0.385, 0.005, 0.215, 0.975),
