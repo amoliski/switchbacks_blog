@@ -33,12 +33,11 @@ use yii\base\Event;
  * @since     1.0.0
  *
 
- {%- set story_image =  'https://placehold.it/300/500'  -%}
-                         {%- if slide.storyImage | length > 0 -%}
-                             {% set image_path = ( slide.storyImage[0].folderPath ~ slide.storyImage[0].filename ) %}
-                             {% set story_image = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/875x550/media/"~ image_path ~ " ") %}
-                         {%- endif -%}
-
+ *  {%- set story_image =  'https://placehold.it/300/500'  -%}
+ *  {%- if slide.storyImage | length > 0 -%}
+ *    {% set image_path = ( slide.storyImage[0].folderPath ~ slide.storyImage[0].filename ) %}
+ *    {% set story_image = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/875x550/media/"~ image_path ~ " ") %}
+ *  {%- endif -%}
  */
 
 class AWSImageTransformProvider extends \Twig\Extension\AbstractExtension
@@ -100,6 +99,22 @@ class AWSImageTransform extends Plugin
             $extension = new AWSImageTransformProvider();
             Craft::$app->view->registerTwigExtension($extension);
         }
+
+        //Event::on(Assets::class, Assets::EVENT_GET_ASSET_THUMB_URL, function (GetAssetThumbUrlEvent $event) {
+        //    //$config = ImagerService::getConfig();
+        //    //if ($config->useForCpThumbs && $event->asset !== null && $event->asset->kind === 'image' && \in_array(strtolower($event->asset->getExtension()), Image::webSafeFormats(), true)) {
+        //    if ($event->asset !== null && $event->asset->kind === 'image' && \in_array(strtolower($event->asset->getExtension()), Image::webSafeFormats(), true)) {
+        //        try {
+        //            $event->url = $extension.get_image()
+        //            $transformedImage = self::$plugin->imager->transformImage($event->asset, ['width' => $event->width, 'height' => $event->height, 'mode' => 'fit']);
+        //            if ($transformedImage !== null) {
+        //                $event->url = $transformedImage->url;
+        //            }
+        //        } catch (ImagerException $e) {
+        //            // just ignore
+        //        }
+        //    //}
+        //});
 
         // Do something after we're installed
         Event::on(
