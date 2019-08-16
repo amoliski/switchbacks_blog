@@ -41,7 +41,13 @@
 </style>
 {% endif %}
 
-
+{% set yt_video = 0 %}
+{% for block in entry.mainContent.all() %}
+    {% if block.type == "youtubeVideo" and yt_video == 0%}
+        {% set yt_video = 1 %}
+        <script src="https://www.youtube.com/iframe_api"></script>
+    {% endif %}
+{% endfor %}
 
 {% set story = 0 %}
 {% set found = 0 %}
@@ -185,8 +191,7 @@
             <img src="{{get_image_from_media(block.image, 1920)}}"
                  sizes="{{ sizes }}"
                  srcset="{{ srcset }}"
-                 alt="{{ block.image[0].description }}"
-            >
+                 alt="{{ block.image[0].description }}">
             <figcaption class="{{block.captionLocation}} {{block.imageSize ? block.imageSize:''}}"> {{ block.caption }}</figcaption>
         </figure>
 
@@ -203,6 +208,105 @@
                 {% endfor %}
             </ul>
 
+        {% elseif block.type == "youtubeVideo" %}
+            <div  class="video {{block.videoSize ? block.videoSize:''}}">
+                <pre>
+                {{ block.videoOptions.contains('autoPlay') ? 'yes':'no' }}
+                {{ block.videoOptions.contains('loop') ? 'yes':'no' }}
+                    {% for row in block.videos  %}
+                        {{row.playbackSpeed}}
+                    {% endfor %}
+                </pre>
+                <div id="video_{{ loop.index }}" style="width:100%"></div>
+            </div>
+                <script>
+                    (function(){
+                        var vids = [
+                            {% for row in block.videos  %}
+                            {
+                                'videoId': '{{row.videoID}}',
+                                'startSeconds': {{row.startTime}},
+                                'playback_speed': {{ row.playbackSpeed }},
+                                'suggestedQuality': 'hd1080'
+                            },
+                            {% endfor %}
+                        ];
+
+                        var tv;
+                        var playerDefaults = {
+                            autohide: 1,
+                            modestbranding: 0,
+                            rel: 0,
+                            showinfo: 0,
+                            controls:{{ block.videoOptions.contains('showControls') ? '1':'0' }},
+                            disablekb: 1,
+                            enablejsapi: 0,
+                            iv_load_policy: 3
+                        };
+                        var randomVid = Math.floor(Math.random() * vids.length),
+                            currVid = randomVid;
+
+                        function onPlayerReady(){
+                            tv.loadVideoById(vids[currVid]);
+                            tv.seekTo(0);
+                            {% if block.videoOptions.contains('startMuted')  %}
+                            tv.mute();
+                            {% endif %}
+                            tv.setPlaybackRate(vids[currVid].playback_speed);
+                            vidRescale();
+                        }
+
+                        function onPlayerStateChange(e) {
+                            var tv_el = document.querySelector("#video_{{ loop.index }}");
+                            tv.setPlaybackRate(vids[currVid].playback_speed);
+                            if (e.data === 1){
+                                tv_el.classList.add('active')
+                                tv.setPlaybackRate(vids[currVid].playback_speed);
+                            } else if (e.data === 0){
+                                tv_el.classList.remove('active');
+                                if(window.innerWidth >= 600){
+                                    currVid = (currVid + 1) % vids.length;
+                                    tv.loadVideoById(vids[currVid]);
+                                    tv.setPlaybackRate(vids[currVid].playback_speed)
+                                }
+                                tv.seekTo(0);
+                            }
+                        }
+
+                        function vidRescale(){
+                            //var w = window.innerWidth+200,
+                            //    h = window.innerHeight+200;
+                            //if (w/h > 16/9){
+                            //    tv.setSize(w, w/16*9);
+                            //    document.querySelector('.tv .screen').left = '0px';
+                            //} else {
+                            //    tv.setSize(h/9*16, h);
+                            //    $('.tv .screen').css({'left': -($('.tv .screen').outerWidth()-w)/2});
+                            //}
+                        }
+
+                        //$(window).on('resize', function(){
+                        //    vidRescale();
+                        //});
+
+                        function readyYoutube(){
+                            if((typeof YT !== "undefined") && YT && YT.Player){
+                                tv = new YT.Player('video_{{ loop.index }}', {
+                                    events: {
+                                        'onReady': onPlayerReady,
+                                        'onStateChange': onPlayerStateChange
+                                    },
+                                    playerVars: playerDefaults
+                                });
+                                console.log({tv})
+                            }else{
+                                console.log("Youtube's not ready yet")
+                                setTimeout(readyYoutube, 100);
+                            }
+                        }
+                        readyYoutube();
+                    })();
+                </script>
         {% elseif block.type == "doubleImage" %}
         <div class="double_image">
             {% set sizes = '50vw' %}

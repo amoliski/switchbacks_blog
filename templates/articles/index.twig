@@ -56,10 +56,12 @@
     {% endif %}
             {%- set month = entry.postDate.format("F") -%}
             <div class="article">
-                <div class="article_image" style="background-image: url({{ get_image_from_media(entry.heroImage, 800, 450) }})">
+                <a href="{{entry.url}}">
+                    <div class="article_image" style="background-image: url({{ get_image_from_media(entry.heroImage, 800, 450) }})">
                     {% if entry.place %}<div class="location">{{ entry.place }}</div>{% endif %}
-                </div>
-                <div class="title">{{entry.title}}</div>
+                    </div>
+                </a>
+                <div class="title"><a href="{{entry.url}}">{{entry.title}}</a></div>
                 <a href="{{entry.url}}" class="read_more">Read More</a>
             </div>
     {%- endfor -%}
@@ -100,9 +102,7 @@
               category_articles.forEach(function(e){
                 md_result += `
                   <div class="article">
-                    <div class="article_image" style="background-image: url(${e.thumb })">
-
-                    </div>
+                    <div class="article_image" style="background-image: url(${e.thumb })"></div>
                     <div class="title">${e.title}</div>
                     <a href="${e.url}" class="read_more">Read More</a>
                 </div>

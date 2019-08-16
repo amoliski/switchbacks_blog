@@ -819,6 +819,10 @@ section.posts .read_more_stories {
       margin-bottom: 5rem; }
     section.posts .recent_articles .title {
       margin: 2.5rem 0 1rem; }
+      section.posts .recent_articles .title a {
+        font-size: 20px;
+        text-decoration: none;
+        line-height: 25px; }
     section.posts .recent_articles .article_image {
       width: 100%;
       position: relative;

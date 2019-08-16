@@ -106,7 +106,6 @@ section.posts {
         color: white;
       }
     }
-
   }
 
 
@@ -119,16 +118,13 @@ section.posts {
         width: 30px;
         padding-top: 56.25%;
       }
-
     }
-
     hr{
       border-top: 1px solid white;
       display: block;
       width: 100%;
       margin-bottom: 3rem;
     }
-
     .recent_articles.sm {
       display: none;
     }
@@ -146,6 +142,11 @@ section.posts {
       }
       .title {
         margin: 2.5rem 0 1rem;
+        a{
+          font-size: 20px;
+          text-decoration: none;
+          line-height: 25px;
+        }
       }
       .article_image {
         width: 100%;
