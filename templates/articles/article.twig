@@ -210,13 +210,6 @@
 
         {% elseif block.type == "youtubeVideo" %}
             <div  class="video {{block.videoSize ? block.videoSize:''}}">
-                <pre>
-                {{ block.videoOptions.contains('autoPlay') ? 'yes':'no' }}
-                {{ block.videoOptions.contains('loop') ? 'yes':'no' }}
-                    {% for row in block.videos  %}
-                        {{row.playbackSpeed}}
-                    {% endfor %}
-                </pre>
                 <div id="video_{{ loop.index }}" style="width:100%"></div>
             </div>
                 <script>
