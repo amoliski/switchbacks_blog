@@ -66,7 +66,7 @@ function create_sm_article(data, hide_location){
         '<div class="metadata">'+
             '<div class="title"><a href="'+url+'">'+title+'</a></div>'+
             ((location && !hide_location)?'<div class="location">'+location+'</div>':'' )+
-            '<a href="'+url+'" class="read_more">Read More</a>' +
+            '<a href="'+url+'" class="read_more">Read Article</a>' +
         '</div>'+
         '</div>'
     );
@@ -86,7 +86,7 @@ function create_md_article(data, hide_location){
         '   <div class="title">' +
         '       <a href="'+url+'">'+title+'</a></div>'+
         ((location && !hide_location)?'<div class="location">'+location+'</div>':'' )+
-        '<a href="'+url+'" class="read_more"><span>Read More</span></a>'+
+        '<a href="'+url+'" class="read_more"><span>Read Article</span></a>'+
         '</div>'
         );
     return createElementFromHTML(template);
@@ -147,7 +147,6 @@ function add_articles(articles, hide_location){
         sm.append(create_sm_article(articles[i], hide_location));
         md.append(create_md_article(articles[i], hide_location));
         if(!read_more){
-            console.log(article_count);
             article_count += 1;
             if(article_count > 9){
                 throw new Exception();
@@ -308,9 +307,15 @@ function load_articles(){
     render_category(active_category);
 }
 
+function ready(fn) {
+    if (document.readyState !== 'loading'){
+        fn();
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
 
-(function(){
-
+ready(function(){
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '/api/articles');
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -323,6 +328,4 @@ function load_articles(){
         load_articles();
     };
     xhr.send();
-
-
-})();
+});
