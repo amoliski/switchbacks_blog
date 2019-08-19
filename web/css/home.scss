@@ -46,6 +46,11 @@
     justify-content: flex-end;
     flex-direction: column;
 
+    .title_content{
+      display: flex;
+      flex-direction: column;
+    }
+
     .caption, .description{
       margin-top: 1rem;
     }
@@ -60,6 +65,15 @@
     margin-top: 2rem;
     white-space: nowrap;
     display: inline-block;
+  @include sm{
+    align-self: center;
+    background: #f2cc24;
+    color: black !important;
+    text-decoration: none;
+    padding: 0.25em 1em;
+    border-radius: 30px;
+    font-family: $lekton;
+  }
   }
 }
 

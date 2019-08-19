@@ -40,6 +40,26 @@ input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance: none; }
 
+.pill_button {
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: black;
+  border: 1px solid #F2CC2480;
+  transition: border-color .2s;
+  color: white;
+  font-family: "Lekton", sans-serif;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+  padding: .5rem 1.6rem;
+  font-size: 1.5rem;
+  font-weight: normal; }
+  .pill_button:hover {
+    border-color: #F2CC24; }
+  .pill_button.active {
+    color: black;
+    background-color: #F2CC24;
+    font-weight: bold; }
+
 h1, h1 > a {
   font-size: 3.5rem;
   line-height: 4rem;
@@ -74,7 +94,7 @@ h2, h2 > a {
     line-height: 2rem; }
 
 h3, h3 > a {
-  font-size: 2rem;
+  font-size: 1.8rem;
   letter-spacing: 0.3px;
   line-height: 2.5rem;
   font-family: "Libre Baskerville", serif;
@@ -92,7 +112,7 @@ h3, h3 > a {
 p {
   font-family: "Cabin", sans-serif;
   font-weight: normal;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   letter-spacing: .05rem;
   line-height: 2rem; }
   article p {
@@ -135,16 +155,16 @@ blockquote {
     line-height: 1.6rem; }
 
 .caption, figcaption {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 2rem;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   font-family: "Lekton", sans-serif; }
   .large_text .caption, .large_text figcaption {
     font-size: 2.5rem;
     line-height: 3rem; }
   .small_text .caption, .small_text figcaption {
-    font-size: 1.3rem;
-    line-height: 1.6rem; }
+    font-size: 1.2rem;
+    line-height: 1.5rem; }
 
 a {
   font-family: "Lekton", sans-serif;

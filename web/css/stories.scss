@@ -1,5 +1,4 @@
 @import 'base';
-@import 'style_guide';
 
 section.grid .intro{
   display: flex;
@@ -101,6 +100,9 @@ section.stories{
         justify-content: center;
         padding: 2rem 0;
       }
+    }
+    p{
+      margin-right: 5rem;
     }
     .metadata{
       margin-bottom:3rem;

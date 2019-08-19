@@ -5,11 +5,11 @@
 
 
 <section class="head dark grid">
-    {% set entryQuery = craft.entries().section('article').orderBy('random()').limit(1) %}
+    {% set entryQuery = craft.entries().section('article').with(['heroImage']).orderBy('random()').limit(1) %}
     {% set entry = entryQuery.one() %}
     <div class="recent_post">
         <div class="title_block">
-            <div>
+            <div class="title_content">
                 <h1>
                     {{- entry.title -}}
                 </h1>
@@ -39,7 +39,7 @@
         Stories
     </header>
 
-    {%- set main_story =  craft.Entries.section('story').orderBy('postDate desc').limit(1).one() -%}
+    {%- set main_story =  craft.Entries.section('story').with(['storyImage']).orderBy('postDate desc').limit(1).one() -%}
     <div class="featured_story">
         <div class="title">
             <h1 class='md-only'> <a href="{{ main_story.url }}">{{- main_story -}}</a> </h1>
@@ -59,7 +59,7 @@
     </div>
 
     <div class="more_stories">
-        {%- set stories =  craft.Entries.section('story').orderBy('postDate desc').limit(2).offset(1).all() -%}
+        {%- set stories =  craft.Entries.section('story').with(['storyImage']).orderBy('postDate desc').limit(2).offset(1).all() -%}
         {%- for story in stories -%}
             <div class="story_block">
                 <a href="{{ story.url }}" class="image" style="background-image: url({{ get_image_from_media(story.storyImage, 700, 550) }})"></a>
@@ -88,7 +88,7 @@
     </header>
 
     <div class="heading">
-        <h1>TrailLog Posts</h1>
+        <h1>Articles</h1>
     </div>
     <div class="wide">
         <p class="trail_log_intro">
@@ -97,7 +97,7 @@
         </p>
     </div>
 
-    {%- set entryQuery = craft.entries().section('article').orderBy('postDate desc').limit(9) -%}
+    {%- set entryQuery = craft.entries().section('article').with(['heroImage']).orderBy('postDate desc').limit(9) -%}
     {%- set entries = entryQuery.all() -%}
 
     <div class="recent_articles sm">

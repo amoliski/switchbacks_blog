@@ -152,9 +152,6 @@ header.navbar{
       grid-column: wide;
     }
 
-
-
-
     ul.links{
       display: none;
       @include md{
@@ -166,9 +163,10 @@ header.navbar{
       }
 
       a {
-        font-size: 1.6rem;
+        font-weight: normal;
+        color: #dadada;
+        font-size: 1.5rem;
         text-decoration: none;
-        color: #8b8b8b;
         margin-left: 4.5rem;
         white-space:nowrap;
         @media screen and (max-width: 1100px) {

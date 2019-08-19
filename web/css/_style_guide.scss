@@ -1,4 +1,5 @@
 $primary: #F2CC24;
+$primary_faded: #F2CC2480;
 $black: #050505;
 $white: #FFF;
 $grey: #8b8b8b;
@@ -11,6 +12,30 @@ $baskerville: 'Libre Baskerville', serif;
 $break-small:900px;
 $break-medium:1100px;
 
+
+.pill_button{
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: black;
+  border: 1px solid $primary_faded;
+  transition: border-color .2s;
+  color: white;
+  font-family: $lekton;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+  padding: .5rem 1.6rem;
+  font-size: 1.5rem;
+  font-weight: normal;
+
+  &:hover{
+    border-color: $primary;
+  }
+  &.active {
+    color: black;
+    background-color: $primary;
+    font-weight: bold;
+  }
+}
 
 h1, h1>a{
   font-size: 3.5rem;
@@ -58,7 +83,7 @@ h2, h2>a{
 }
 
 h3, h3>a{
-  font-size: 2rem;
+  font-size: 1.8rem;
   letter-spacing: 0.3px;
   line-height: 2.5rem;
   font-family: "Libre Baskerville", serif;
@@ -79,7 +104,7 @@ h3, h3>a{
 p{
   font-family: $cabin;
   font-weight: normal;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   letter-spacing: .05rem;
   line-height: 2rem;
   article &{
@@ -132,17 +157,17 @@ blockquote{
 }
 
 .caption, figcaption{
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 2rem;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   font-family: $lekton;
   .large_text &{
   font-size: 2.5rem;
   line-height: 3rem;
 }
   .small_text &{
-    font-size: 1.3rem;
-    line-height: 1.6rem;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
   }
 }
 
