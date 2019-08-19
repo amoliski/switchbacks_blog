@@ -3,9 +3,15 @@
 {% set entries = entryQuery.all() %}
 
 
-{% include 'components/html_head.twig' with {'css': 'articles', 'js':'articles'} %}
+{% include 'components/html_head.twig' with {'css': 'articles'} %}
+
 {% include 'components/navbar.twig' %}
 
+<style>
+    #trail_log_submenu button:last-child {
+        margin-bottom: 5rem;
+    }
+</style>
 <section class="posts dark grid">
     <div class="heading wide">
         <h2>Articles</h2>
@@ -16,9 +22,8 @@
         </p>
     </div>
     <div class="wide">
-        <div id="trail_log_menu" class="trail_log_menu">
-
-        </div>
+        <div id="trail_log_menu" class="trail_log_menu"></div>
+        <div id="trail_log_submenu" class="trail_log_submenu"></div>
     </div>
 </section>
 
@@ -31,3 +36,5 @@
 
 
 {% include 'components/footer.twig' %}
+<script defer src="/js/articles.js"></script>
+

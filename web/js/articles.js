@@ -5,6 +5,7 @@ var read_more = false;
 var article_count = 0;
 var category_count = 0;
 var active_category = "Date";
+var active_subcategory = 'All';
 
 var month_names = {
     '01': "January",
@@ -20,6 +21,7 @@ var month_names = {
     '11': "November",
     '12': "December",
 };
+
 var difficulty_sort = {
     'Easy': 1,
     'Moderate': 2,
@@ -27,9 +29,7 @@ var difficulty_sort = {
     'None': 4,
 };
 
-var sm_container = document.getElementById('posts_small');
-var md_container = document.getElementById('posts_medium');
-
+var sm_container, md_container;
 
 function add_to_category_path(element, path){
     var active = categories;
@@ -46,6 +46,7 @@ function add_to_category_path(element, path){
     }
     active[last_el].push(element);
 }
+
 function createElementFromHTML(htmlString) {
     var div = document.createElement('div');
     div.innerHTML = htmlString.trim();
@@ -72,6 +73,7 @@ function create_sm_article(data, hide_location){
     );
     return createElementFromHTML(template);
 }
+
 function create_md_article(data, hide_location){
     var thumb = data.thumbnail;
     var title = data.title;
@@ -97,11 +99,13 @@ function clear_buttons(){
     for(var i = 0; i < buttons.length; i++){
         buttons[i].classList.remove('active');
     }
+    document.getElementById('trail_log_submenu').innerHTML = '';
 }
 
 function clear_articles(){
     sm_container.innerHTML = "";
     md_container.innerHTML = "";
+    document.getElementById('trail_log_submenu').innerHTML = "";
 }
 
 function add_category_title(name){
@@ -119,6 +123,39 @@ function add_category_title(name){
     );
     sm_container.append(createElementFromHTML(template));
     md_container.append(createElementFromHTML(template));
+}
+
+function create_submenu(title, options){
+    var submenu = document.getElementById('trail_log_submenu');
+    var create_sub_button = function(sub_category){
+        var template = (
+            '<button ' +(sub_category === active_subcategory ? 'class="filter_option pill_button active"' : 'class="filter_option  pill_button"') +
+            ' id="'+sub_category+'_button_sub">'+
+            sub_category +
+            '</button>'
+        );
+        var button = createElementFromHTML(template);
+        button.addEventListener('click', function(el){
+            clear_buttons();
+            document.getElementById(active_category+'_button').classList.add('active');
+            active_subcategory = sub_category;
+            el.target.classList.add('active');
+            render_active_category();
+        });
+        return button;
+    };
+    var submenu_header = (
+        "<div class='wide'>" +
+        "<h3 class='section_heading'>"+title+"</h3>" +
+        "<hr class='section_break'/>" +
+        "</div>"
+    );
+    submenu.append(createElementFromHTML(submenu_header))
+    submenu.append(create_sub_button('All'));
+    for(var p = 0; p < options.length; p++) {
+        submenu.append(create_sub_button(options[p]));
+    }
+
 }
 
 function add_subcategory_title(name){
@@ -161,8 +198,13 @@ function render_dates(){
     // Reverse chronological
     years.sort().reverse();
 
+    create_submenu("Year", years);
+
     for(var i = 0; i < years.length; i++){
         var year = category[years[i]];
+        if(active_subcategory !== "All" && active_subcategory !== String(years[i])){
+            continue;
+        }
         var months = Object.keys(year);
 
         months.sort().reverse();
@@ -181,8 +223,13 @@ function render_regions(){
     // Alphasort regions
     regions.sort();
 
+    create_submenu("Region", regions);
+
     for(var i = 0; i < regions.length; i++){
         var region_name = regions[i];
+        if(active_subcategory !== "All" && active_subcategory !== region_name){
+            continue;
+        }
         var region = category[region_name];
         add_category_title(region_name);
         add_articles(region);
@@ -193,13 +240,19 @@ function render_difficulty(){
     var category = categories['Difficulty'];
     // ['Easy', 'Difficult', ...]
     var difficulties = Object.keys(category);
-    // Alphasort regions
+    // Sort Difficulties
     difficulties.sort(function(a,b){
         return (difficulty_sort[a] || 10) - (difficulty_sort[b] || 10)
     });
 
+
+    create_submenu("Difficulty", difficulties);
+
     for(var i = 0; i < difficulties.length; i++){
         var difficulty_name = difficulties[i];
+        if(active_subcategory !== "All" && active_subcategory !== difficulty_name){
+            continue;
+        }
         var difficulty = category[difficulty_name];
         add_category_title(difficulty_name);
         add_articles(difficulty);
@@ -207,12 +260,20 @@ function render_difficulty(){
 }
 
 function render_parks(){
+
+
     var category = categories['Park'];
     var parks = Object.keys(category);
     parks.sort();
 
+    create_submenu("Park Types", parks);
     for(var i = 0; i < parks.length; i++){
         var park_type_name = parks[i];
+        console.log(active_subcategory, active_subcategory !== "All", active_subcategory !== park_type_name);
+        if(active_subcategory !== "All" && active_subcategory !== park_type_name){
+            continue;
+        }
+
         var park_type = category[park_type_name];
         add_category_title(park_type_name);
         var park_names = Object.keys(park_type);
@@ -227,10 +288,10 @@ function render_parks(){
 
 function load_all(){
     read_more = true;
-    render_category()
+    render_active_category()
 }
 
-function render_category(){
+function render_active_category(){
     clear_articles();
     article_count = 0;
     category_count = 0;
@@ -266,9 +327,10 @@ function create_button(category){
     var button = createElementFromHTML(template);
     button.addEventListener('click', function(el){
         clear_buttons();
+        active_subcategory = "All";
         el.target.classList.add('active');
         active_category = category;
-        render_category();
+        render_active_category();
     });
     return button;
 }
@@ -304,7 +366,7 @@ function load_articles(){
         add_to_category_path(post, ['Park', type, park])
     }
     create_filter_buttons();
-    render_category(active_category);
+    render_active_category(active_category);
 }
 
 function ready(fn) {
@@ -316,6 +378,9 @@ function ready(fn) {
 }
 
 ready(function(){
+    sm_container = document.getElementById('posts_small');
+    md_container = document.getElementById('posts_medium');
+
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '/api/articles');
     xhr.setRequestHeader('Content-Type', 'application/json');
