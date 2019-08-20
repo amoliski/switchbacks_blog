@@ -1,6 +1,5 @@
 var posts = [];
 var categories = {};
-var timeout = null;
 var read_more = false;
 var article_count = 0;
 var category_count = 0;
@@ -80,7 +79,7 @@ function create_md_article(data, hide_location){
     var url = data.url;
     var location = data.location;
     var template = (
-        '<div class="article">'+
+        '<div class="article transparent">'+
         '   <a href="'+url+'">'+
         '       <div class="article_image" style="background-image: url('+thumb+')">'+
         '       </div>'+
@@ -94,18 +93,9 @@ function create_md_article(data, hide_location){
     return createElementFromHTML(template);
 }
 
-function clear_buttons(){
-    var buttons = document.querySelectorAll('.filter_option');
-    for(var i = 0; i < buttons.length; i++){
-        buttons[i].classList.remove('active');
-    }
-    document.getElementById('trail_log_submenu').innerHTML = '';
-}
-
 function clear_articles(){
     sm_container.innerHTML = "";
     md_container.innerHTML = "";
-    document.getElementById('trail_log_submenu').innerHTML = "";
 }
 
 function add_category_title(name){
@@ -123,39 +113,6 @@ function add_category_title(name){
     );
     sm_container.append(createElementFromHTML(template));
     md_container.append(createElementFromHTML(template));
-}
-
-function create_submenu(title, options){
-    var submenu = document.getElementById('trail_log_submenu');
-    var create_sub_button = function(sub_category){
-        var template = (
-            '<button ' +(sub_category === active_subcategory ? 'class="filter_option pill_button active"' : 'class="filter_option  pill_button"') +
-            ' id="'+sub_category+'_button_sub">'+
-            sub_category +
-            '</button>'
-        );
-        var button = createElementFromHTML(template);
-        button.addEventListener('click', function(el){
-            clear_buttons();
-            document.getElementById(active_category+'_button').classList.add('active');
-            active_subcategory = sub_category;
-            el.target.classList.add('active');
-            render_active_category();
-        });
-        return button;
-    };
-    var submenu_header = (
-        "<div class='wide'>" +
-        "<h3 class='section_heading'>"+title+"</h3>" +
-        "<hr class='section_break'/>" +
-        "</div>"
-    );
-    submenu.append(createElementFromHTML(submenu_header))
-    submenu.append(create_sub_button('All'));
-    for(var p = 0; p < options.length; p++) {
-        submenu.append(create_sub_button(options[p]));
-    }
-
 }
 
 function add_subcategory_title(name){
@@ -198,7 +155,7 @@ function render_dates(){
     // Reverse chronological
     years.sort().reverse();
 
-    create_submenu("Year", years);
+    update_submenu("Year", years);
 
     for(var i = 0; i < years.length; i++){
         var year = category[years[i]];
@@ -223,7 +180,7 @@ function render_regions(){
     // Alphasort regions
     regions.sort();
 
-    create_submenu("Region", regions);
+    update_submenu("Region", regions);
 
     for(var i = 0; i < regions.length; i++){
         var region_name = regions[i];
@@ -246,7 +203,7 @@ function render_difficulty(){
     });
 
 
-    create_submenu("Difficulty", difficulties);
+    update_submenu("Difficulty", difficulties);
 
     for(var i = 0; i < difficulties.length; i++){
         var difficulty_name = difficulties[i];
@@ -260,16 +217,13 @@ function render_difficulty(){
 }
 
 function render_parks(){
-
-
     var category = categories['Park'];
     var parks = Object.keys(category);
     parks.sort();
 
-    create_submenu("Park Types", parks);
+    update_submenu("Park Types", parks);
     for(var i = 0; i < parks.length; i++){
         var park_type_name = parks[i];
-        console.log(active_subcategory, active_subcategory !== "All", active_subcategory !== park_type_name);
         if(active_subcategory !== "All" && active_subcategory !== park_type_name){
             continue;
         }
@@ -304,6 +258,7 @@ function render_active_category(){
         }[active_category] || function () {
         })()
     }catch(e) {
+        console.log(e)
         var template = '' +
             '<div class="load_more_bg">' +
             '<button class="load_more pill_button active">Load More</button>' +
@@ -315,22 +270,106 @@ function render_active_category(){
         sm_container.append(sm_button);
         md_container.append(md_button);
     }
+    var all_articles = Array.from(document.querySelectorAll('.article'));
+    var show_article = function(arts){
+        if(arts.length === 0) return
+        arts[0].classList.remove('transparent');
+        setTimeout(function(){show_article(arts.slice(1))}, 70)
+    }
+
+    setTimeout(function(){show_article(all_articles)}, 20)
+
+}
+
+function set_subcategory_button(subcategory){
+    var buttons = document.getElementById('trail_log_submenu').querySelectorAll('button:not(#button_'+subcategory.replace(/[ !@#$%^&*()\-/\\]/g,"_")+')');
+    for(var i = 0; i < buttons.length; i++){
+        buttons[i].classList.remove('active');
+    }
+    document.getElementById("button_"+subcategory.replace(/[ !@#$%^&*()\-/\\]/g,"_")).classList.add('active');
+}
+
+var active_menu = null;
+function update_submenu(title, options){
+    var submenu = document.getElementById('trail_log_submenu');
+    if(active_menu === title){
+        return;
+    }
+    active_menu = title;
+    submenu.innerHTML = "";
+    var create_sub_button = function(sub_category){
+        var template = (
+            '<button ' +(sub_category === active_subcategory ? 'class="filter_option pill_button pill_button_ripple active"' : 'class="filter_option pill_button pill_button_ripple"') +
+            ' id="button_'+sub_category.replace(/[ !@#$%^&*()\-/\\]/g,"_")+'">'+
+            sub_category +
+            '<div class="ripple"></div></button>'
+        );
+        var button = createElementFromHTML(template);
+        button.addEventListener('click', function(el){
+            set_subcategory_button(sub_category);
+            active_subcategory = sub_category;
+            render_active_category();
+            var width = button.getClientRects()[0].width;
+            var height = button.getClientRects()[0].height;
+            var rsize = Math.max(width, height) * 2;
+            button.children[0].style.width = rsize+"px";
+            button.children[0].style.height = rsize+"px";
+            button.children[0].style.left = ((-1 * (rsize/2)) + el.offsetX)+"px";
+            button.children[0].style.top = ((-1 * (rsize/2))  + el.offsetY)+"px";
+
+
+        });
+        return button;
+    };
+    var submenu_header = (
+        "<div class='wide'>" +
+        "<h3 class='section_heading'>"+title+"</h3>" +
+        "<hr class='section_break'/>" +
+        "</div>"
+    );
+    submenu.append(createElementFromHTML(submenu_header))
+    submenu.append(create_sub_button('All'));
+    for(var p = 0; p < options.length; p++) {
+        submenu.append(create_sub_button(options[p]));
+    }
+
+
+}
+
+function set_category_button(category){
+    var buttons = document.getElementById('trail_log_menu').querySelectorAll('button:not(#button_'+category+')');
+    for(var i = 0; i < buttons.length; i++){
+        buttons[i].classList.remove('active');
+    }
+    document.getElementById(category+'_button').classList.add('active');
 }
 
 function create_button(category){
     var template = (
-        '<button ' +(category === active_category ? 'class="filter_option pill_button active"' : 'class="filter_option  pill_button"') +
-        ' id="'+category+'_button">'+
+        '<button  id="'+category+'_button"' +(category === active_category ?
+            'class="filter_option active pill_button pill_button_ripple"' :
+            'class="filter_option  pill_button pill_button_ripple"') +
+        '>'+
             category +
-        '</button>'
+        '<div class="ripple"></div></button>'
     );
     var button = createElementFromHTML(template);
+
     button.addEventListener('click', function(el){
-        clear_buttons();
+        set_category_button(category);
         active_subcategory = "All";
-        el.target.classList.add('active');
         active_category = category;
+
+        var width = button.getClientRects()[0].width;
+        var height = button.getClientRects()[0].height;
+        var rsize = Math.max(width, height) * 2;
+        button.children[0].style.width = rsize+"px";
+        button.children[0].style.height = rsize+"px";
+        button.children[0].style.left = ((-1 * (rsize/2)) + el.offsetX)+"px";
+        button.children[0].style.top = ((-1 * (rsize/2))  + el.offsetY)+"px";
+
         render_active_category();
+
     });
     return button;
 }

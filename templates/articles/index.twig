@@ -11,7 +11,66 @@
     #trail_log_submenu button:last-child {
         margin-bottom: 5rem;
     }
+    .pill_button{
+        cursor: pointer;
+        border-radius: 20px;
+        background-color: black;
+        border: 1px solid #F2CC2480;
+        color: white;
+        font-family: "Lekton", sans-serif;
+        margin-right: 2rem;
+        margin-bottom: 1rem;
+        padding: .5rem 1.6rem;
+        font-size: 1.5rem;
+        font-weight: normal;
+        transition: border-color .2s, background .1s linear .2s, color .1s linear .2s;
+    }
+    .pill_button.active{
+        border: 1px solid #F2CC24;
+        background: #F2CC24;
+        font-weight: normal;
+        color: black;
+    }
+    .pill_button_ripple{
+        position: relative;
+        overflow: hidden;
+    }
+    .pill_button_ripple .ripple{
+        display: block;
+        height: 200px;
+        width: 200px;
+        background: #F2CC24;
+        position: absolute;
+        top: -93px;
+        left: -8px;
+        opacity: 1;
+        transform: scale(0);
+        transition: transform .3s, border .3s, opacity .3s linear .2s;
+        border-radius: 100%;
+        pointer-events:none;
+    }
+    .pill_button.active .ripple{
+        transform: scale(1);
+        opacity: 0;
+    }
+    button{
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .expando{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        min-height:100vh;
+    }
+    .transparent{
+        opacity: 0;
+    }
+    .article{
+        transition: opacity 1s;
+    }
 </style>
+<div class="expando">
 <section class="posts dark grid">
     <div class="heading wide">
         <h2>Articles</h2>
@@ -27,14 +86,15 @@
     </div>
 </section>
 
-<section class="posts medium dark grid" id="posts_medium">
+<section class="posts medium dark grid" style="flex-grow: 1" id="posts_medium">
 
 </section>
-<section class="posts small dark grid" id="posts_small">
+<section class="posts small dark grid" style="flex-grow: 1"  id="posts_small">
 
 </section>
-
+</div>
 
 {% include 'components/footer.twig' %}
-<script defer src="/js/articles.js"></script>
+<script src="/js/articles.js"></script>
+
 

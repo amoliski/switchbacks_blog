@@ -1,12 +1,14 @@
 
 {%- header "Content-Type: application/json" -%}
+{%- header "Access-Control-Allow-Origin: *" -%}
+{%- header "Access-Control-Allow-Headers: *" -%}
 
 
-{% set results = craft.entries().section('article').with(['heroImage']).all() %}
-{% set result = [] %}
+{%- set results = craft.entries().section('article').with(['heroImage']).all() -%}
+{%- set result = [] -%}
 
-{% for r in results %}
-    {% set obj = {
+{%- for r in results -%}
+    {%- set obj = {
         'difficulty':r.difficulty,
         'title': r.title,
         'url': r.url,
@@ -16,8 +18,7 @@
         'type': r.parkType,
         'thumbnail': get_image_from_media(r.heroImage, 800, 450),
         'date': r.postDate,
-    } %}
-    {% set result = result | merge([obj]) %}
-{% endfor %}
-
+    } -%}
+    {%- set result = result | merge([obj]) -%}
+{%- endfor -%}
 {{ result | json_encode | raw }}
