@@ -3,7 +3,8 @@
 {% include 'components/html_head.twig' with {'css': 'home'} %}
 {% include 'components/navbar.twig' %}
 
-
+<body>
+<main id="swup" class="__home__">
 <section class="head dark grid">
     {% set entryQuery = craft.entries().section('article').with(['heroImage']).orderBy('random()').limit(1) %}
     {% set entry = entryQuery.one() %}
@@ -135,3 +136,5 @@
 
 {% include 'components/share.twig' %}
 {% include 'components/footer.twig' %}
+</main>
+</body>

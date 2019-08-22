@@ -1,115 +1,128 @@
 {% include 'components/html_head.twig' with {'css': 'stories', 'title':'stories'} %}
 {% include 'components/navbar.twig' %}
 
-<section class="grid head">
-    <div class="intro">
-        <div class="intro_text">
-            <h1>Our Stories</h1>
-            <p>Collections of articles centered around a specific place or theme</p>
-        </div>
-        <div class="intro_image">
-            {% set randomEntries = craft.Entries.section('story').orderBy('RANDOM()').limit(3) %}
-            <div class="slider">
-                <div class="progress">
-                    {% for slide in randomEntries.all() %}
-                        <div class="indicator"><div class="circle {% if loop.first %}active{% endif %}"></div></div>
-                    {% endfor %}
+<body>
+<main id="swup" class="__stories__">
+    <section class="grid head">
+        <div class="intro">
+            <div class="intro_text">
+                <h1>Our Stories</h1>
+                <p>Collections of articles centered around a specific place or theme</p>
+            </div>
+            <div class="intro_image">
+                {% set randomEntries = craft.Entries.section('story').orderBy('RANDOM()').limit(3) %}
+                <div class="slider">
+                    <div class="progress">
+                        {% for slide in randomEntries.all() %}
+                            <div class="indicator"><div class="circle {% if loop.first %}active{% endif %}"></div></div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="slides">
+                        {% for slide in randomEntries.all() %}
+                            <div class="slide">
+                                <div class="image" style="background-image: url({{ get_image_from_media(slide.storyImage, 875, 550) }});"></div>
+                                <div class="caption">{{ slide.title }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
-
-                <div class="slides">
-                    {% for slide in randomEntries.all() %}
-                        <div class="slide">
-                            <div class="image" style="background-image: url({{ get_image_from_media(slide.storyImage, 875, 550) }});"></div>
-                            <div class="caption">{{ slide.title }}</div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-         </div>
-    </div>
-    <script>
-        let cur_slide = 0;
-        let mouseover = false;
-
-        const max_slides = 3;
-        const slide_width = 62.5;
-        const slider = document.querySelector('.slider .slides');
-        const circles = document.querySelectorAll('.slider .circle');
-        const indicators = document.querySelectorAll('.slider .indicator');
-
-        const clear_indicators = function(){
-            circles.forEach(function(e){e.classList.remove('active')})
-        };
-
-
-        slider.addEventListener('mouseenter', function(){mouseover = true; console.log(mouseover)});
-        slider.addEventListener('mouseleave', function(){mouseover = false; console.log(mouseover)});
-
-        let navigate_to = function(slide){
-            slider.style.transform = "translate(-"+(slide*slide_width)+"rem, 0)";
-            clear_indicators();
-            circles[slide].classList.add('active');
-        };
-
-
-        let interval = setInterval(function(){
-            console.log(mouseover);
-            if(mouseover){
-                return;
-            }
-
-            cur_slide += 1;
-            cur_slide %= max_slides;
-            navigate_to(cur_slide);
-        }, 3000);
-
-        indicators.forEach(function(e, i){
-            e.addEventListener('click', function(){clearInterval(interval); cur_slide = i; navigate_to(i)});
-        });
-    </script>
-</section>
-<section class="stories grid">
-    {%- set main_story =  craft.Entries.section('story').orderBy('postDate desc').one() -%}
-
-    <div class="featured_story">
-        <div class="title">
-            <h1 class='md-only'> <a href="{{ main_story.url }}">{{- main_story -}}</a> </h1>
-            <h2 class='tight sm-only'> <a href="{{ main_story.url }}">{{- main_story -}}</a> </h2>
-            <p> {{ main_story.storyDescription }}</p>
-            <div class="metadata caption">
-                {% if main_story.storyDates %}{{- main_story.storyDates -}} - {% endif %}
-                {% if main_story.storyLocation %}111{{- main_story.storyLocation -}}111 - {% endif %}
-                {{- main_story.chapterList | length -}}&nbsp;{{- main_story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
-            </div>
-            <div class="read_more">
-                <a href="{{ main_story.url }}">Read More</a>
-            </div>
+             </div>
         </div>
-        <a href="{{ main_story.url }}" class="image" style="background-image: url({{ get_image_from_media(main_story.storyImage, 875, 550) }})"></a>
+        <script>
+            (function() {
+                let cur_slide = 0;
+                let mouseover = false;
 
-    </div>
+                const max_slides = 3;
+                const slide_width = 62.5;
+                const slider = document.querySelector('.slider .slides');
+                const circles = document.querySelectorAll('.slider .circle');
+                const indicators = document.querySelectorAll('.slider .indicator');
 
-    <div class="more_stories">
-        {%- set stories =  craft.Entries.section('story').orderBy('postDate desc').limit(6).offset(1) -%}
-        {%- for story in stories.all() -%}
-            <div class="story_block">
-                <a href="{{ story.url }}" class="image" style="background-image: url({{ get_image_from_media(story.storyImage, 700, 550) }})"></a>
-                <h2 class="tight"><a href="{{ story.url }}"> {{ story }} </a></h2>
+                const clear_indicators = function () {
+                    circles.forEach(function (e) {
+                        e.classList.remove('active')
+                    })
+                };
+
+
+                slider.addEventListener('mouseenter', function () {
+                    mouseover = true;
+                });
+                slider.addEventListener('mouseleave', function () {
+                    mouseover = false;
+                });
+
+                let navigate_to = function (slide) {
+                    slider.style.transform = "translate(-" + (slide * slide_width) + "rem, 0)";
+                    clear_indicators();
+                    circles[slide].classList.add('active');
+                };
+
+
+                let interval = setInterval(function () {
+                    if (mouseover) {
+                        return;
+                    }
+
+                    cur_slide += 1;
+                    cur_slide %= max_slides;
+                    navigate_to(cur_slide);
+                }, 3000);
+
+                indicators.forEach(function (e, i) {
+                    e.addEventListener('click', function () {
+                        clearInterval(interval);
+                        cur_slide = i;
+                        navigate_to(i)
+                    });
+                });
+            })()
+        </script>
+    </section>
+    <section class="stories grid">
+        {%- set main_story =  craft.Entries.section('story').orderBy('postDate desc').one() -%}
+
+        <div class="featured_story">
+            <div class="title">
+                <h1 class='md-only'> <a href="{{ main_story.url }}">{{- main_story -}}</a> </h1>
+                <h2 class='tight sm-only'> <a href="{{ main_story.url }}">{{- main_story -}}</a> </h2>
+                <p> {{ main_story.storyDescription }}</p>
                 <div class="metadata caption">
-                    {% if story.storyDates %}{{- story.storyDates -}} - {% endif %}
-                    {% if story.storyLocation %}{{- story.storyLocation -}} - {% endif %}
-                    {{- story.chapterList | length -}}&nbsp;{{- story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
+                    {% if main_story.storyDates %}{{- main_story.storyDates -}} - {% endif %}
+                    {% if main_story.storyLocation %}111{{- main_story.storyLocation -}}111 - {% endif %}
+                    {{- main_story.chapterList | length -}}&nbsp;{{- main_story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
                 </div>
                 <div class="read_more">
-                    <a href="{{ story.url }}">Read More</a>
+                    <a href="{{ main_story.url }}">Read More</a>
                 </div>
             </div>
-        {%- endfor -%}
+            <a href="{{ main_story.url }}" class="image" style="background-image: url({{ get_image_from_media(main_story.storyImage, 875, 550) }})"></a>
 
-    </div>
+        </div>
 
-</section>
+        <div class="more_stories">
+            {%- set stories =  craft.Entries.section('story').orderBy('postDate desc').limit(6).offset(1) -%}
+            {%- for story in stories.all() -%}
+                <div class="story_block">
+                    <a href="{{ story.url }}" class="image" style="background-image: url({{ get_image_from_media(story.storyImage, 700, 550) }})"></a>
+                    <h2 class="tight"><a href="{{ story.url }}"> {{ story }} </a></h2>
+                    <div class="metadata caption">
+                        {% if story.storyDates %}{{- story.storyDates -}} - {% endif %}
+                        {% if story.storyLocation %}{{- story.storyLocation -}} - {% endif %}
+                        {{- story.chapterList | length -}}&nbsp;{{- story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
+                    </div>
+                    <div class="read_more">
+                        <a href="{{ story.url }}">Read More</a>
+                    </div>
+                </div>
+            {%- endfor -%}
 
+        </div>
 
+    </section>
 {% include 'components/share.twig' %}
 {% include 'components/footer.twig' %}
+</main>
+</body>

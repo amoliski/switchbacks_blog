@@ -1,376 +1,409 @@
-@import 'base';
+@import 'vars';
 
-.head{
-  height: 90vh;
-  max-height: 100rem;
-  min-height:50rem;
-  position:relative;
-
-  .recent_post{
-    grid-column: content;
-  }
-
-  .read_more{
-    background-color: black;
-    height: 10rem;
-  }
-
-  .image_block{
-    .vertical{
-      display: block;
-    }
-    .horizontal{
-      display: none;
-    }
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+.__home__ {
+  .head {
     height: 90vh;
     max-height: 100rem;
-    min-height:50rem;
-    border-left: 3px solid $primary;
-    overflow: hidden;
-    z-index: 0;
-    img{
-      min-height: 90vh;
-      filter: brightness(.7)
-    }
-  }
-  .title_block{
-    z-index: 1;
+    min-height: 50rem;
     position: relative;
-    height: 100%;
-    max-width:55rem;
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
 
-    .title_content{
-      display: flex;
-      flex-direction: column;
+    .recent_post {
+      grid-column: content;
     }
 
-    .caption, .description{
-      margin-top: 1rem;
-    }
-
-    > div{
-      position: relative;
-      bottom: 12rem;
-    }
-  }
-
-  .read_post{
-    margin-top: 2rem;
-    white-space: nowrap;
-    display: inline-block;
-  @include sm{
-    align-self: center;
-    background: #f2cc24;
-    color: black !important;
-    text-decoration: none;
-    padding: 0.25em 1em;
-    border-radius: 30px;
-    font-family: $lekton;
-  }
-  }
-}
-
-
-@include md{
-  .head{
-    height: auto;
-    min-height: initial;
-    max-height: initial;
-    background-color: $black;
-    .recent_post{
-      grid-column: wide;
-      display: grid;
-      grid-template-columns: minmax(33rem, 1fr) 5fr;
-      margin-top: 7rem;
-      margin-bottom: 7rem;
-
-      .title_block{
-        margin: 0 5rem;
-        h2{
-          display: block;
-          background: none;
-        }
-        > div{
-          position: initial;
-          bottom: initial;
-        }
-      }
-      .image_block{
-        position:relative;
-        top: initial;
-        bottom: initial;
-        left: initial;
-        right: initial;
-        height: initial;
-        z-index: 1;
-        border-left: none;
-        .vertical{
-          display: none;
-        }
-        .horizontal{
-          display: block;
-        }
-      }
-      .image_block, .title_block{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        img{
-          min-height: initial;
-          filter: brightness(1);
-          align-self:flex-end;
-          max-width: 100%;
-        }
-      }
-    }
-  }
-}
-
-@include lg{
-  .head .recent_post{
-    grid-template-columns: minmax(45rem, 1fr) 5fr;
-    .title_block{
-      margin: 0 6rem 0 0;
-    }
-  }
-}
-
-.heading{
-  grid-column: wide;
-  h2{
-    font-family: $cabin;
-    font-weight: bold;
-    margin: 3em 0 6rem;
-    font-size: 3.5rem;
-  }
-}
-
-section.stories{
-  .read_more{
-    a{
-      transition: background-color .2s ease;
-      &:hover{
-        background-color: rgba(0,0,0,0.1)
-      }
-    }
-  }
-  .featured_story {
-    grid-column: wide;
-    display: grid;
-    @include md {
-      grid-template-columns: 3fr 5fr;
-    }
-    grid-template-columns: 1fr;
-    margin-bottom: 3rem;
-
-    .title {
-      grid-row:2;
-      @include md{
-        grid-row: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      padding: 2rem 0;
-    }
-    }
-    .metadata{
-      margin-bottom:3rem;
-    }
-
-    .metadata {
-      font-family: $lekton;
-    }
-
-    .image {
-      background-size: cover;
-      grid-row:1;
-      padding-top: 56.25%;
-      @include md{
-        grid-row: 1;
-      }
-    }
-  }
-  .more_stories{
-    grid-column: wide;
-    display: grid;
-    column-gap:2rem;
-
-    grid-template-columns: 1fr;
-    @include md {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .metadata{
-      font-family:$lekton;
-      margin-bottom:1rem;
-    }
-    .image{
-      display: block;
-      padding-top: 66%;
-      background-size: cover;
-      background-position: bottom;
-    }
-  }
-  .read_more_stories{
-    grid-column: wide;
-    padding-top: 7rem;
-    padding-bottom: 7rem;
-  }
-
-}
-
-section.posts {
-
-  .read_more_stories{
-    grid-column: wide;
-    margin-bottom: 4rem;
-    margin-top: 2rem;
-    .read_more_button {
-      color: black;
-      background-color: $primary;
-      font-weight: bold;
-      border: 3px solid $primary;
-      text-decoration: none;
-      font-family: $lekton;
-      margin-right: 2rem;
-      padding: 0 3rem;
-      font-size: 1.7rem;
-    }
-  }
-
-  .trail_log_intro{
-    max-width: 65rem;
-    margin-bottom: 5rem;
-  }
-
-
-  @include sm{
-  .trail_log_menu {
-    display: none;
-  }
-
-  .recent_articles.md {
-    display: none;
-  }
-  .recent_articles{
-    display: grid;
-    grid-column: wide;
-  }
-  .article{
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 2rem;
-    text-decoration: none;
-
-    .article_image{
-      display: inline-block;
-      background-size: cover;
-      background-position: center;
-      width: 10rem;
+    .read_more {
+      background-color: black;
       height: 10rem;
-      margin-right: 1rem;
-      flex-grow: 0;
-      flex-shrink: 0;
     }
-    .metadata{
-      color: white;
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      .location{
-        font-family: $lekton;
-        color: white;
-        text-decoration: none;
-        font-size: 1.3rem;
-      }
-      .title{
 
-        color: white;
-        text-decoration: none;
+    .image_block {
+      .vertical {
+        display: block;
+      }
+
+      .horizontal {
+        display: none;
+      }
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 90vh;
+      max-height: 100rem;
+      min-height: 50rem;
+      border-left: 3px solid $primary;
+      overflow: hidden;
+      z-index: 0;
+
+      img {
+        min-height: 90vh;
+        filter: brightness(.7)
       }
     }
-    a .read_more{
-      color: white;
+
+    .title_block {
+      z-index: 1;
+      position: relative;
+      height: 100%;
+      max-width: 55rem;
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+
+      .title_content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .caption, .description {
+        margin-top: 1rem;
+      }
+
+      > div {
+        position: relative;
+        bottom: 12rem;
+      }
+    }
+
+    .read_post {
+      margin-top: 2rem;
+      white-space: nowrap;
+      display: inline-block;
+      @include sm {
+        align-self: center;
+        background: #f2cc24;
+        color: black !important;
+        text-decoration: none;
+        padding: 0.25em 1em;
+        border-radius: 30px;
+        font-family: $lekton;
+      }
     }
   }
-
-}
 
 
   @include md {
-    .recent_articles{
-      display: grid;
-      grid-column: wide;
-      grid-template-columns: 1fr;
-      .article_image{
-        width: 30px;
-        padding-top: 56.25%;
-      }
+    .head {
+      height: auto;
+      min-height: initial;
+      max-height: initial;
+      background-color: $black;
 
-    }
+      .recent_post {
+        grid-column: wide;
+        display: grid;
+        grid-template-columns: minmax(33rem, 1fr) 5fr;
+        margin-top: 7rem;
+        margin-bottom: 7rem;
 
-    .recent_articles.sm {
-      display: none;
-    }
-    .recent_articles {
-      display: grid;
-      grid-column: wide;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-column-gap: 4rem;
-      @media screen and (max-width: $break-medium) {
-        grid-template-columns: 1fr 1fr;
-        grid-column-gap: 4rem;
-      }
-      .article {
-        margin-bottom: 5rem;
-      }
-      .title {
-        margin: 2.5rem 0 1rem;
-      }
-      .article_image {
-        width: 100%;
-        position: relative;
-        padding-top: 75%;
-        background-size: cover;
-        display: block;
-        .location {
-          position: absolute;
-          top: 0;
-          left: 0;
-          background-color: black;
-          color: white;
-          font-family: "Lekton", sans-serif;
-          padding: 0 1rem;
-          font-size: 1.7rem;
+        .title_block {
+          margin: 0 5rem;
+
+          h2 {
+            display: block;
+            background: none;
+          }
+
+          > div {
+            position: initial;
+            bottom: initial;
+          }
+        }
+
+        .image_block {
+          position: relative;
+          top: initial;
+          bottom: initial;
+          left: initial;
+          right: initial;
+          height: initial;
+          z-index: 1;
+          border-left: none;
+
+          .vertical {
+            display: none;
+          }
+
+          .horizontal {
+            display: block;
+          }
+        }
+
+        .image_block, .title_block {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          img {
+            min-height: initial;
+            filter: brightness(1);
+            align-self: flex-end;
+            max-width: 100%;
+          }
         }
       }
-      .read_more {
-        color: $primary;
-        padding-bottom: 2rem;
-        font-size: 1.5rem;
-      }
-    }
-    .read_more_stories {
-      grid-column: wide;
-      font-family: $lekton;
-      padding-top: 0;
-      padding-bottom: 7rem;
     }
   }
-}
 
-section > header{
-  grid-column: wide;
-  margin: 6rem 0 5rem 0;
-  border-top: 1px solid #999;
-  padding-top: 1rem;
-}
+  @include lg {
+    .head .recent_post {
+      grid-template-columns: minmax(45rem, 1fr) 5fr;
 
+      .title_block {
+        margin: 0 6rem 0 0;
+      }
+    }
+  }
+
+  .heading {
+    grid-column: wide;
+
+    h2 {
+      font-family: $cabin;
+      font-weight: bold;
+      margin: 3em 0 6rem;
+      font-size: 3.5rem;
+    }
+  }
+
+  section.stories {
+    .read_more {
+      a {
+        transition: background-color .2s ease;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.1)
+        }
+      }
+    }
+
+    .featured_story {
+      grid-column: wide;
+      display: grid;
+      @include md {
+        grid-template-columns: 3fr 5fr;
+      }
+      grid-template-columns: 1fr;
+      margin-bottom: 3rem;
+
+      .title {
+        grid-row: 2;
+        @include md {
+          grid-row: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 2rem 0;
+        }
+      }
+
+      .metadata {
+        margin-bottom: 3rem;
+      }
+
+      .metadata {
+        font-family: $lekton;
+      }
+
+      .image {
+        background-size: cover;
+        grid-row: 1;
+        padding-top: 56.25%;
+        @include md {
+          grid-row: 1;
+        }
+      }
+    }
+
+    .more_stories {
+      grid-column: wide;
+      display: grid;
+      column-gap: 2rem;
+
+      grid-template-columns: 1fr;
+      @include md {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .metadata {
+        font-family: $lekton;
+        margin-bottom: 1rem;
+      }
+
+      .image {
+        display: block;
+        padding-top: 66%;
+        background-size: cover;
+        background-position: bottom;
+      }
+    }
+
+    .read_more_stories {
+      grid-column: wide;
+      padding-top: 7rem;
+      padding-bottom: 7rem;
+    }
+
+  }
+
+  section.posts {
+
+    .read_more_stories {
+      grid-column: wide;
+      margin-bottom: 4rem;
+      margin-top: 2rem;
+
+      .read_more_button {
+        color: black;
+        background-color: $primary;
+        font-weight: bold;
+        border: 3px solid $primary;
+        text-decoration: none;
+        font-family: $lekton;
+        margin-right: 2rem;
+        padding: 0 3rem;
+        font-size: 1.7rem;
+      }
+    }
+
+    .trail_log_intro {
+      max-width: 65rem;
+      margin-bottom: 5rem;
+    }
+
+
+    @include sm {
+      .trail_log_menu {
+        display: none;
+      }
+
+      .recent_articles.md {
+        display: none;
+      }
+      .recent_articles {
+        display: grid;
+        grid-column: wide;
+      }
+      .article {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 2rem;
+        text-decoration: none;
+
+        .article_image {
+          display: inline-block;
+          background-size: cover;
+          background-position: center;
+          width: 10rem;
+          height: 10rem;
+          margin-right: 1rem;
+          flex-grow: 0;
+          flex-shrink: 0;
+        }
+
+        .metadata {
+          color: white;
+          text-decoration: none;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          .location {
+            font-family: $lekton;
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+          }
+
+          .title {
+
+            color: white;
+            text-decoration: none;
+          }
+        }
+
+        a .read_more {
+          color: white;
+        }
+      }
+
+    }
+
+
+    @include md {
+      .recent_articles {
+        display: grid;
+        grid-column: wide;
+        grid-template-columns: 1fr;
+
+        .article_image {
+          width: 30px;
+          padding-top: 56.25%;
+        }
+
+      }
+
+      .recent_articles.sm {
+        display: none;
+      }
+      .recent_articles {
+        display: grid;
+        grid-column: wide;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-column-gap: 4rem;
+        @media screen and (max-width: $break-medium) {
+          grid-template-columns: 1fr 1fr;
+          grid-column-gap: 4rem;
+        }
+
+        .article {
+          margin-bottom: 5rem;
+        }
+
+        .title {
+          margin: 2.5rem 0 1rem;
+        }
+
+        .article_image {
+          width: 100%;
+          position: relative;
+          padding-top: 75%;
+          background-size: cover;
+          display: block;
+
+          .location {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: black;
+            color: white;
+            font-family: "Lekton", sans-serif;
+            padding: 0 1rem;
+            font-size: 1.7rem;
+          }
+        }
+
+        .read_more {
+          color: $primary;
+          padding-bottom: 2rem;
+          font-size: 1.5rem;
+        }
+      }
+      .read_more_stories {
+        grid-column: wide;
+        font-family: $lekton;
+        padding-top: 0;
+        padding-bottom: 7rem;
+      }
+    }
+  }
+
+  section > header {
+    grid-column: wide;
+    margin: 6rem 0 5rem 0;
+    border-top: 1px solid #999;
+    padding-top: 1rem;
+  }
+
+}

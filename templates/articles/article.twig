@@ -1,398 +1,315 @@
+{% set article = craft.entries().id(entry.id).with([
+    'heroImage',
+    'articleAuthor'
+]).one()%}
 
-
-
-{% include 'components/html_head.twig' with {'css': 'article', 'title': entry.title} %}
+{% include 'components/html_head.twig' with {'css': 'article', 'title': article.title} %}
 {% include 'components/navbar.twig' %}
+<body>
+<main id="swup" class="__article__">
+    {% if article.heroImage | length > 0 %}
+        <style>
+
+            .heroImage {
+                background-image: url({{ get_image_from_media(article.heroImage, 900) }})
+            }
+            @media screen and (min-width: 1920px) {
+                .heroImage {
+                    background-image: url({{ get_image_from_media(article.heroImage, 1920) }})
+                }
+
+            }
+            @media screen and (min-width: 1440px) {
+                .heroImage {
+                    background-image: url({{ get_image_from_media(article.heroImage, 1440) }})
+                }
+
+            }
+            @media screen and (min-width: 2560px) {
+                .heroImage {
+                    background-image: url({{ get_image_from_media(article.heroImage, 2560) }})
+                }
+
+            }
+            @media screen and (min-width: 3840px) {
+                .heroImage {
+                    background-image: url({{ get_image_from_media(article.heroImage, 3840) }})
+                }
+
+            }
 
 
-{% cache for 3 weeks %}
-{% if entry.heroImage | length > 0 %}
-<style>
-
-    .heroImage {
-        background-image: url({{ get_image_from_media(entry.heroImage, 900) }})
-    }
-    @media screen and (min-width: 1920px) {
-        .heroImage {
-            background-image: url({{ get_image_from_media(entry.heroImage, 1920) }})
-        }
-
-    }
-    @media screen and (min-width: 1440px) {
-        .heroImage {
-            background-image: url({{ get_image_from_media(entry.heroImage, 1440) }})
-        }
-
-    }
-    @media screen and (min-width: 2560px) {
-        .heroImage {
-            background-image: url({{ get_image_from_media(entry.heroImage, 2560) }})
-        }
-
-    }
-    @media screen and (min-width: 3840px) {
-        .heroImage {
-            background-image: url({{ get_image_from_media(entry.heroImage, 3840) }})
-        }
-
-    }
-
-
-</style>
-{% endif %}
-
-{% set yt_video = 0 %}
-{% for block in entry.mainContent.all() %}
-    {% if block.type == "youtubeVideo" and yt_video == 0%}
-        {% set yt_video = 1 %}
-        <script src="https://www.youtube.com/iframe_api"></script>
+        </style>
     {% endif %}
-{% endfor %}
 
-{% set story = 0 %}
-{% set found = 0 %}
-
-
-{% set storySearch = craft.entries().section('story').search('chapterList:' ~ entry.slug).all() %}
-{%  if storySearch | length > 0 %}
-    {% set found = 1 %}
-    {% set story = storySearch[0] %}
-    {% set chapters = story.chapterList %}
-    {% set story_length = chapters | length %}
-    {% set story_chapter_number = 0 %}
-    {% for chapter in story.chapterList.all() %}
-        {% if chapter.slug == entry.slug %}
-            {% set story_chapter_number = loop.index0 %}
+    {% set yt_video = 0 %}
+    {% for block in article.mainContent %}
+        {% if block.type == "youtubeVideo" and yt_video == 0%}
+            {% set yt_video = 1 %}
         {% endif %}
     {% endfor %}
-{% endif %}
+
+    {% set story = 0 %}
+    {% set found = 0 %}
 
 
-
-<section class="head grid">
-    <div class="title_block">
-        <h1>
-            {{entry.title}}
-        </h1>
-
-        {% if entry.place != "NA" %}
-            <div class="caption">{{entry.place}}</div>
-        {% endif %}
-
-        {% if entry.articleAuthor | length > 0 %}
-        <div class="author_block">
-            <div class="image" style="background-image: url({{ get_image_from_media(entry.articleAuthor[0].image, 300, 300) }})"></div>
-            <div class="info">
-                <div>Article by <a href="/author/{{entry.articleAuthor[0].slug}}">{{entry.articleAuthor[0].title}}</a></div>
-                <div>{{(entry.articleDate  ?? entry.postDate) | date("F d, Y")}}</div>
-            </div>
-        </div>
-        {% endif %}
-    </div>
-
-    {% if entry.heroImage | length == 1 %}
-    <div class="heroImage"></div>
+    {% set storySearch = craft.entries().section('story').search('chapterList:' ~ article.slug).with(['chapterList']).all() %}
+    {%  if storySearch | length > 0 %}
+        {% set found = 1 %}
+        {% set story = storySearch[0] %}
+        {% set chapters = story.chapterList %}
+        {% set story_length = chapters | length %}
+        {% set story_chapter_number = 0 %}
+        {% for chapter in story.chapterList %}
+            {% if chapter.slug == article.slug %}
+                {% set story_chapter_number = loop.index0 %}
+            {% endif %}
+        {% endfor %}
     {% endif %}
 
-    <div class="article_info">
+    <section class="head grid">
+        <div class="title_block">
+            <h1>
+                {{article.title}}
+            </h1>
+
+            {% if article.place != "NA" %}
+                <div class="caption">{{article.place}}</div>
+            {% endif %}
+
+            {% if article.articleAuthor | length > 0 %}
+                <div class="author_block">
+                    <div class="image" style="background-image: url({{ get_image_from_media(article.articleAuthor[0].image, 300, 300) }})"></div>
+                    <div class="info">
+                        <div>Article by <a href="/author/{{article.articleAuthor[0].slug}}">{{article.articleAuthor[0].title}}</a></div>
+                        <div>{{(article.articleDate  ?? article.postDate) | date("F d, Y")}}</div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        {% if article.heroImage | length == 1 %}
+            <div class="heroImage"></div>
+        {% endif %}
+
+        <div class="article_info">
             <div class="blurb_and_chapters">
                 <div class="blurb">
-                    {{entry.description ? entry.description : ''}}
+                    {{article.description ? article.description : ''}}
                 </div>
 
                 {% if found %}
-                <div class="chapters">
-                    <div class="title">{{story.title}}</div>
-                    <div class="chapter-nav">
-                    {% if story_chapter_number > 0 %}
-                        <a href="{{chapters[story_chapter_number - 1].url}}">
-                            <span class="sr-only">Previous Article</span>
-                            <i class="arrow left primary"></i>
-                        </a>
-                    {% else %}
-                        <a disabled>
-                            <span class="sr-only">Disabled, No Previous Article</span>
-                            <i class="arrow left disabled"></i>
-                        </a>
-                    {% endif %}
-                    <div class='chapter_display'>{{ story_chapter_number + 1 }} / {{ story_length }}</div>
-                    {% if story_chapter_number < story_length - 1 %}
-                        <a href="{{chapters[story_chapter_number+1].url}}">
-                            <span class="sr-only">Next Article</span>
-                            <i class="arrow right primary"></i>
-                        </a>
-                    {% else %}
-                        <a disabled>
-                            <span class="sr-only">Disabled, No Next Article</span>
-                            <i class="arrow right disabled"></i>
-                        </a>
-                    {% endif %}
+                    <div class="chapters">
+                        <div class="title">{{story.title}}</div>
+                        <div class="chapter-nav">
+                            {% if story_chapter_number > 0 %}
+                                <a href="{{chapters[story_chapter_number - 1].url}}">
+                                    <span class="sr-only">Previous Article</span>
+                                    <i class="arrow left primary"></i>
+                                </a>
+                            {% else %}
+                                <a disabled>
+                                    <span class="sr-only">Disabled, No Previous Article</span>
+                                    <i class="arrow left disabled"></i>
+                                </a>
+                            {% endif %}
+                            <div class='chapter_display'>{{ story_chapter_number + 1 }} / {{ story_length }}</div>
+                            {% if story_chapter_number < story_length - 1 %}
+                                <a href="{{chapters[story_chapter_number+1].url}}">
+                                    <span class="sr-only">Next Article</span>
+                                    <i class="arrow right primary"></i>
+                                </a>
+                            {% else %}
+                                <a disabled>
+                                    <span class="sr-only">Disabled, No Next Article</span>
+                                    <i class="arrow right disabled"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+            {% if article.showTrailInfo %}
+                <div class="stat_display">
+                    <input id="show_stats" type="checkbox"/>
+                    <label for="show_stats" class="caption primary"> Trail Info</label>
+                    <div class="stats">
+                        {% if article.miles %}<div class="stat_block"><div class="title">Miles</div><div class="caption primary">{{article.miles}}</div></div>{% endif %}
+                        {% if article.days %}<div class="stat_block"><div class="title">Days</div><div class="caption primary">{{article.days}}</div></div>{% endif %}
+                        {% if article.difficulty %}<div class="stat_block"><div class="title">Difficulty</div><div class="caption primary">{{article.difficulty}}</div></div>{% endif %}
+                        {% if article.trailType %}<div class="stat_block"><div class="title">Trail</div><div class="caption primary">{{article.trailType}}</div></div>{% endif %}
+
+                        {% if article.camping %}<div class="stat_block"><div class="title">Camping</div><div class="caption primary">{{article.camping}}</div></div>{% endif %}
+                        {% if article.month %}<div class="stat_block"><div class="title">Month</div><div class="caption primary">{{article.month}}</div></div>{% endif %}
+                        {% if article.parkType %}<div class="stat_block"><div class="title">Park Type</div><div class="caption primary">{{article.parkType}}</div></div>{% endif %}
+                        {% if article.traffic %}<div class="stat_block"><div class="title">Traffic</div><div class="caption primary">{{article.traffic}}</div></div>{% endif %}
                     </div>
                 </div>
-                {% endif %}
-
-            </div>
-            {% if entry.showTrailInfo %}
-            <div class="stat_display">
-                <input id="show_stats" type="checkbox"/>
-                <label for="show_stats" class="caption primary"> Trail Info</label>
-                <div class="stats">
-                    {% if entry.miles %}<div class="stat_block"><div class="title">Miles</div><div class="caption primary">{{entry.miles}}</div></div>{% endif %}
-                    {% if entry.days %}<div class="stat_block"><div class="title">Days</div><div class="caption primary">{{entry.days}}</div></div>{% endif %}
-                    {% if entry.difficulty %}<div class="stat_block"><div class="title">Difficulty</div><div class="caption primary">{{entry.difficulty}}</div></div>{% endif %}
-                    {% if entry.trailType %}<div class="stat_block"><div class="title">Trail</div><div class="caption primary">{{entry.trailType}}</div></div>{% endif %}
-
-                    {% if entry.camping %}<div class="stat_block"><div class="title">Camping</div><div class="caption primary">{{entry.camping}}</div></div>{% endif %}
-                    {% if entry.month %}<div class="stat_block"><div class="title">Month</div><div class="caption primary">{{entry.month}}</div></div>{% endif %}
-                    {% if entry.parkType %}<div class="stat_block"><div class="title">Park Type</div><div class="caption primary">{{entry.parkType}}</div></div>{% endif %}
-                    {% if entry.traffic %}<div class="stat_block"><div class="title">Traffic</div><div class="caption primary">{{entry.traffic}}</div></div>{% endif %}
-                </div>
-            </div>
             {% endif %}
 
-    </div>
-</section>
+        </div>
+    </section>
 
-<section class="story grid">
-    <div class="text-size-picker">
-        <button class='option small_text'>A <span class="sr-only">Change text size: small</span></button>
-        <button class='option regular_text'>A <span class="sr-only">Change text size: medium</span></button>
-        <button class='option large_text'>A <span class="sr-only">Change text size: large</span></button>
-    </div>
+    <section class="story grid">
+        <div class="text-size-picker">
+            <button class='option small_text'>A <span class="sr-only">Change text size: small</span></button>
+            <button class='option regular_text'>A <span class="sr-only">Change text size: medium</span></button>
+            <button class='option large_text'>A <span class="sr-only">Change text size: large</span></button>
+        </div>
 
-    <article>
-        {% for block in entry.mainContent.all() %}
-        {% if block.type == "paragraph" %}
+        <article>
+            {% for block in article.mainContent.with(['image:image']).all() %}
+                {% if block.type == "paragraph" %}
 
-        {{ block.textMarkdown|markdown }}
+                    {{ block.textMarkdown|markdown }}
 
-        {% elseif block.type == "blockQuote" %}
-            <blockquote>
-                {{ block.quote | markdown }}
-                <footer>{{ block.author }}</footer>
-            </blockquote>
+                {% elseif block.type == "blockQuote" %}
+                    <blockquote>
+                        {{ block.quote | markdown }}
+                        <footer>{{ block.author }}</footer>
+                    </blockquote>
 
-        {% elseif block.type == "sectionTitle" %}
+                {% elseif block.type == "sectionTitle" %}
 
-            <h2>{{block.text}}</h2>
+                    <h2>{{block.text}}</h2>
 
-        {% elseif block.type == "image" %}
-        <figure class="single_image {{block.imageSize ? block.imageSize:''}}">
+                {% elseif block.type == "image" %}
+                    <figure class="single_image {{block.imageSize ? block.imageSize:''}}">
 
-            {% set sizes = '100vw' %}
-            {% if block.imageSize %}
-                {% if block.imageSize == 'align-center' %}
-                    {% set sizes = '(max-width: 900px) 100vw, 800px' %}
-                {% elseif block.imageSize == 'align-half' %}
-                    {% set sizes = '(max-width: 900px) 100vw, 1400px' %}
-                {% endif %}
-            {% endif %}
-            {% set srcset = get_srcset_from_media(block.image, [600,800,1400,1920,2560,3840]) %}
-            <img src="{{get_image_from_media(block.image, 1920)}}"
-                 sizes="{{ sizes }}"
-                 srcset="{{ srcset }}"
-                 alt="{{ block.image[0].description }}">
-            <figcaption class="{{block.captionLocation}} {{block.imageSize ? block.imageSize:''}}"> {{ block.caption }}</figcaption>
-        </figure>
-
-        {% elseif block.type == "caltopoMap" %}
-        <figure class="caltopo_map {{block.size ? block.size:''}}">
-            <iframe src="https://caltopo.com/m/{{block.mapCode}}"></iframe>
-        </figure>
-
-
-        {% elseif block.type == "list" %}
-            <ul>
-                {% for row in block.list %}
-                    <li>{{ row.item }}</li>
-                {% endfor %}
-            </ul>
-
-        {% elseif block.type == "youtubeVideo" %}
-            <div  class="video {{block.videoSize ? block.videoSize:''}}">
-                <div id="video_{{ loop.index }}" style="width:100%"></div>
-            </div>
-                <script>
-                    (function(){
-                        var vids = [
-                            {% for row in block.videos  %}
-                            {
-                                'videoId': '{{row.videoID}}',
-                                'startSeconds': {{row.startTime}},
-                                'playback_speed': {{ row.playbackSpeed }},
-                                'suggestedQuality': 'hd1080'
-                            },
-                            {% endfor %}
-                        ];
-
-                        var tv;
-                        var playerDefaults = {
-                            autohide: 1,
-                            modestbranding: 0,
-                            rel: 0,
-                            showinfo: 0,
-                            controls:{{ block.videoOptions.contains('showControls') ? '1':'0' }},
-                            disablekb: 1,
-                            enablejsapi: 0,
-                            iv_load_policy: 3
-                        };
-                        var randomVid = Math.floor(Math.random() * vids.length),
-                            currVid = randomVid;
-
-                        function onPlayerReady(){
-                            tv.loadVideoById(vids[currVid]);
-                            tv.seekTo(0);
-                            {% if block.videoOptions.contains('startMuted')  %}
-                            tv.mute();
+                        {% set sizes = '100vw' %}
+                        {% if block.imageSize %}
+                            {% if block.imageSize == 'align-center' %}
+                                {% set sizes = '(max-width: 900px) 100vw, 800px' %}
+                            {% elseif block.imageSize == 'align-half' %}
+                                {% set sizes = '(max-width: 900px) 100vw, 1400px' %}
                             {% endif %}
-                            tv.setPlaybackRate(vids[currVid].playback_speed);
-                            vidRescale();
-                        }
+                        {% endif %}
+                        {% set srcset = get_srcset_from_media(block.image, [600,800,1400,1920,2560,3840]) %}
+                        <img src="{{get_image_from_media(block.image, 1920)}}"
+                             sizes="{{ sizes }}"
+                             srcset="{{ srcset }}"
+                             alt="{{ block.image[0].description ?? ""}}">
+                        <figcaption class="{{block.captionLocation}} {{block.imageSize ? block.imageSize:''}}"> {{ block.caption }}</figcaption>
+                    </figure>
 
-                        function onPlayerStateChange(e) {
-                            var tv_el = document.querySelector("#video_{{ loop.index }}");
-                            tv.setPlaybackRate(vids[currVid].playback_speed);
-                            if (e.data === 1){
-                                tv_el.classList.add('active')
-                                tv.setPlaybackRate(vids[currVid].playback_speed);
-                            } else if (e.data === 0){
-                                tv_el.classList.remove('active');
-                                if(window.innerWidth >= 600){
-                                    currVid = (currVid + 1) % vids.length;
-                                    tv.loadVideoById(vids[currVid]);
-                                    tv.setPlaybackRate(vids[currVid].playback_speed)
-                                }
-                                tv.seekTo(0);
-                            }
-                        }
+                {% elseif block.type == "caltopoMap" %}
+                    <figure class="caltopo_map {{block.size ? block.size:''}}">
+                        <iframe src="https://caltopo.com/m/{{block.mapCode}}"></iframe>
+                    </figure>
 
-                        function vidRescale(){
-                            //var w = window.innerWidth+200,
-                            //    h = window.innerHeight+200;
-                            //if (w/h > 16/9){
-                            //    tv.setSize(w, w/16*9);
-                            //    document.querySelector('.tv .screen').left = '0px';
-                            //} else {
-                            //    tv.setSize(h/9*16, h);
-                            //    $('.tv .screen').css({'left': -($('.tv .screen').outerWidth()-w)/2});
-                            //}
-                        }
 
-                        //$(window).on('resize', function(){
-                        //    vidRescale();
-                        //});
+                {% elseif block.type == "list" %}
+                    <ul>
+                        {% for row in block.list %}
+                            <li>{{ row.item }}</li>
+                        {% endfor %}
+                    </ul>
 
-                        function readyYoutube(){
-                            if((typeof YT !== "undefined") && YT && YT.Player){
-                                tv = new YT.Player('video_{{ loop.index }}', {
-                                    events: {
-                                        'onReady': onPlayerReady,
-                                        'onStateChange': onPlayerStateChange
-                                    },
-                                    playerVars: playerDefaults
-                                });
-                                console.log({tv})
-                            }else{
-                                console.log("Youtube's not ready yet")
-                                setTimeout(readyYoutube, 100);
-                            }
-                        }
-                        readyYoutube();
-                    })();
-                </script>
-        {% elseif block.type == "doubleImage" %}
-        <div class="double_image">
-            {% set sizes = '50vw' %}
-            {% if block.imageSize %}
-                {% if block.imageSize == 'align-center' %}
-                    {% set sizes = '(max-width: 900px) 50vw, 400px' %}
-                {% elseif block.imageSize == 'align-half' %}
-                    {% set sizes = '(max-width: 900px) 50vw, 700px' %}
+                {% elseif block.type == "youtubeVideo" %}
+                    <div
+                            class="video youtube_video {{block.videoSize ? block.videoSize:''}}"
+                            data-id="video_{{ loop.index }}"
+                            data-videos="{% for row in block.videos %}{{ row.videoID }},{{ row.startTime }},{{ row.playbackSpeed }};{% endfor %}"
+                            data-settings="{{ block.videoOptions.contains('showControls') ? '1':'0' }},{{ block.videoOptions.contains('startMuted') ? '1':'0' }},{{ block.videoOptions.contains('autoPlay') ? '1':'0' }},{{ block.videoOptions.contains('loop') ? '1':'0' }}"
+                    >
+                        <div id="video_{{ loop.index }}" style="width:100%"></div>
+                    </div>
+                    <script></script>
+                {% elseif block.type == "doubleImage" %}
+                    <div class="double_image">
+                        {% set sizes = '50vw' %}
+                        {% if block.imageSize %}
+                            {% if block.imageSize == 'align-center' %}
+                                {% set sizes = '(max-width: 900px) 50vw, 400px' %}
+                            {% elseif block.imageSize == 'align-half' %}
+                                {% set sizes = '(max-width: 900px) 50vw, 700px' %}
+                            {% endif %}
+                        {% endif %}
+
+                        {% set image_path = (block.imageOne[0].folderPath ~ block.imageOne[0].filename ) %}
+                        {% set srcset = ("
+            https://dv38fo0xkn5dz.cloudfront.net/fit-in/600x0/media/"~ image_path ~ " 600w,
+            https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x0/media/"~ image_path ~ " 800w,
+            https://dv38fo0xkn5dz.cloudfront.net/fit-in/1400x0/media/"~ image_path ~ " 1400w,
+            https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ image_path ~ " 1920w,
+            https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ image_path ~ " 2560w,
+            https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ image_path ~ " 3840w
+        ") %}
+
+                        <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.imageOne[0].folderPath }}{{ block.imageOne[0].filename }}"
+                             sizes="{{ sizes }}"
+                             srcset="{{ srcset }}">
+
+                        {% set image_path = ( block.imageTwo[0].folderPath ~ block.imageTwo[0].filename ) %}
+                        {% set srcset = ("
+            https://dv38fo0xkn5dz.cloudfront.net/fit-in/600x0/media/"~ image_path ~ " 600w,
+            https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x0/media/"~ image_path ~ " 800w,
+            https://dv38fo0xkn5dz.cloudfront.net/fit-in/1400x0/media/"~ image_path ~ " 1400w,
+            https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ image_path ~ " 1920w,
+            https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ image_path ~ " 2560w,
+            https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ image_path ~ " 3840w
+        ") %}
+
+                        <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.imageTwo[0].folderPath }}{{ block.imageTwo[0].filename }}"
+                             sizes="{{ sizes }}"
+                             srcset="{{ srcset }}">
+                    </div>
                 {% endif %}
+
+
+            {% endfor %}
+        </article>
+    </section>
+    <section class="read_more grid">
+        <div class="article_info">
+            {% if article.footerBlurb %}
+                <div class="center">
+                    <div class="blurb bottom_spaced">
+                        {{article.footerBlurb}}
+                    </div>
+                </div>
             {% endif %}
+            {% if article.showTrailInfo %}
+                <div class="stats">
 
-            {% set image_path = (block.imageOne[0].folderPath ~ block.imageOne[0].filename ) %}
-            {% set srcset = ("
-                https://dv38fo0xkn5dz.cloudfront.net/fit-in/600x0/media/"~ image_path ~ " 600w,
-                https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x0/media/"~ image_path ~ " 800w,
-                https://dv38fo0xkn5dz.cloudfront.net/fit-in/1400x0/media/"~ image_path ~ " 1400w,
-                https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ image_path ~ " 1920w,
-                https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ image_path ~ " 2560w,
-                https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ image_path ~ " 3840w
-            ") %}
+                    <div class="stat_block"><div class="title">Miles</div><div class="caption primary">{{article.miles}}</div></div>
+                    <div class="stat_block"><div class="title">Days</div><div class="caption primary">{{article.days}}</div></div>
+                    <div class="stat_block"><div class="title">Difficulty</div><div class="caption primary">{{article.difficulty}}</div></div>
+                    <div class="stat_block"><div class="title">Trail</div><div class="caption primary">{{article.trailType}}</div></div>
 
-            <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.imageOne[0].folderPath }}{{ block.imageOne[0].filename }}"
-                 sizes="{{ sizes }}"
-                 srcset="{{ srcset }}">
+                    <div class="stat_block"><div class="title">Camping</div><div class="caption primary">{{article.camping}}</div></div>
+                    <div class="stat_block"><div class="title">Month</div><div class="caption primary">{{article.month}}</div></div>
+                    <div class="stat_block"><div class="title">Park Type</div><div class="caption primary">{{article.parkType}}</div></div>
+                    <div class="stat_block"><div class="title">Traffic</div><div class="caption primary">{{article.traffic}}</div></div>
 
-            {% set image_path = ( block.imageTwo[0].folderPath ~ block.imageTwo[0].filename ) %}
-            {% set srcset = ("
-                https://dv38fo0xkn5dz.cloudfront.net/fit-in/600x0/media/"~ image_path ~ " 600w,
-                https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x0/media/"~ image_path ~ " 800w,
-                https://dv38fo0xkn5dz.cloudfront.net/fit-in/1400x0/media/"~ image_path ~ " 1400w,
-                https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ image_path ~ " 1920w,
-                https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ image_path ~ " 2560w,
-                https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ image_path ~ " 3840w
-            ") %}
-
-            <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.imageTwo[0].folderPath }}{{ block.imageTwo[0].filename }}"
-                 sizes="{{ sizes }}"
-                 srcset="{{ srcset }}">
+                </div>
+            {% endif %}
+            <div class="clearfix"></div>
         </div>
-        {% endif %}
-
-
-        {% endfor %}
-    </article>
-</section>
-<section class="read_more grid">
-    <div class="article_info">
-        {% if entry.footerBlurb %}
-        <div class="center">
-            <div class="blurb bottom_spaced">
-                {{entry.footerBlurb}}
-            </div>
-        </div>
-        {% endif %}
-        {% if entry.showTrailInfo %}
-        <div class="stats">
-
-            <div class="stat_block"><div class="title">Miles</div><div class="caption primary">{{entry.miles}}</div></div>
-            <div class="stat_block"><div class="title">Days</div><div class="caption primary">{{entry.days}}</div></div>
-            <div class="stat_block"><div class="title">Difficulty</div><div class="caption primary">{{entry.difficulty}}</div></div>
-            <div class="stat_block"><div class="title">Trail</div><div class="caption primary">{{entry.trailType}}</div></div>
-
-            <div class="stat_block"><div class="title">Camping</div><div class="caption primary">{{entry.camping}}</div></div>
-            <div class="stat_block"><div class="title">Month</div><div class="caption primary">{{entry.month}}</div></div>
-            <div class="stat_block"><div class="title">Park Type</div><div class="caption primary">{{entry.parkType}}</div></div>
-            <div class="stat_block"><div class="title">Traffic</div><div class="caption primary">{{entry.traffic}}</div></div>
-
-        </div>
-        {% endif %}
-        <div class="clearfix"></div>
-    </div>
-</section>
+    </section>
 
 
 
-{% include 'components/share.twig' %}
-{% include 'components/footer.twig' %}
-<script>
-  (function(){
-    const size_picker = document.querySelector('.story .text-size-picker');
-    const article = document.querySelector('.story article');
-    size_picker.querySelector('.small_text').addEventListener('click', function(){
-      article.classList.add('small_text');
-      article.classList.remove('large_text');
-    });
-    size_picker.querySelector('.regular_text').addEventListener('click', function(){
-      article.classList.remove('small_text');
-      article.classList.remove('large_text');
-    });
-    size_picker.querySelector('.large_text').addEventListener('click', function(){
-      article.classList.remove('small_text');
-      article.classList.add('large_text');
-    });
-  })()
-</script>
-{% endcache %}
+    {% include 'components/share.twig' %}
+    {% include 'components/footer.twig' %}
+    <script>
+        (function(){
+            const size_picker = document.querySelector('.story .text-size-picker');
+            const article = document.querySelector('.story article');
+            size_picker.querySelector('.small_text').addEventListener('click', function(){
+                article.classList.add('small_text');
+                article.classList.remove('large_text');
+            });
+            size_picker.querySelector('.regular_text').addEventListener('click', function(){
+                article.classList.remove('small_text');
+                article.classList.remove('large_text');
+            });
+            size_picker.querySelector('.large_text').addEventListener('click', function(){
+                article.classList.remove('small_text');
+                article.classList.add('large_text');
+            });
+        })()
+    </script>
+</main>
+</body>

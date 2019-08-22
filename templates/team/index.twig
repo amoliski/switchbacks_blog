@@ -3,7 +3,8 @@
 
 {% set entryQuery = craft.entries().section('author').orderBy('postDate asc') %}
 {% set entries = entryQuery.all() %}
-
+<body>
+<main id="swup" class="__team__">
 <section class="head dark grid">
     <div class="intro">
         <h1>Team</h1>
@@ -45,6 +46,7 @@
     </div>
 
 </section>
-
 {% include 'components/share.twig' %}
 {% include 'components/footer.twig' %}
+</main>
+</body>

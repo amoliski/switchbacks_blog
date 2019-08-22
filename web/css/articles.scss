@@ -1,203 +1,213 @@
-@import 'base';
+@import 'vars';
 
-section.posts {
-  .heading {
-    grid-column: wide;
-    h2 {
-      font-family: $lekton;
-      font-size: 2.7rem;
-      margin: 10rem 0 7rem 0;
-      font-weight: normal;
-    }
-  }
-
-  .trail_log_intro {
-    max-width: 80rem;
-    font-size: 1.8rem;
-    font-weight: 400;
-  }
-
-  .trail_log_menu {
-    padding-top: 3rem;
-    padding-bottom: 2rem;
-  }
-
-  .read_more_stories {
-    grid-column: wide;
-    margin-bottom: 4rem;
-    margin-top: 2rem;
-
-    .read_more_button {
-      color: black;
-      background-color: $primary;
-      font-weight: bold;
-      border: 3px solid $primary;
-      text-decoration: none;
-      font-family: $lekton;
-      margin-right: 2rem;
-      padding: 0 3rem;
-      font-size: 1.7rem;
-    }
-  }
-}
-
-.article_container{
-  grid-column: wide;
-  display: grid;
-}
-
-hr.section_break{
-  border-top: 1px solid white;
-  display: block;
-  width: 100%;
-  margin-bottom: 3rem;
-}
-h4.subsection_heading{
-  margin-bottom: 1.5rem;
-}
-
-.load_more_bg{
-  grid-column: wide;
-  background: linear-gradient(0deg, rgb(0, 0, 0) 69%, rgba(0, 0, 0, 0) 100%);
-  height: 24rem;
-  position: relative;
-  top: -37rem;
-  margin-bottom: -34rem;
-  display: flex;
-  justify-content: center;
-  padding-top: 11rem;
-}
-.load_more{
-  background: #f2cc24;
-  height: max-content;
-  padding: 0rem 2rem;
-  color: black;
-  border-radius: 4rem;
-  font-family: $lekton;
-  font-weight: bold;
-  font-size: 1.5rem;
-  line-height: 3rem;
-}
-
-#posts_medium {
-  @include sm{
-    display: none;
-  }
-
-  .section_container {
-    display: grid;
-    grid-column: wide;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 4rem;
-    @media screen and (max-width: $break-medium) {
-      grid-template-columns: 1fr 1fr;
-      grid-column-gap: 4rem;
-    }
-    .article {
-      margin-bottom: 5rem;
-    }
-    .title {
-      margin: 1rem 0 0;
-      a{
-        font-size: 20px;
-        text-decoration: none;
-        line-height: 25px;
-        letter-spacing: -1;
+.__articles__{
+  section.posts {
+    .heading {
+      grid-column: wide;
+      h2 {
+        font-family: $lekton;
+        font-size: 2.7rem;
+        margin: 10rem 0 7rem 0;
         font-weight: normal;
       }
     }
-    .article_image {
-      width: 100%;
-      position: relative;
-      padding-top: 56.25%;
-      background-size: cover;
+
+    .trail_log_intro {
+      max-width: 80rem;
+      font-size: 1.8rem;
+      font-weight: 400;
     }
-    .location {
-      font-family: "Lekton", sans-serif;
-      font-size: 1.3rem;
-      margin-top: -.25rem;
-      color: #989898;
+
+    #trail_log_menu {
+      padding-top: 3rem;
+      padding-bottom: 2rem;
     }
-    .read_more {
-      color: #F2CC24;
-      border-bottom: 1px solid #F2CC24;
-      margin-bottom: 2rem;
-      font-size: 1.5rem;
-      text-decoration: none;
-      display: block;
-      width: max-content;
-      height: 1.9rem;
-      span{
-        display: block;
+
+    #trail_log_submenu button:last-child {
+      margin-bottom: 5rem;
+    }
+
+    .read_more_stories {
+      grid-column: wide;
+      margin-bottom: 4rem;
+      margin-top: 2rem;
+
+      .read_more_button {
+        color: black;
+        background-color: $primary;
+        font-weight: bold;
+        border: 3px solid $primary;
+        text-decoration: none;
+        font-family: $lekton;
+        margin-right: 2rem;
+        padding: 0 3rem;
+        font-size: 1.7rem;
       }
     }
   }
-  .read_more_stories {
+
+  .article_container{
     grid-column: wide;
-    font-family: $lekton;
-    padding-top: 7rem;
-    padding-bottom: 15rem;
-
-    a {
-      background-color: $primary;
-      color: black;
-      font-weight: bold;
-      padding: 1rem 4rem;
-      text-decoration: none;
-      font-size: 1.7rem;
-    }
+    display: grid;
   }
 
-}
+  hr.section_break{
+    border-top: 1px solid white;
+    display: block;
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+  h4.subsection_heading{
+    margin-bottom: 1.5rem;
+  }
 
-#posts_small {
-  @include md {
-    display: none;
-  }
-  .article_container {
-    margin-top:1rem;
-  }
-  .article {
+  .load_more_bg{
+    grid-column: wide;
+    background: linear-gradient(0deg, rgb(0, 0, 0) 69%, rgba(0, 0, 0, 0) 100%);
+    height: 24rem;
+    position: relative;
+    top: -37rem;
+    margin-bottom: -34rem;
     display: flex;
-    flex-direction: row;
-    margin-bottom: 2rem;
-    text-decoration: none;
+    justify-content: center;
+    padding-top: 11rem;
+  }
+  .load_more{
+    background: #f2cc24;
+    height: max-content;
+    padding: 0rem 2rem;
+    color: black;
+    border-radius: 4rem;
+    font-family: $lekton;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 3rem;
+  }
 
-    .article_image {
-      display: inline-block;
-      background-size: cover;
-      background-position: center;
-      width: 10rem;
-      height: 10rem;
-      margin-right: 1rem;
-      flex-grow: 0;
-      flex-shrink: 0;
+  .article{
+    transition: opacity 1s;
+  }
+
+  #posts_medium {
+    @include sm{
+      display: none;
     }
 
-    .metadata {
-      color: white;
-      height: 10rem;
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
+    .section_container {
+      display: grid;
+      grid-column: wide;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-column-gap: 4rem;
+      @media screen and (max-width: $break-medium) {
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 4rem;
+      }
+      .article {
+        margin-bottom: 5rem;
+      }
+      .title {
+        margin: 1rem 0 0;
+        a{
+          font-size: 20px;
+          text-decoration: none;
+          line-height: 25px;
+          letter-spacing: -1;
+          font-weight: normal;
+        }
+      }
+      .article_image {
+        width: 100%;
+        position: relative;
+        padding-top: 56.25%;
+        background-size: cover;
+      }
       .location {
         font-family: "Lekton", sans-serif;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         margin-top: -.25rem;
         color: #989898;
       }
-
-      .title a{
+      .read_more {
+        color: #F2CC24;
+        border-bottom: 1px solid #F2CC24;
+        margin-bottom: 2rem;
         font-size: 1.5rem;
         text-decoration: none;
-        line-height: 1.7rem;
+        display: block;
+        width: max-content;
+        height: 1.9rem;
+        span{
+          display: block;
+        }
+      }
+    }
+    .read_more_stories {
+      grid-column: wide;
+      font-family: $lekton;
+      padding-top: 7rem;
+      padding-bottom: 15rem;
+
+      a {
+        background-color: $primary;
+        color: black;
+        font-weight: bold;
+        padding: 1rem 4rem;
+        text-decoration: none;
+        font-size: 1.7rem;
       }
     }
 
-    a .read_more {
-      color: white;
+  }
+
+  #posts_small {
+    @include md {
+      display: none;
+    }
+    .article_container {
+      margin-top:1rem;
+    }
+    .article {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 2rem;
+      text-decoration: none;
+
+      .article_image {
+        display: inline-block;
+        background-size: cover;
+        background-position: center;
+        width: 10rem;
+        height: 10rem;
+        margin-right: 1rem;
+        flex-grow: 0;
+        flex-shrink: 0;
+      }
+
+      .metadata {
+        color: white;
+        height: 10rem;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .location {
+          font-family: "Lekton", sans-serif;
+          font-size: 1.2rem;
+          margin-top: -.25rem;
+          color: #989898;
+        }
+
+        .title a{
+          font-size: 1.5rem;
+          text-decoration: none;
+          line-height: 1.7rem;
+        }
+      }
+
+      a .read_more {
+        color: white;
+      }
     }
   }
 }

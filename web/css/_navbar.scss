@@ -86,8 +86,11 @@ header.navbar{
   font-size: 2rem;
   font-family: $cabin;
   background-color: $black;
-
+  user-select: none;
   #mobile_menu{
+    @include md{
+      display: none;
+    }
     position: relative;
     will-change: margin, transform;
     user-select: none;
@@ -169,10 +172,11 @@ header.navbar{
         text-decoration: none;
         margin-left: 4.5rem;
         white-space:nowrap;
+        border-bottom: 2px solid $primary_transparent;
         @media screen and (max-width: 1100px) {
           margin-left: 1.7rem;
         }
-        transition: margin-right .3s ease;
+        transition: margin-right .3s ease, border .3s;
 
         &.active {
           color: white;

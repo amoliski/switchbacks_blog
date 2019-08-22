@@ -1,9 +1,6 @@
 <!--suppress HtmlUnknownTarget -->
 <header class="navbar dark grid">
     <a href="/" id="brand" role="link"></a>
-    {#
-       {{ craft.app.requestedParams[0] }}
-    #}
 
     <button class="menu_toggle" id="menu_button" type="button">
         <span class="sr-only">Toggle main menu</span>
@@ -11,34 +8,55 @@
     </button>
     <nav id="mobile_menu">
         <ul>
-            <li>
-                <a href="/stories">Stories</a></li>
-            <li><a href="/articles">Articles</a></li>
-            <!--li><a href="#">Guidebook</a></li-->
-            <li><a href="/team">Team</a></li>
-            <li><a href="#" class="solid">Contact</a></li>
+            <li><a class="mobile menu_stories" href="/stories">Stories</a></li>
+            <li><a class="mobile menu_articles" href="/articles">Articles</a></li>
+            <li><a class="mobile menu_guidebook" href="#">Guidebook</a></li>
+            <li><a class="mobile menu_team" href="/team">Team</a></li>
+            <li><a class="mobile menu_contact" href="/contact" class="solid">Contact</a></li>
         </ul>
     </nav>
     <nav id="top_menu" role="navigation">
         <ul class="links">
-            <li><a href="/stories" {% if craft.app.requestedParams[0] in ['stories', 'stories/story.twig'] %} class="active" {% endif %}>
+            <li><a href="/stories" class="menu_stories {% if craft.app.requestedParams[0] in ['stories', 'stories/story.twig'] %} active {% endif %}">
                 Stories
             </a></li>
-            <li><a href="/articles" {% if craft.app.requestedParams[0] in  ['articles', 'articles/article.twig'] %} class="active" {% endif %}>
+            <li><a href="/articles" class="menu_articles {% if craft.app.requestedParams[0] in ['articles', 'articles/article.twig'] %} active {% endif %}">
                 Articles
             </a></li>
             <!--li><a href="#">
                 Guidebook
                 </a></li-->
-            <li><a href="/team" {% if craft.app.requestedParams[0] in  ['team', 'articles/team.twig'] %} class="active" {% endif %}>
+            <li><a href="/team" class="menu_team {% if craft.app.requestedParams[0] in ['team', 'articles/team.twig'] %} active {% endif %}">
                 Team
             </a></li>
-            <li><a href="#" class="solid">
+            <li><a href="/contact" class=" menu_contact solid">
                 Contact
             </a></li>
         </ul>
     </nav>
     <script>
+        let nav_map = {
+            'story':'#top_menu .menu_stories',
+            'stories':'#top_menu .menu_stories',
+            'article':'#top_menu .menu_articles',
+            'articles':'#top_menu .menu_articles',
+            'team':'#top_menu .menu_team',
+        }
+        document.addEventListener('swup:clickLink', function(){
+            document.getElementById('mobile_menu').classList.remove('menu_open');
+            document.getElementById('menu_button').classList.remove('menu_open');
+        })
+        document.addEventListener('swup:contentReplaced', function(){
+           Array.from(document.querySelectorAll('.navbar a')).forEach(function(e){
+               e.classList.remove('active');
+           });
+            let path_root = window.location.pathname.split('/')[1];
+             if(path_root in nav_map){
+                Array.from(document.querySelectorAll(nav_map[path_root])).forEach(function(e){
+                    e.classList.add('active');
+                })
+            }
+        });
         function toggle_menu(){
             window.scrollTo({
                 top: 0,

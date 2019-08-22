@@ -1,24 +1,11 @@
-$primary: #F2CC24;
-$primary_faded: #F2CC2480;
-$black: #050505;
-$white: #FFF;
-$grey: #8b8b8b;
-$faded-text: #84848414;
-
-$lekton: 'Lekton', sans-serif;
-$cabin: 'Cabin', sans-serif;
-$baskerville: 'Libre Baskerville', serif;
-
-$break-small:900px;
-$break-medium:1100px;
-
+@import'vars';
 
 .pill_button{
   cursor: pointer;
   border-radius: 20px;
   background-color: black;
   border: 1px solid $primary_faded;
-  transition: border-color .2s;
+  transition: border-color .2s, background .1s linear .2s, color .1s linear .2s;
   color: white;
   font-family: $lekton;
   margin-right: 2rem;
@@ -33,7 +20,32 @@ $break-medium:1100px;
   &.active {
     color: black;
     background-color: $primary;
-    font-weight: bold;
+    border: 1px solid $primary;
+    font-weight: normal;
+    .ripple{
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+}
+
+.pill_button_ripple{
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  .ripple{
+    display: block;
+    height: 200px;
+    width: 200px;
+    background: #F2CC24;
+    position: absolute;
+    top: -93px;
+    left: -8px;
+    opacity: 1;
+    transform: scale(0);
+    transition: transform .3s, border .3s, opacity .3s linear .2s;
+    border-radius: 100%;
+    pointer-events:none;
   }
 }
 

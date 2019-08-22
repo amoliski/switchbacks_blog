@@ -1,0 +1,66 @@
+
+{% include 'components/html_head.twig' with {'css': 'Contact Us', 'title':'Contact Us'} %}
+{% include 'components/navbar.twig' %}
+
+{% macro errorList(errors) %}
+    {% if errors %}
+        <ul class="errors">
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+
+{% from _self import errorList %}
+
+<body>
+<main id="swup" class="__contact__">
+    <div class="expando">
+        <section class="intro grid">
+            <div style="grid-column: content">
+                <h1>You have a story to tell.</h1>
+            </div>
+        </section>
+        <section class="form grid">
+            <div style="grid-area: content">
+            </div>
+            <form class="contact_form" method="post" accept-charset="UTF-8" action="">
+                {{ csrfInput() }}
+                <input type="hidden" name="action" value="contact-form/send"/>
+                {{ redirectInput('contact/thanks') }}
+
+                <div class="contact_field sm2 md1">
+                    <div class="input-group">
+                        <input value="{{ message.fromName ?? '' }}" type="text" name="fromName" id="fromName" required />
+                        <span class="highlight"></span><span class="bar"></span>
+                        <label for="fromName">Name<span class="extra">(your trail name works too)</span></label>
+                    </div>
+                    {{ message is defined and message ? errorList(message.getErrors('fromName')) }}
+                </div>
+                <div class="contact_field sm2 md1">
+                    <div class="input-group">
+                        <input value="{{ message.fromEmail ?? '' }}" type="text" id="fromEmail" name="fromEmail" required />
+                        <span class="highlight"></span><span class="bar"></span>
+                        <label for="fromEmail">Email Address</label>
+                    </div>
+                    {{ message is defined and message ? errorList(message.getErrors('fromEmail')) }}
+                </div>
+                <div class="contact_field sm2 md2">
+                    <div class="input-group">
+                        <textarea rows="10" id="message"  name="message" required>{{ message.message ?? '' }}</textarea>
+                        <span class="highlight"></span><span class="bar"></span>
+                        <label for="message">Your experience<span class="extra">, in a few words...</span></label>
+                    </div>
+                    {{ message is defined and message ? errorList(message.getErrors('message')) }}
+                </div>
+                <div class="sm2 md2">
+                    <button type="submit" value="Send" class="pill_button active">Submit</button>
+                </div>
+            </form>
+        </section>
+        <div class="expando-spacer"></div>
+        {% include 'components/footer.twig' %}
+    </div>
+</main>
+</body>

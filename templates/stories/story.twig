@@ -1,54 +1,59 @@
-{% include 'components/html_head.twig' with {'css': 'story', 'title': entry.title} %}
+{% set story = craft.entries().id(entry.id).with([
+    'chapterList',
+    'chapterList.heroImage',
+]).one()%}
+{% include 'components/html_head.twig' with {'css': 'story', 'title': story.title} %}
+{% include 'components/navbar.twig' %}
 
-    {% if entry.chapterList[0].heroImage | length > 0 %}
+<body>
+<main id="swup" class="__story__">
+    {% if story.chapterList[0].heroImage | length > 0 %}
         <style>
             body {
                 background-color: black;
                 background-attachment: fixed;
                 background-size: cover;
                 background-position: center;
-                background-image: url({{get_image_from_media(entry.chapterList[0].heroImage, 900) }});
+                background-image: url({{get_image_from_media(story.chapterList[0].heroImage, 900) }});
             }
             @media screen and (min-width: 1900px) {
                 body {
-                    background-image: url({{get_image_from_media(entry.chapterList[0].heroImage, 1920) }});
+                    background-image: url({{get_image_from_media(story.chapterList[0].heroImage, 1920) }});
                 }
             }
             @media screen and (min-width: 2500px) {
                 body {
-                    background-image: url({{get_image_from_media(entry.chapterList[0].heroImage, 2560) }});
+                    background-image: url({{get_image_from_media(story.chapterList[0].heroImage, 2560) }});
                 }
             }
             @media screen and (min-width: 3800px) {
                 body {
-                    background-image: url({{get_image_from_media(entry.chapterList[0].heroImage, 3840) }});
+                    background-image: url({{get_image_from_media(story.chapterList[0].heroImage, 3840) }});
                 }
             }
         </style>
     {% endif %}
 
 
-{% include 'components/navbar.twig' %}
-
 <section class="main">
 
     <div class="content dark">
         <h1>{{ entry }}</h1>
         <div class="description">
-            <p>{{ entry.storyDescription }}</p>
+            <p>{{ story.storyDescription }}</p>
         </div>
 
         <div class="metadata caption">
-            {% if entry.storyDates %}{{- entry.storyDates -}} - {% endif %}
-            {% if entry.storyLocation %}{{- entry.storyLocation -}} - {% endif %}
-            {{- entry.chapterList | length -}}&nbsp;{{- entry.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
+            {% if story.storyDates %}{{- story.storyDates -}} - {% endif %}
+            {% if story.storyLocation %}{{- story.storyLocation -}} - {% endif %}
+            {{- story.chapterList | length -}}&nbsp;{{- story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
         </div>
 
         <hr>
 
         <div class="articleList">
 
-            {% for article in entry.chapterList.all() %}
+            {% for article in story.chapterList %}
                     <div class="article">
                         <div class="articleData">
                             <h2 class="tight"><a href="{{ article.url }}"> {{ article }} </a></h2>
@@ -77,3 +82,5 @@
 
 {% include 'components/share.twig' %}
 {% include 'components/footer.twig' %}
+</main>
+</body>

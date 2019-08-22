@@ -8,6 +8,10 @@ body{
   font-size: 2rem;
 }
 
+.no-touching{
+  pointer-events: none;
+}
+
 .grid{
   display: grid;
 
@@ -43,7 +47,21 @@ body{
   grid-column: wide;
 }
 
-
+.transparent{
+  opacity: 0;
+}
+.expando{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  min-height:calc(100vh - 90px);
+  &>*:not(.exoando-spacer){
+    flex-grow:0;
+  }
+  .expando-spacer{
+    flex-grow: 1;
+  }
+}
 section.page_footer{
   background-color: $black;
   border-top: .6rem solid $primary;
@@ -127,4 +145,12 @@ section.share{
   @include md(){
     display: none !important;
   }
+}
+
+
+@keyframes scroll-loop {
+  0%   {background-position-x: 0;}
+  10%   {background-position-x: 0;}
+  90%  {background-position-x: 100%;}
+  100%  {background-position-x: 100%;}
 }
