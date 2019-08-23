@@ -81,8 +81,12 @@
     }
   }
 }
-
 header.navbar{
+
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+  top:0;
   font-size: 2rem;
   font-family: $cabin;
   background-color: $black;
