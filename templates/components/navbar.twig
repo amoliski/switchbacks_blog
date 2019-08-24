@@ -8,8 +8,8 @@
     </button>
     <nav id="mobile_menu">
         <ul>
-            <li><a class="mobile menu_stories" href="/stories">Stories</a></li>
             <li><a class="mobile menu_articles" href="/articles">Articles</a></li>
+            <li><a class="mobile menu_stories" href="/stories">Stories</a></li>
             <li><a class="mobile menu_guidebook" href="#">Guidebook</a></li>
             <li><a class="mobile menu_team" href="/team">Team</a></li>
             <li><a class="mobile menu_contact solid" href="/contact">Contact</a></li>
@@ -17,11 +17,11 @@
     </nav>
     <nav id="top_menu" role="navigation">
         <ul class="links">
+            <li><a href="/articles" class="menu_articles {% if craft.app.requestedParams[0] in ['articles', 'articles/article.twig'] %} active {% endif %}">
+                    Articles
+                </a></li>
             <li><a href="/stories" class="menu_stories {% if craft.app.requestedParams[0] in ['stories', 'stories/story.twig'] %} active {% endif %}">
                 Stories
-            </a></li>
-            <li><a href="/articles" class="menu_articles {% if craft.app.requestedParams[0] in ['articles', 'articles/article.twig'] %} active {% endif %}">
-                Articles
             </a></li>
             <!--li><a href="#">
                 Guidebook

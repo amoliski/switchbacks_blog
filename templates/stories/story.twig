@@ -9,25 +9,28 @@
 <main id="swup" class="__story__">
     {% if story.chapterList[0].heroImage | length > 0 %}
         <style>
-            body {
+            .main {
                 background-color: black;
-                background-attachment: fixed;
                 background-size: cover;
                 background-position: center;
-                background-image: url({{get_image_from_media(story.chapterList[0].heroImage, 900) }});
+            }
+            @media screen and (min-width: 768px){
+                .main {
+                    background-image: url({{get_image_from_media(story.chapterList[0].heroImage, 900) }});
+                }
             }
             @media screen and (min-width: 1900px) {
-                body {
+                .main {
                     background-image: url({{get_image_from_media(story.chapterList[0].heroImage, 1920) }});
                 }
             }
             @media screen and (min-width: 2500px) {
-                body {
+                .main {
                     background-image: url({{get_image_from_media(story.chapterList[0].heroImage, 2560) }});
                 }
             }
             @media screen and (min-width: 3800px) {
-                body {
+                .main {
                     background-image: url({{get_image_from_media(story.chapterList[0].heroImage, 3840) }});
                 }
             }
@@ -55,6 +58,9 @@
 
             {% for article in story.chapterList %}
                     <div class="article">
+                        <a href="{{ article.url }}">
+                            <div class="articleImage" style="background-image:url({{ get_image_from_media(article.heroImage, 250, 150) }});"></div>
+                        </a>
                         <div class="articleData">
                             <h2 class="tight"><a href="{{ article.url }}"> {{ article }} </a></h2>
 
@@ -62,12 +68,9 @@
                                 {{ article.place }}
                             </div>
                             <div class="readMore">
-                                <a class="primary" href="{{ article.url }}">Read More</a>
+                                <a class="primary" href="{{ article.url }}">Read Article</a>
                             </div>
                         </div>
-                        <a href="{{ article.url }}">
-                            <div class="articleImage" style="background-image:url({{ get_image_from_media(article.heroImage, 250, 150) }});"></div>
-                        </a>
                     </div>
             {% endfor %}
 

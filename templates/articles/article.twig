@@ -9,7 +9,6 @@
 <main id="swup" class="__article__">
     {% if article.heroImage | length > 0 %}
         <style>
-
             .heroImage {
                 background-image: url({{ get_image_from_media(article.heroImage, 900) }})
             }
@@ -17,43 +16,31 @@
                 .heroImage {
                     background-image: url({{ get_image_from_media(article.heroImage, 1920) }})
                 }
-
             }
             @media screen and (min-width: 1440px) {
                 .heroImage {
                     background-image: url({{ get_image_from_media(article.heroImage, 1440) }})
                 }
-
             }
             @media screen and (min-width: 2560px) {
                 .heroImage {
                     background-image: url({{ get_image_from_media(article.heroImage, 2560) }})
                 }
-
             }
             @media screen and (min-width: 3840px) {
                 .heroImage {
                     background-image: url({{ get_image_from_media(article.heroImage, 3840) }})
                 }
-
             }
-
-
         </style>
     {% endif %}
 
-    {% set yt_video = 0 %}
-    {% for block in article.mainContent %}
-        {% if block.type == "youtubeVideo" and yt_video == 0%}
-            {% set yt_video = 1 %}
-        {% endif %}
-    {% endfor %}
 
     {% set story = 0 %}
     {% set found = 0 %}
 
 
-    {% set storySearch = craft.entries().section('story').search('chapterList:' ~ article.slug).with(['chapterList']).all() %}
+    {% set storySearch = craft.entries().section('story').search('chapterList:' ~ article.title).with(['chapterList']).all() %}
     {%  if storySearch | length > 0 %}
         {% set found = 1 %}
         {% set story = storySearch[0] %}
@@ -66,7 +53,6 @@
             {% endif %}
         {% endfor %}
     {% endif %}
-
     <section class="head grid">
         <div class="title_block">
             <h1>
@@ -227,29 +213,13 @@
                             {% endif %}
                         {% endif %}
 
-                        {% set image_path = (block.imageOne[0].folderPath ~ block.imageOne[0].filename ) %}
-                        {% set srcset = ("
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/600x0/media/"~ image_path ~ " 600w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x0/media/"~ image_path ~ " 800w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/1400x0/media/"~ image_path ~ " 1400w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ image_path ~ " 1920w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ image_path ~ " 2560w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ image_path ~ " 3840w
-        ") %}
+                        {% set srcset = get_srcset_from_media(block.imageOne, [600,800,1400,1920,2560,3840]) %}
 
                         <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.imageOne[0].folderPath }}{{ block.imageOne[0].filename }}"
                              sizes="{{ sizes }}"
                              srcset="{{ srcset }}">
 
-                        {% set image_path = ( block.imageTwo[0].folderPath ~ block.imageTwo[0].filename ) %}
-                        {% set srcset = ("
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/600x0/media/"~ image_path ~ " 600w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/800x0/media/"~ image_path ~ " 800w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/1400x0/media/"~ image_path ~ " 1400w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/"~ image_path ~ " 1920w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/2560x0/media/"~ image_path ~ " 2560w,
-            https://dv38fo0xkn5dz.cloudfront.net/fit-in/3840x0/media/"~ image_path ~ " 3840w
-        ") %}
+                        {% set srcset = get_srcset_from_media(block.imageTwo, [600,800,1400,1920,2560,3840]) %}
 
                         <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.imageTwo[0].folderPath }}{{ block.imageTwo[0].filename }}"
                              sizes="{{ sizes }}"

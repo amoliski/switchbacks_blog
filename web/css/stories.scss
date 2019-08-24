@@ -18,13 +18,21 @@
       }
     }
     .slider{
+      max-width: 90vw;
+      *:not(.slides){
+        max-width: 90vw;
+      }
+      .slides{
+        max-width: calc((90vw + 25px) * 3)
+      }
+
       overflow: hidden;
-      width: 61rem;
+      width: 60rem;
       height: 43rem;
       position:relative;
       .progress{
         position: absolute;
-        z-index: 100;
+        z-index: 20;
         bottom: 14px;
         left: 0;
         width: 7rem;

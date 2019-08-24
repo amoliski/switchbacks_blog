@@ -6,14 +6,12 @@
   }
 
   .main{
-    display: grid;
-    grid-template-columns: [left-start] 90rem [left-end]5rem[right-start] auto [right-end] 5rem;
-    min-height: 80vh;
+
     .content{
       background-color: black;
-      grid-column: left;
       color: white;
       padding: 3rem 10rem;
+      max-width: 70rem;
 
       .description{
         margin-top: 2rem;
@@ -28,21 +26,53 @@
           display: flex;
           flex-direction: row;
           margin: 8rem auto;
-          justify-content: space-between;
+          @include sm{
+            margin: 4rem auto;
+          }
+          justify-content: left;
 
+          .articleData{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            h2{
+              margin-top:1rem;
+              a{
+                line-height:3.5rem;
+              }
+            }
+          }
 
           .articleImage{
             width: 25rem;
             height: 15rem;
             background-color: white;
             background-size: cover;
-            margin-left: 5rem;
+            margin-right: 5rem;
           }
 
         }
+        @include sm{
+          .article{
+            flex-direction: column;
+            align-items:center;
+            margin: 4rem auto;
+            .articleData{
+              align-items: center;
+              h2{
+                margin-top: 2rem;
+                text-align: center;
+              }
+              .caption{
+                text-align: center;
+              }
+            }
+            .articleImage{
+              margin-right: 0;
+            }
+          }
+        }
       }
     }
-
   }
-
 }
