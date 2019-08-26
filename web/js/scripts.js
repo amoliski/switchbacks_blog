@@ -499,6 +499,7 @@ function ready(fn) {
             autohide: 1,
             modestbranding: 1,
             rel: 0,
+            origin: 'https://www.switchbacks.info',
             controls: show_controls,
             disablekb: 1,
             enablejsapi: 1,
@@ -596,31 +597,29 @@ function ready(fn) {
     ready(init)
 })();
 
+/**Hero Loader**/
+(function(){
+    let do_heroloader = function(){
+        let hero = document.querySelector('.__article__ .heroImage');
+        hero.classList.add('transparent');
+        setTimeout(function(){
+            if(!hero) return;
+            let style = hero.currentStyle || window.getComputedStyle(hero, false);
+            let bi = style.backgroundImage.slice(4, -1).replace(/"/g, "");
+            console.log(bi);
+            let img = new Image();
+            let loaded = function() {
+                hero.classList.add('fade_in');
+            };
+            img.onload = loaded;
+            img.src = bi;
+            if (img.complete) loaded();
+        }, 1)
 
-let hide_title = function() {
-    var title_block = document.querySelector('.__article__ .title_block');
-    var hero_image = document.querySelector('.__article__ .heroImage');
-    if(title_block){
-        //title_block.classList.add('transparent');
-    }
-    if(hero_image){
-        hero_image.classList.add('transparent');
-    }
-};
-let show_title = function(){
-    var title_block = document.querySelector('.__article__ .title_block');
-    var hero_image = document.querySelector('.__article__ .heroImage');
-    if(title_block){
-        //title_block.classList.add('fade_in');
-    }
-    if(hero_image){
-        hero_image.classList.add('fade_in');
-    }
-};
+    };
+    ready(do_heroloader)
+})();
 
-
-document.addEventListener('swup:contentReplaced', hide_title);
-document.addEventListener('swup:transitionEnd', show_title);
 
 
 (function(){
