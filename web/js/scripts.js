@@ -15,8 +15,10 @@ function ready(fn) {
         gtag('config', 'UA-142131190-1');
     };
     let register_hit = function(){
-        ga('set', 'page', window.location.pathname);
-        ga('send', 'pageview');
+        if(window['ga']){
+            window['ga']('set', 'page', window.location.pathname);
+            window['ga']('send', 'pageview');
+        }
     };
     ready(set_up_ga);
     document.addEventListener('swup:contentReplaced', register_hit);
@@ -78,7 +80,7 @@ function ready(fn) {
     }
 
     function create_sm_article(data, fade_in, hide_location) {
-        let thumb = data.thumbnail;
+        let thumb = data["thumbnail"];
         let title = data.title;
         let url = data.url;
         let location = data.location;
@@ -99,7 +101,7 @@ function ready(fn) {
     }
 
     function create_md_article(data, fade_in, hide_location) {
-        let thumb = data.thumbnail;
+        let thumb = data["thumbnail"];
         let title = data.title;
         let url = data.url;
         let location = data.location;
@@ -288,7 +290,7 @@ function ready(fn) {
             setTimeout(function () {
                 show_next_element(el.slice(1))
             }, 70)
-        }
+        };
         setTimeout(function () {
             show_next_element(all_articles)
         }, 20)
@@ -360,13 +362,7 @@ function ready(fn) {
                 set_subcategory_button(sub_category);
                 active_subcategory = sub_category;
                 render_active_category(true);
-                let width = button.getClientRects()[0].width;
-                let height = button.getClientRects()[0].height;
-                let rsize = Math.max(width, height) * 2;
-                button.children[0].style.width = rsize + "px";
-                button.children[0].style.height = rsize + "px";
-                button.children[0].style.left = ((-1 * (rsize / 2)) + el.offsetX) + "px";
-                button.children[0].style.top = ((-1 * (rsize / 2)) + el.offsetY) + "px";
+                position_ripple(button);
 
 
             });
@@ -385,6 +381,16 @@ function ready(fn) {
         }
 
 
+    }
+
+    function position_ripple(button){
+        let width = button.getClientRects()[0].width;
+        let height = button.getClientRects()[0].height;
+        let size = Math.max(width, height) * 2;
+        button.children[0].style.width = size + "px";
+        button.children[0].style.height = size + "px";
+        button.children[0].style.left = ((-1 * (size / 2)) + el.offsetX) + "px";
+        button.children[0].style.top = ((-1 * (size / 2)) + el.offsetY) + "px";
     }
 
     function set_category_button(category) {
@@ -410,14 +416,8 @@ function ready(fn) {
             set_category_button(category);
             active_subcategory = "All";
             active_category = category;
+            position_ripple(button);
 
-            let width = button.getClientRects()[0].width;
-            let height = button.getClientRects()[0].height;
-            let rsize = Math.max(width, height) * 2;
-            button.children[0].style.width = rsize + "px";
-            button.children[0].style.height = rsize + "px";
-            button.children[0].style.left = ((-1 * (rsize / 2)) + el.offsetX) + "px";
-            button.children[0].style.top = ((-1 * (rsize / 2)) + el.offsetY) + "px";
 
             render_active_category(true);
 
@@ -507,7 +507,7 @@ function ready(fn) {
         };
         let currVid =  0; // Math.floor(Math.random() * video_list.length);
         let onPlayerReady = function(e){
-            let tv = e.target
+            let tv = e.target;
 
             tv.cueVideoById(video_list[currVid][0], Number(video_list[currVid[1]] || 0) || 0);
             if(autoplay) {
@@ -518,10 +518,8 @@ function ready(fn) {
             }
             tv.setPlaybackRate(Number(video_list[currVid[2]] || 1) || 1);
             let player = document.getElementById(container);
-            let width = player.getBoundingClientRect().width
-            tv.setSize(width*.56, width)
-            console.log(player, width);
-            console.log({e})
+            let width = player.getBoundingClientRect().width;
+            tv.setSize(width*.56, width);
 
         };
         let onPlayerStateChange = function(e){
@@ -601,6 +599,7 @@ function ready(fn) {
 (function(){
     let do_heroloader = function(){
         let hero = document.querySelector('.__article__ .heroImage');
+        if(!hero){return};
         hero.classList.add('transparent');
         setTimeout(function(){
             if(!hero) return;
