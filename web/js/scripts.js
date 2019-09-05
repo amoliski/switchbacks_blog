@@ -389,8 +389,8 @@ function ready(fn) {
         let size = Math.max(width, height) * 2;
         button.children[0].style.width = size + "px";
         button.children[0].style.height = size + "px";
-        button.children[0].style.left = ((-1 * (size / 2)) + el.offsetX) + "px";
-        button.children[0].style.top = ((-1 * (size / 2)) + el.offsetY) + "px";
+        button.children[0].style.left = ((-1 * (size / 2)) + button.offsetX) + "px";
+        button.children[0].style.top = ((-1 * (size / 2)) + button.offsetY) + "px";
     }
 
     function set_category_button(category) {
