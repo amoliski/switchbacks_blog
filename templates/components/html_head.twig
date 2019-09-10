@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     <script defer src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swup@2.0.5/dist/swup.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@swup/debug-plugin@1.0.3/dist/SwupDebugPlugin.min.js"></script>
+    <!--script src="https://cdn.jsdelivr.net/npm/@swup/debug-plugin@1.0.3/dist/SwupDebugPlugin.min.js"></script-->
     <script defer src="https://www.youtube.com/iframe_api"></script>
 
     <script>
@@ -30,9 +30,9 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142131190-1"></script>
 
     <script defer>
-        setTimeout(function(){
+        setTimeout(function() {
             let swup = new Swup({
-                plugins: [new SwupDebugPlugin(), new SwupOverlayTheme({color: "black"})],
+                plugins: [/**new SwupDebugPlugin(),**/ new SwupOverlayTheme({color: "black"})],
                 animateHistoryBrowsing: false,
                 linkSelector:[
                     'a[href^="/"]:not([data-no-swup])',
@@ -42,8 +42,8 @@
                 ].join(", ")
             });
             swup.on('transitionStart', function(){document.body.classList.add('no-touching')});
-            swup.on('transitionEnd',   function(){document.body.classList.remove('no-touching')});
-            swup.on('animationOutDone',   function(){window.scrollTo(0, 0);});
+            swup.on('transitionEnd', function(){document.body.classList.remove('no-touching')});
+            swup.on('animationOutDone', function(){window.scrollTo(0, 0);});
         })
     </script>
     <script defer src="/js/scripts.js"></script>
