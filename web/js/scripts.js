@@ -254,7 +254,7 @@ function ready(fn) {
         let parks = Object.keys(category);
         parks.sort();
 
-        update_submenu("Park Types", parks);
+        update_submenu("Park Type", parks);
         for (let i = 0; i < parks.length; i++) {
             let park_type_name = parks[i];
             if (active_subcategory !== "All" && active_subcategory !== park_type_name) {
