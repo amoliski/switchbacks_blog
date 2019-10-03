@@ -67,7 +67,7 @@
                 <div class="author_block">
                     <div class="image" style="background-image: url({{ get_image_from_media(article.articleAuthor[0].image, 300, 300) }})"></div>
                     <div class="info">
-                        <div>Article by <a href="/author/{{article.articleAuthor[0].slug}}">{{article.articleAuthor[0].title}}</a></div>
+                        <div data-xlink="/author/{{article.articleAuthor[0].slug}}">Article by {{article.articleAuthor[0].title}}</div>
                         <div>{{(article.articleDate  ?? article.postDate) | date("F d, Y")}}</div>
                     </div>
                 </div>

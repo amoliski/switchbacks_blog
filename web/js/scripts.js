@@ -109,13 +109,10 @@ function ready(fn) {
         let template = (
             '<div class="'+classes+'">'+
             '   <a href="' + url + '">' +
-            '       <div class="article_image" style="background-image: url(' + thumb + ')">' +
-            '       </div>' +
+            '       <div class="article_image" style="background-image: url(' + thumb + ')"></div>' +
             '   </a>' +
-            '   <div class="title">' +
-            '       <a href="' + url + '">' + title + '</a></div>' +
-            ((location && !hide_location) ? '<div class="location">' + location + '</div>' : '') +
-            '<a href="' + url + '" class="read_more"><span>Read Article</span></a>' +
+            '   <h3 class="tighter"><a href="' + url + '">' + title + '</a></h3>' +
+            ((location && !hide_location) ? '<div class="caption">' + location + '</div>' : '') +
             '</div>'
         );
         return createElementFromHTML(template);
@@ -138,7 +135,7 @@ function ready(fn) {
         let template = (
             "<div class='wide'>" +
             "<h3 class='section_heading'>" + name + "</h3>" +
-            "<hr class='section_break'/>" +
+            "<div class='section_break'/>" +
             "</div>"
         );
         sm_container.append(createElementFromHTML(template));
@@ -216,7 +213,7 @@ function ready(fn) {
         // Alphasort regions
         regions.sort();
 
-        update_submenu("Region", regions);
+        //update_submenu("Region", regions);
 
         for (let i = 0; i < regions.length; i++) {
             let region_name = regions[i];
@@ -334,11 +331,16 @@ function ready(fn) {
     }
 
     function set_subcategory_button(subcategory) {
-        let buttons = document.getElementById('trail_log_submenu').querySelectorAll('button:not(#button_' + subcategory.replace(/[ !@#$%^&*()\-/\\]/g, "_") + ')');
+        let buttons = document
+          .getElementById('trail_log_submenu')
+          .querySelectorAll('button:not(#button_' + subcategory.replace(/[ !@#$%^&*()\-/\\]/g, "_") + ')');
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].classList.remove('active');
         }
-        document.getElementById("button_" + subcategory.replace(/[ !@#$%^&*()\-/\\]/g, "_")).classList.add('active');
+        document
+          .getElementById("button_" + subcategory.replace(/[ !@#$%^&*()\-/\\]/g, "_"))
+          .classList
+            .add('active');
     }
 
     let active_menu = null;
@@ -352,7 +354,11 @@ function ready(fn) {
         submenu.innerHTML = "";
         let create_sub_button = function (sub_category) {
             let template = (
-                '<button ' + (sub_category === active_subcategory ? 'class="filter_option pill_button pill_button_ripple active"' : 'class="filter_option pill_button pill_button_ripple"') +
+                '<button ' + (
+                  sub_category === active_subcategory ?
+                  'class="filter_option pill_button pill_button_ripple active"' :
+                  'class="filter_option pill_button pill_button_ripple"'
+                ) +
                 ' id="button_' + sub_category.replace(/[ !@#$%^&*()\-/\\]/g, "_") + '">' +
                 sub_category +
                 '<div class="ripple"></div></button>'
@@ -370,8 +376,7 @@ function ready(fn) {
         };
         let submenu_header = (
             "<div class='wide'>" +
-            "<h3 class='section_heading'>" + title + "</h3>" +
-            "<hr class='section_break'/>" +
+            "<h3 class='section_heading'> Filter By " + title + "</h3>" +
             "</div>"
         );
         submenu.append(createElementFromHTML(submenu_header))
@@ -394,11 +399,15 @@ function ready(fn) {
     }
 
     function set_category_button(category) {
-        let buttons = document.getElementById('trail_log_menu').querySelectorAll('button:not(#button_' + category + ')');
+        let buttons = document
+          .getElementById('trail_log_menu')
+          .querySelectorAll('button:not(#button_' + category + ')');
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].classList.remove('active');
         }
-        document.getElementById(category + '_button').classList.add('active');
+        document.getElementById(category + '_button')
+          .classList
+            .add('active');
     }
 
     function create_button(category) {
@@ -443,8 +452,8 @@ function ready(fn) {
             add_to_category_path(post, ['Date', year, month]);
 
             // Region
-            let region = post.region || 'None';
-            add_to_category_path(post, ['Region', region])
+            //let region = post.region || 'None';
+            //add_to_category_path(post, ['Region', region])
 
             // Difficulty
             let difficulty = post.difficulty || 'None';

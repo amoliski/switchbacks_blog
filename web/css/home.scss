@@ -168,13 +168,13 @@
   }
 
   section.stories {
-    .read_more {
-      a {
-        transition: background-color .2s ease;
 
-        &:hover {
-          background-color: rgba(0, 0, 0, 0.1)
-        }
+    .story_block:hover, .featured_story:hover{
+      a.image{
+        box-shadow: 0 0 0 11px $primary inset;
+      }
+      a{
+        color: $primary;
       }
     }
 
@@ -207,6 +207,8 @@
       }
 
       .image {
+        transition: box-shadow 0.2s ease;
+        box-shadow: 0 0 0 0 $primary inset;
         background-size: cover;
         grid-row: 1;
         padding-top: 56.25%;
@@ -221,6 +223,8 @@
       display: grid;
       column-gap: 2rem;
 
+
+
       grid-template-columns: 1fr;
       @include md {
         grid-template-columns: 1fr 1fr;
@@ -231,11 +235,14 @@
         margin-bottom: 1rem;
       }
 
+
       .image {
         display: block;
         padding-top: 66%;
         background-size: cover;
         background-position: bottom;
+        transition: box-shadow 0.2s ease;
+        box-shadow: 0 0 0 0 $primary inset;
       }
     }
 
@@ -243,6 +250,8 @@
       grid-column: wide;
       padding-top: 7rem;
       padding-bottom: 7rem;
+      display: flex;
+      justify-content: center;
     }
 
   }
@@ -397,6 +406,22 @@
         padding-bottom: 7rem;
       }
     }
+
+    .article{
+     .article_image{
+       transition: box-shadow .2s ease;
+       box-shadow: 0 0 0 0 $primary inset;
+     }
+      &:hover{
+       .article_image{
+         box-shadow: 0 0 0 11px $primary inset;
+       }
+       a{
+         color: $primary;
+       }
+     }
+    }
+
   }
 
   section > header {

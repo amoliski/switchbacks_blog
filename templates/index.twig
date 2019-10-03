@@ -51,9 +51,6 @@
                 {% if main_story.storyLocation %}{{- main_story.storyLocation -}} - {% endif %}
                 {{- main_story.chapterList | length -}}&nbsp;{{- main_story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
             </div>
-            <div class="read_more">
-                <a href="{{ main_story.url }}">Read More</a>
-            </div>
         </div>
         <a href="{{ main_story.url }}" class="image" style="background-image: url({{ get_image_from_media(main_story.storyImage, 875, 550) }})"></a>
 
@@ -69,9 +66,6 @@
                     {% if story.storyDates %}{{- story.storyDates -}} - {% endif %}
                     {% if story.storyLocation %}{{- story.storyLocation -}} - {% endif %}
                     {{- story.chapterList | length -}}&nbsp;{{- story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
-                </div>
-                <div class="read_more">
-                    <a href="{{ story.url }}">Read More</a>
                 </div>
             </div>
         {%- endfor -%}
@@ -117,9 +111,8 @@
         {%- for entry in entries -%}
             <div class="article">
                 <a href="{{entry.url}}" class="article_image" style="background-image: url({{ get_image_from_media(entry.heroImage, 800, 450) }})"></a>
-                <h3 class="tight"><a href="{{entry.url}}">{{entry.title}}</a></h3>
+                <h3 class="tighter"><a href="{{entry.url}}">{{entry.title}}</a></h3>
                 {% if entry.place %}<div class="caption">{{ entry.place }}</div>{% endif %}
-                <a href="{{entry.url}}" class="read_more">Read More</a>
             </div>
         {%- endfor -%}
 
