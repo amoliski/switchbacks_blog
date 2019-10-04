@@ -207,7 +207,7 @@
       }
 
       .image {
-        transition: box-shadow 0.2s ease;
+        transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
         box-shadow: 0 0 0 0 $primary inset;
         background-size: cover;
         grid-row: 1;
@@ -241,7 +241,7 @@
         padding-top: 66%;
         background-size: cover;
         background-position: bottom;
-        transition: box-shadow 0.2s ease;
+        transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
         box-shadow: 0 0 0 0 $primary inset;
       }
     }
@@ -409,7 +409,7 @@
 
     .article{
      .article_image{
-       transition: box-shadow .2s ease;
+       transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
        box-shadow: 0 0 0 0 $primary inset;
      }
       &:hover{
