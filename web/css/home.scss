@@ -1,5 +1,4 @@
 @import 'vars';
-
 .__home__ {
   .head {
     height: 90vh;
@@ -9,6 +8,25 @@
 
     .recent_post {
       grid-column: content;
+      text-decoration: none;
+      @include sm{
+        grid-column: full;
+      }
+      h1{
+        transition: color 0.25s ease;
+        @include sm(){
+          font-size: 2.5rem;
+          line-height: 3rem;
+        }
+      }
+      &:hover{
+        h1{
+          color: $primary !important;
+        }
+        .image_block{
+          box-shadow: 0 0 0 11px $primary inset;
+        }
+      }
     }
 
     .read_more {
@@ -17,13 +35,15 @@
     }
 
     .image_block {
-      .vertical {
+      &.vertical {
         display: block;
       }
 
-      .horizontal {
+      &.horizontal {
         display: none;
       }
+      background-size: cover;
+      background-position: center center;
 
       position: absolute;
       top: 0;
@@ -46,7 +66,10 @@
       z-index: 1;
       position: relative;
       height: 100%;
-      max-width: 55rem;
+
+      @include md {
+        max-width: 55rem;
+      }
       display: flex;
       justify-content: flex-end;
       flex-direction: column;
@@ -54,6 +77,11 @@
       .title_content {
         display: flex;
         flex-direction: column;
+        @include sm(){
+          background-color: rgba(0,0,0,0.6);
+          padding: 2rem;
+          margin-left: 3px;
+        }
       }
 
       .caption, .description {
@@ -63,21 +91,6 @@
       > div {
         position: relative;
         bottom: 12rem;
-      }
-    }
-
-    .read_post {
-      margin-top: 2rem;
-      white-space: nowrap;
-      display: inline-block;
-      @include sm {
-        align-self: center;
-        background: #f2cc24;
-        color: black !important;
-        text-decoration: none;
-        padding: 0.25em 1em;
-        border-radius: 30px;
-        font-family: $lekton;
       }
     }
   }
@@ -119,13 +132,18 @@
           right: initial;
           height: initial;
           z-index: 1;
+          transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
           border-left: none;
+          box-shadow: 0 0 0 0 $primary inset;
+          min-height: auto;
+          background-image: url(https://d3bnfnztujavng.cloudfront.net/eyJidWNrZXQiOiJzd2l0Y2hiYWNrcyIsImtle…l0cyI6eyJyZXNpemUiOnsiZml0IjoiY292ZXIiLCJoZWlnaHQiOjEwODAsIndpZHRoIjowfX19);
+          padding-top: 66.6%;
 
-          .vertical {
+          &.vertical {
             display: none;
           }
 
-          .horizontal {
+          &.horizontal {
             display: block;
           }
         }
@@ -168,17 +186,21 @@
   }
 
   section.stories {
+    h1, h2{
+      transition: color 0.25s ease;
+    }
 
     .story_block:hover, .featured_story:hover{
-      a.image{
+      .image{
         box-shadow: 0 0 0 11px $primary inset;
       }
-      a{
+      h1, h2{
         color: $primary;
       }
     }
 
     .featured_story {
+      text-decoration: none;
       grid-column: wide;
       display: grid;
       @include md {
@@ -222,12 +244,16 @@
       grid-column: wide;
       display: grid;
       column-gap: 2rem;
-
-
-
       grid-template-columns: 1fr;
       @include md {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .story_block{
+        text-decoration: none;
+        @include sm(){
+          margin-bottom: 3rem;
+        }
       }
 
       .metadata {
@@ -257,11 +283,16 @@
   }
 
   section.posts {
+    h3 a{
+        transition: color 0.25s ease;
+    }
 
     .read_more_stories {
       grid-column: wide;
       margin-bottom: 4rem;
       margin-top: 2rem;
+      display: flex;
+      justify-content: center;
 
       .read_more_button {
         color: black;
@@ -310,6 +341,9 @@
           flex-grow: 0;
           flex-shrink: 0;
         }
+        &:hover .metadata .title{
+            color: $primary;
+        }
 
         .metadata {
           color: white;
@@ -326,7 +360,7 @@
           }
 
           .title {
-
+            transition: color 0.25s ease;
             color: white;
             text-decoration: none;
           }
@@ -392,12 +426,6 @@
             font-size: 1.7rem;
           }
         }
-
-        .read_more {
-          color: $primary;
-          padding-bottom: 2rem;
-          font-size: 1.5rem;
-        }
       }
       .read_more_stories {
         grid-column: wide;
@@ -412,11 +440,17 @@
        transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
        box-shadow: 0 0 0 0 $primary inset;
      }
+      h3{
+        transition: color 0.25s ease;
+      }
       &:hover{
        .article_image{
          box-shadow: 0 0 0 11px $primary inset;
+         @include sm(){
+           box-shadow: 0 0 0 4px $primary inset;
+         }
        }
-       a{
+       h3{
          color: $primary;
        }
      }

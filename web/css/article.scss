@@ -96,7 +96,7 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     @include xl(){
       flex-direction: row;
     }
@@ -374,6 +374,13 @@
   .read_more{
     background-color: black;
     color: white;
+  }
+  .scroll_to_top{
+    grid-column: wide;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-bottom: 4rem;
   }
 
 }

@@ -223,10 +223,14 @@ a{
 
 }
 
-a.primary_button{
-  background-color: #F2CC24;
+a.primary_button, button.primary_button{
+  background-color: $primary;
+  transition: background-color 0.5s ease;
+  &:hover{
+    background-color: lighten($primary, 10);
+  }
   text-decoration: none;
-  padding: 0.5rem 2rem;
+  padding: 1rem 2rem;
   border-radius: 100rem;
   white-space: nowrap;
   .dark &{

@@ -81,38 +81,41 @@
     }
   }
 }
-header.navbar{
+header.navbar {
 
   position: absolute;
   width: 100%;
   z-index: 100;
-  top:0;
+  top: 0;
   font-size: 2rem;
   font-family: $cabin;
   background-color: $black;
   user-select: none;
-  #mobile_menu{
-    @include md{
+
+  #mobile_menu {
+    @include md {
       display: none;
     }
     position: relative;
     will-change: margin, transform;
     user-select: none;
-    transition:
-            margin 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975),
-            opacity 0.55s cubic-bezier(0.385, 0.005, 0.215, 0.975),
-            transform 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975);
+    transition: margin 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975),
+    opacity 0.55s cubic-bezier(0.385, 0.005, 0.215, 0.975),
+    transform 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975);
     opacity: 1;
     margin-top: -33rem;
     z-index: 0;
     padding-top: 1em;
     grid-column: wide;
-    ul{
+
+    ul {
       list-style: none;
-      li{
+
+      li {
         display: flex;
         justify-content: center;
-        a{
+
+        a {
           color: white;
           text-decoration: none;
           text-align: center;
@@ -121,8 +124,9 @@ header.navbar{
           line-height: 1.7rem;
           border-bottom: 1px solid white;
           margin-bottom: 1.3rem;
+
           &:focus {
-            outline:0;
+            outline: 0;
             border-bottom-color: $primary;
           }
         }
@@ -130,21 +134,20 @@ header.navbar{
     }
 
     &.menu_open {
-    transition:
-            margin 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975),
-            opacity 0.55s cubic-bezier(0.385, 0.005, 0.215, 0.975),
-            transform 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975);
+      transition: margin 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975),
+      opacity 0.55s cubic-bezier(0.385, 0.005, 0.215, 0.975),
+      transform 0.75s cubic-bezier(0.385, 0.005, 0.215, 0.975);
       margin-top: -11rem;
       opacity: 1;
       transform: translateY(9rem);
-      @include md{
+      @include md {
         margin-top: -35rem;
       }
     }
   }
 
 
-  nav#top_menu{
+  nav#top_menu {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -154,18 +157,19 @@ header.navbar{
     grid-column: full;
     height: 5rem;
     padding: 2rem 3rem;
-    @include md{
+    @include md {
       padding: 2rem 0;
       grid-column: wide;
     }
 
-    ul.links{
+    ul.links {
       display: none;
-      @include md{
-        display:  inline-block;
+      @include md {
+        display: inline-block;
       }
       list-style: none;
-      li{
+
+      li {
         display: inline-block;
       }
 
@@ -175,7 +179,7 @@ header.navbar{
         font-size: 1.5rem;
         text-decoration: none;
         margin-left: 4.5rem;
-        white-space:nowrap;
+        white-space: nowrap;
         border-bottom: 2px solid $primary_transparent;
         @media screen and (max-width: 1100px) {
           margin-left: 1.7rem;
@@ -191,21 +195,22 @@ header.navbar{
           font-weight: bold;
           padding: .6rem 1.4rem;
           background-color: $primary;
+          transition: background-color 0.5s ease;
+
+          &:hover {
+            background-color: lighten($primary, 10);
+          }
+
           color: black;
           border-radius: 3rem;
           border-bottom: none;
-          &.active{
+
+          &.active {
             border-bottom: none;
           }
         }
       }
 
     }
-
   }
-
-
-
 }
-
-
