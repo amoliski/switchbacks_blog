@@ -1,5 +1,47 @@
 @import'vars';
 
+@keyframes slide_in {
+  0% {
+    transform: translateY(5rem);
+    opacity: 0;
+  }
+  30%{
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade_in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.slide_in, .fade_in{
+  animation-duration: 750ms;
+  animation-timing-function: ease-out;
+  animation-delay: 500ms;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: backwards;
+  animation-play-state: running;
+}
+
+.slide_in{
+  animation-name: slide_in;
+}
+.fade_in{
+  animation-name: fade_in;
+}
+
+
+
 .pill_button{
   cursor: pointer;
   border-radius: 20px;
@@ -16,11 +58,14 @@
 
   &:hover{
     border-color: $primary;
+    border-color: var(--primary, $primary);
   }
   &.active {
     color: black;
     background-color: $primary;
+    background-color: var(--primary, $primary);
     border: 1px solid $primary;
+    border: 1px solid var(--primary, $primary);
     font-weight: normal;
     .ripple{
       transform: scale(1);
@@ -37,7 +82,8 @@
     display: block;
     height: 200px;
     width: 200px;
-    background: #F2CC24;
+    background-color: $primary;
+    background-color: var(--primary, #6df29c);
     position: absolute;
     top: -93px;
     left: -8px;
@@ -225,9 +271,12 @@ a{
 
 a.primary_button, button.primary_button{
   background-color: $primary;
+  background-color: var(--primary, $primary);
   transition: background-color 0.5s ease;
   &:hover{
-    background-color: lighten($primary, 10);
+    background-color: $primary_lighten;
+    background-color: var(--primary_lighten, $primary_lighten);
+
   }
   text-decoration: none;
   padding: 1rem 2rem;
@@ -285,10 +334,12 @@ i.arrow{
 
 .primary{
   color: $primary !important;
+  color:  var(--primary, $primary) !important;
 }
 
 .primary_bg{
   background-color: $primary;
+  background-color: var(--primary, $primary);
 }
 
 .js-focus-visible *:focus:not(.focus-visible) {

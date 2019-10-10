@@ -11,24 +11,24 @@
     <a href="{{entry.url}}" class="recent_post">
         <div class="title_block">
             <div class="title_content">
-                <h1>
+                <h1 class="slide_transition">
                   {{- entry.title -}}
                 </h1>
                 {%- if entry.place != "NA" -%}
-                    <div class="caption">
+                    <div class="caption slide_transition" data-delay="700ms">
                         {{- entry.place -}}
                     </div>
                 {%- endif -%}
-                <div class="description">
+                <div class="description fade_transition" data-delay="1.2s">
                   <p>{{- entry.description -}}</p>
                 </div>
             </div>
 
         </div>
-        <div href="{{entry.url}}" class="image_block vertical">
+        <div href="{{entry.url}}" class="image_block vertical fade_in">
             <img src="{{ get_image_from_media(entry.heroImage, 760, 1000) }}"/>
         </div>
-        <div class="image_block horizontal" style="background-image: url({{ get_image_from_media(entry.heroImage, 0, 1080) }})"></div>
+        <div class="image_block horizontal slide_transition" data-delay="1.25s" style="background-image: url({{ get_image_from_media(entry.heroImage, 0, 700) }})"></div>
     </a>
 </section>
 
@@ -40,15 +40,15 @@
     {%- set main_story =  craft.Entries.section('story').with(['storyImage']).orderBy('postDate desc').limit(1).one() -%}
     <a href="{{ main_story.url }}" class="featured_story">
         <div class="title">
-            <h1 class='md-only'>{{- main_story -}}</h1>
-            <h2 class='tight sm-only'>{{- main_story -}}</h2>
-            <p> {{ main_story.storyDescription }}</p>
-            <div class="metadata caption">
+            <h1 class='md-only slide_transition'  data-delay="1.75s">{{- main_story -}}</h1>
+            <h2 class='tight sm-only slide_transition'  data-delay="1.75s">{{- main_story -}}</h2>
+            <p class=" fade_transition"  data-delay="2s"> {{ main_story.storyDescription }}</p>
+            <div class="metadata caption fade_transition"  data-delay="2s">
                 {% if main_story.storyLocation %}{{- main_story.storyLocation -}}&nbsp;-&nbsp;{% endif %}
                 {{- main_story.chapterList | length -}}&nbsp;{{- main_story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
             </div>
         </div>
-        <div class="image" style="background-image: url({{ get_image_from_media(main_story.storyImage, 875, 550) }})"></div>
+        <div class="image slide_transition"  data-delay="2s" style="background-image: url({{ get_image_from_media(main_story.storyImage, 875, 550) }})"></div>
 
     </a>
 
@@ -56,7 +56,7 @@
         {%- set stories =  craft.Entries.section('story').with(['storyImage']).orderBy('postDate desc').limit(2).offset(1).all() -%}
         {%- for story in stories -%}
             <a href="{{ story.url }}" class="story_block">
-                <div class="image" style="background-image: url({{ get_image_from_media(story.storyImage, 700, 550) }})"></div>
+                <div class="image slide_transition"  data-delay="2.5s" style="background-image: url({{ get_image_from_media(story.storyImage, 700, 550) }})"></div>
                 <h2 class="tight">{{ story }}</h2>
                 <div class="metadata caption">
                     {% if story.storyLocation %}{{- story.storyLocation -}}&nbsp;-&nbsp;{% endif %}

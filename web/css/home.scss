@@ -21,10 +21,11 @@
       }
       &:hover{
         h1{
-          color: $primary !important;
+          color: var(--primary) !important;
         }
         .image_block{
           box-shadow: 0 0 0 11px $primary inset;
+          box-shadow: 0 0 0 11px var(--primary, $primary) inset;
         }
       }
     }
@@ -52,7 +53,7 @@
       height: 90vh;
       max-height: 100rem;
       min-height: 50rem;
-      border-left: 3px solid $primary;
+      border-left: 3px solid var(--primary);
       overflow: hidden;
       z-index: 0;
 
@@ -135,8 +136,8 @@
           transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
           border-left: none;
           box-shadow: 0 0 0 0 $primary inset;
+          box-shadow: 0 0 0 0 var(--primary, $primary) inset;
           min-height: auto;
-          background-image: url(https://d3bnfnztujavng.cloudfront.net/eyJidWNrZXQiOiJzd2l0Y2hiYWNrcyIsImtle…l0cyI6eyJyZXNpemUiOnsiZml0IjoiY292ZXIiLCJoZWlnaHQiOjEwODAsIndpZHRoIjowfX19);
           padding-top: 66.6%;
 
           &.vertical {
@@ -187,15 +188,18 @@
 
   section.stories {
     h1, h2{
-      transition: color 0.25s ease;
+      transition: color 0.25s ease, text-decoration-color 0.5s ease;
+      text-decoration: underline;
+      text-decoration-color: white;
     }
 
     .story_block:hover, .featured_story:hover{
       .image{
-        box-shadow: 0 0 0 11px $primary inset;
+        box-shadow: 0 0 0 11px var(--primary) inset;
       }
       h1, h2{
-        color: $primary;
+        text-decoration-color: $primary;
+        text-decoration-color: var(--primary, $primary);
       }
     }
 
@@ -230,7 +234,7 @@
 
       .image {
         transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
-        box-shadow: 0 0 0 0 $primary inset;
+        box-shadow: 0 0 0 0 var(--primary) inset;
         background-size: cover;
         grid-row: 1;
         padding-top: 56.25%;
@@ -268,7 +272,7 @@
         background-size: cover;
         background-position: bottom;
         transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
-        box-shadow: 0 0 0 0 $primary inset;
+        box-shadow: 0 0 0 0 var(--primary) inset;
       }
     }
 
@@ -296,9 +300,9 @@
 
       .read_more_button {
         color: black;
-        background-color: $primary;
+        background-color: var(--primary);
         font-weight: bold;
-        border: 3px solid $primary;
+        border: 3px solid var(--primary);
         text-decoration: none;
         font-family: $lekton;
         margin-right: 2rem;
@@ -343,6 +347,7 @@
         }
         &:hover .metadata .title{
             color: $primary;
+            color: var(--primary, $primary);
         }
 
         .metadata {
@@ -439,6 +444,7 @@
      .article_image{
        transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
        box-shadow: 0 0 0 0 $primary inset;
+       box-shadow: 0 0 0 0 var(--primary, $primary) inset;
      }
       h3{
         transition: color 0.25s ease;
@@ -446,12 +452,15 @@
       &:hover{
        .article_image{
          box-shadow: 0 0 0 11px $primary inset;
+         box-shadow: 0 0 0 11px var(--primary, $primary) inset;
          @include sm(){
            box-shadow: 0 0 0 4px $primary inset;
+           box-shadow: 0 0 0 4px var(--primary, $primary) inset;
          }
        }
        h3{
          color: $primary;
+         color: var(--primary, $primary);
        }
      }
     }

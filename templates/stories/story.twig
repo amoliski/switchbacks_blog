@@ -7,40 +7,11 @@
 
 <body>
 <main id="swup" class="__story__">
-    {% if story.chapterList[0].heroImage | length > 0 %}
-        <style>
-            .main {
-                background-color: black;
-                background-size: cover;
-                background-position: center;
-            }
-            @media screen and (min-width: 768px){
-                .main {
-                    background-image: url({{get_image_from_media(story.chapterList[0].heroImage, 900) }});
-                }
-            }
-            @media screen and (min-width: 1900px) {
-                .main {
-                    background-image: url({{get_image_from_media(story.chapterList[0].heroImage, 1920) }});
-                }
-            }
-            @media screen and (min-width: 2500px) {
-                .main {
-                    background-image: url({{get_image_from_media(story.chapterList[0].heroImage, 2560) }});
-                }
-            }
-            @media screen and (min-width: 3800px) {
-                .main {
-                    background-image: url({{get_image_from_media(story.chapterList[0].heroImage, 3840) }});
-                }
-            }
-        </style>
-    {% endif %}
 
 
-<section class="main">
+<section class="main grid dark">
 
-    <div class="content dark">
+    <div class="content dark" style="grid-column: wide;">
         <h1>{{ entry }}</h1>
         <div class="description">
             <p>{{ story.storyDescription }}</p>
@@ -77,8 +48,6 @@
 
         </div>
     </div>
-
-    <div class="heroImage"></div>
 </section>
 
 

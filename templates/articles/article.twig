@@ -9,22 +9,26 @@
 <main id="swup" class="__article__">
     {% if article.heroImage | length > 0 %}
         <style>
+            .loadingPlaceholder{
+            background-image: url({{ get_image_from_media(article.heroImage, 50) }})
+            }
+
             .heroImage {
-                background-image: url({{ get_image_from_media(article.heroImage, 900) }})
+                background-image: url({{ get_image_from_media(article.heroImage, 1920) }})
             }
             @media screen and (min-width: 1920px) {
-                .heroImage {
-                    background-image: url({{ get_image_from_media(article.heroImage, 1920) }})
-                }
-            }
-            @media screen and (min-width: 1440px) {
                 .heroImage {
                     background-image: url({{ get_image_from_media(article.heroImage, 1440) }})
                 }
             }
-            @media screen and (min-width: 2560px) {
+            @media screen and (min-width: 1440px) {
                 .heroImage {
                     background-image: url({{ get_image_from_media(article.heroImage, 2560) }})
+                }
+            }
+            @media screen and (min-width: 2560px) {
+                .heroImage {
+                    background-image: url({{ get_image_from_media(article.heroImage, 3840) }})
                 }
             }
             @media screen and (min-width: 3840px) {
@@ -37,7 +41,7 @@
 
 
     {% set story = 0 %}
-    {% set found = 0 %}
+    {% set afound = 0 %}
 
 
     {% set storySearch = craft.entries().section('story').search('chapterList:' ~ article.title).with(['chapterList']).all() %}
@@ -55,16 +59,16 @@
     {% endif %}
     <section class="head grid">
         <div class="title_block">
-            <h1>
+            <h1 class="slide_transition">
                 {{article.title}}
             </h1>
 
             {% if article.place != "NA" %}
-                <div class="caption">{{article.place}}</div>
+                <div class="caption slide_transition" >{{article.place}}</div>
             {% endif %}
 
             {% if article.articleAuthor | length > 0 %}
-                <div class="author_block">
+                <div class="author_block fade_transition" data-delay="1.2s">
                     <div class="image" style="background-image: url({{ get_image_from_media(article.articleAuthor[0].image, 300, 300) }})"></div>
                     <div class="info">
                         <div data-xlink="/author/{{article.articleAuthor[0].slug}}">Article by {{article.articleAuthor[0].title}}</div>
@@ -75,7 +79,10 @@
         </div>
 
         {% if article.heroImage | length == 1 %}
+          <div class="heroImageContainer">
             <div class="heroImage"></div>
+            <div class="loadingPlaceholder"></div>
+          </div>
         {% endif %}
 
         <div class="article_info">
@@ -232,6 +239,16 @@
         </article>
     </section>
     <section class="read_more grid">
+      {% if story_chapter_number < story_length - 1 %}
+      <a href="{{chapters[story_chapter_number+1].url}}">
+        <span class="sr-only">Next Article</span>
+        <i class="arrow right primary"></i>
+      </a>
+
+      {% endif %}
+
+
+
         <div class="article_info">
             {% if article.footerBlurb %}
                 <div class="center">

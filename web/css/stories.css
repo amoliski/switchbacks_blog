@@ -371,7 +371,6 @@ input {
 #brand {
   position: absolute;
   top: 2rem;
-  left: 4rem;
   width: 5rem;
   height: 5rem;
   z-index: 10;

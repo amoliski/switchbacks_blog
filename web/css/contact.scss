@@ -54,7 +54,7 @@
           resize: vertical;
         }
         &:focus ~ label{
-          color:$primary;
+          color: var(--primary, $primary);
         }
         &:focus ~ label, &:valid ~ label{
           top:-20px;
@@ -87,6 +87,7 @@
         left: 0;
         width: 100%;
         background-color: $primary;
+        background-color: var(--primary, $primary);
       }
     }
 

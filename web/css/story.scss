@@ -10,14 +10,15 @@
     .content{
       background-color: black;
       color: white;
-      padding: 3rem 10rem;
-      max-width: 70rem;
-      margin-left: auto;
-      margin-right: auto;
+      padding-top: 2rem;
+
 
       .description{
         margin-top: 2rem;
         margin-bottom: 2rem;
+        @include md(){
+          width: 50%;
+        }
       }
       .metadata{
         margin-bottom: 4rem;

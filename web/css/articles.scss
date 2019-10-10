@@ -31,8 +31,10 @@
       .read_more_button {
         color: black;
         background-color: $primary;
+        background-color: var(--primary, $primary);
         font-weight: bold;
         border: 3px solid $primary;
+        border: 3px solid var(--primary, $primary);
         text-decoration: none;
         font-family: $lekton;
         margin-right: 2rem;
@@ -69,7 +71,8 @@
     padding-top: 11rem;
   }
   .load_more{
-    background: #f2cc24;
+    background: $primary;
+    background: var(--primary, $primary);
     height: max-content;
     padding: 0rem 2rem;
     color: black;
@@ -108,15 +111,18 @@
       .article:hover{
         .article_image{
           box-shadow: 0 0 0 11px $primary inset;
+          box-shadow: 0 0 0 11px var(--primary, $primary) inset;
         }
         a{
           color: $primary;
+          color: var(--primary, $primary);
         }
       }
 
       .article_image {
         transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
         box-shadow: 0 0 0 0 $primary inset;
+        box-shadow: 0 0 0 0 var(--primary, $primary) inset;
         width: 100%;
         position: relative;
         padding-top: 75%;
@@ -143,6 +149,7 @@
 
       a {
         background-color: $primary;
+        background-color: var(--primary, $primary);
         color: black;
         font-weight: bold;
         padding: 1rem 4rem;

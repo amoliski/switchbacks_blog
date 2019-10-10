@@ -25,6 +25,7 @@
     .title_block{
       grid-column: wide;
       margin: 2rem 1rem 2rem;
+
       @include md{
         margin: 7rem 10rem 2rem;
       }
@@ -62,13 +63,32 @@
         }
       }
     }
-    .heroImage{
+    .heroImageContainer{
+      position: relative;
+      overflow: hidden;
+      .heroImage, .loadingPlaceholder{
+        position: absolute;
+        width: 100%;
+        top: 0;
+        height:85vh;
+
+        @include sm() {
+          height: 50vh;
+        }
+        z-index:20;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position-y:center;
+      }
+      .loadingPlaceholder{
+        z-index:10;
+        filter: blur(8px);
+        -webkit-filter: blur(28px);
+        opacity: 0.2;
+      }
       grid-column: full;
       //padding-top: 56.25%;
       height:85vh;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position-y:center;
       width: 100%;
       //noinspection CssInvalidMediaFeature
       @include sm(){
