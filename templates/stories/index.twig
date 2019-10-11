@@ -22,7 +22,7 @@
                         {% for slide in randomEntries.all() %}
                             <a href="{{ slide.url }}">
                                 <div class="slide">
-                                    <div class="image" style="background-image: url({{ get_image_from_media(slide.storyImage, 875, 550) }});"></div>
+                                    <div class="image hover_border" style="background-image: url({{ get_image_from_media(slide.storyImage, 875, 550) }});"></div>
                                     <div class="caption">{{ slide.title }}</div>
                                 </div>
                             </a>
@@ -35,42 +35,31 @@
     <section class="stories grid">
         {%- set main_story =  craft.Entries.section('story').orderBy('postDate desc').one() -%}
 
-        <div class="featured_story">
+        <a href="{{ main_story.url }}" class="featured_story">
             <div class="title">
-                <h1 class='md-only'> <a href="{{ main_story.url }}">{{- main_story -}}</a> </h1>
-                <h2 class='tight sm-only'> <a href="{{ main_story.url }}">{{- main_story -}}</a> </h2>
-                <p> {{ main_story.storyDescription }}</p>
-                <div class="metadata caption">
-                    {% if main_story.storyDates %}{{- main_story.storyDates -}} - {% endif %}
-                    {% if main_story.storyLocation %}{{- main_story.storyLocation -}} - {% endif %}
+                <h1 class='md-only slide_transition hover_underline'  data-delay="1.75s">{{- main_story -}}</h1>
+                <h2 class='tight sm-only slide_transition'  data-delay="1.75s">{{- main_story -}}</h2>
+                <p class=" fade_transition"  data-delay="2s"> {{ main_story.storyDescription }}</p>
+                <div class="metadata caption fade_transition"  data-delay="2s">
+                    {% if main_story.storyLocation %}{{- main_story.storyLocation -}}&nbsp;-&nbsp;{% endif %}
                     {{- main_story.chapterList | length -}}&nbsp;{{- main_story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
                 </div>
-                <div class="read_more">
-                    <a href="{{ main_story.url }}">Read More</a>
-                </div>
             </div>
-            <a href="{{ main_story.url }}" class="image" style="background-image: url({{ get_image_from_media(main_story.storyImage, 875, 550) }})"></a>
+            <div class="image slide_transition hover_border"  data-delay="2s" style="background-image: url({{ get_image_from_media(main_story.storyImage, 875, 550) }})"></div>
 
-        </div>
+        </a>
 
         <div class="more_stories">
             {%- set stories =  craft.Entries.section('story').orderBy('postDate desc').limit(6).offset(1) -%}
             {%- for story in stories.all() -%}
-                <div class="story_block">
-                    <a href="{{ story.url }}"
-                       class="image"
-                       style="background-image: url({{ get_image_from_media(story.storyImage, 700, 550) }})">
-                    </a>
-                    <h2 class="tight"><a href="{{ story.url }}"> {{ story }} </a></h2>
+                <a href="{{ story.url }}" class="story_block">
+                    <div class="image slide_transition hover_border"  data-delay="2.5s" style="background-image: url({{ get_image_from_media(story.storyImage, 700, 550) }})"></div>
+                    <h2 class="tight hover_underline">{{ story }}</h2>
                     <div class="metadata caption">
-                        {% if story.storyDates %}{{- story.storyDates -}} - {% endif %}
-                        {% if story.storyLocation %}{{- story.storyLocation -}} - {% endif %}
+                        {% if story.storyLocation %}{{- story.storyLocation -}}&nbsp;-&nbsp;{% endif %}
                         {{- story.chapterList | length -}}&nbsp;{{- story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
                     </div>
-                    <div class="read_more">
-                        <a href="{{ story.url }}">Read More</a>
-                    </div>
-                </div>
+                </a>
             {%- endfor -%}
 
         </div>

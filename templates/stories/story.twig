@@ -28,21 +28,19 @@
         <div class="articleList">
 
             {% for article in story.chapterList %}
-                    <div class="article">
-                        <a href="{{ article.url }}">
-                            <div class="articleImage" style="background-image:url({{ get_image_from_media(article.heroImage, 250, 150) }});"></div>
-                        </a>
+                    <a href="{{ article.url }}" class="article">
+                        <div class="articleImage hover_border_tight" style="background-image:url({{ get_image_from_media(article.heroImage, 250, 150) }});"></div>
                         <div class="articleData">
-                            <h2 class="tight"><a href="{{ article.url }}"> {{ article }} </a></h2>
+                            <h2 class="tight hover_color"> {{ article }} </h2>
 
                             <div class="caption">
                                 {{ article.place }}
                             </div>
-                            <div class="readMore">
-                                <a class="primary" href="{{ article.url }}">Read Article</a>
-                            </div>
+                            <p>
+                                {{ article.description }}
+                            </p>
                         </div>
-                    </div>
+                    </a>
             {% endfor %}
 
 

@@ -13,19 +13,9 @@
         grid-column: full;
       }
       h1{
-        transition: color 0.25s ease;
         @include sm(){
           font-size: 2.5rem;
           line-height: 3rem;
-        }
-      }
-      &:hover{
-        h1{
-          color: var(--primary) !important;
-        }
-        .image_block{
-          box-shadow: 0 0 0 11px $primary inset;
-          box-shadow: 0 0 0 11px var(--primary, $primary) inset;
         }
       }
     }
@@ -133,10 +123,7 @@
           right: initial;
           height: initial;
           z-index: 1;
-          transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
           border-left: none;
-          box-shadow: 0 0 0 0 $primary inset;
-          box-shadow: 0 0 0 0 var(--primary, $primary) inset;
           min-height: auto;
           padding-top: 66.6%;
 
@@ -187,62 +174,20 @@
   }
 
   section.stories {
-    h1, h2{
-      transition: color 0.25s ease, text-decoration-color 0.5s ease;
-      text-decoration: underline;
-      text-decoration-color: white;
-    }
 
-    .story_block:hover, .featured_story:hover{
-      .image{
-        box-shadow: 0 0 0 11px var(--primary) inset;
-      }
-      h1, h2{
-        text-decoration-color: $primary;
-        text-decoration-color: var(--primary, $primary);
-      }
-    }
 
-    .featured_story {
-      text-decoration: none;
+    .story_grid{
       grid-column: wide;
       display: grid;
-      @include md {
-        grid-template-columns: 3fr 5fr;
-      }
+      column-gap: 2rem;
+      row-gap: 2rem;
       grid-template-columns: 1fr;
-      margin-bottom: 3rem;
-
-      .title {
-        grid-row: 2;
-        @include md {
-          grid-row: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          padding: 2rem 0;
-        }
-      }
-
-      .metadata {
-        margin-bottom: 3rem;
-      }
-
-      .metadata {
-        font-family: $lekton;
-      }
-
-      .image {
-        transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
-        box-shadow: 0 0 0 0 var(--primary) inset;
-        background-size: cover;
-        grid-row: 1;
-        padding-top: 56.25%;
-        @include md {
-          grid-row: 1;
-        }
+      @include md(){
+        grid-template-columns: 1fr 1fr;
       }
     }
+
+
 
     .more_stories {
       grid-column: wide;
@@ -253,27 +198,6 @@
         grid-template-columns: 1fr 1fr;
       }
 
-      .story_block{
-        text-decoration: none;
-        @include sm(){
-          margin-bottom: 3rem;
-        }
-      }
-
-      .metadata {
-        font-family: $lekton;
-        margin-bottom: 1rem;
-      }
-
-
-      .image {
-        display: block;
-        padding-top: 66%;
-        background-size: cover;
-        background-position: bottom;
-        transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
-        box-shadow: 0 0 0 0 var(--primary) inset;
-      }
     }
 
     .read_more_stories {
@@ -439,32 +363,6 @@
         padding-bottom: 7rem;
       }
     }
-
-    .article{
-     .article_image{
-       transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
-       box-shadow: 0 0 0 0 $primary inset;
-       box-shadow: 0 0 0 0 var(--primary, $primary) inset;
-     }
-      h3{
-        transition: color 0.25s ease;
-      }
-      &:hover{
-       .article_image{
-         box-shadow: 0 0 0 11px $primary inset;
-         box-shadow: 0 0 0 11px var(--primary, $primary) inset;
-         @include sm(){
-           box-shadow: 0 0 0 4px $primary inset;
-           box-shadow: 0 0 0 4px var(--primary, $primary) inset;
-         }
-       }
-       h3{
-         color: $primary;
-         color: var(--primary, $primary);
-       }
-     }
-    }
-
   }
 
   section > header {

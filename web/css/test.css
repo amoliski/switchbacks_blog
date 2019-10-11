@@ -1,0 +1,150 @@
+html, body, div {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline; }
+
+body {
+  line-height: 1; }
+
+* {
+  height: inherit;
+  transition: transform 800ms ease;
+  transform: translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
+  transform-style: preserve-3d; }
+
+.phototest .pane {
+  background-image: url(https://d3bnfnztujavng.cloudfront.net/eyJidWNrZXQiOiJzd2l0Y2hiYWNrcyIsImtleSI6Im1lZGlhXC9zdG9yaWVzXC9zdGFya3MtbmVzdC12aWEtbG9uZy10cmFpbFwvU3RhcmtzLU5lc3QuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7ImZpdCI6ImNvdmVyIiwiaGVpZ2h0IjowLCJ3aWR0aCI6MTkyMH19fQ==);
+  background-size: cover; }
+
+.phototest .pane2 {
+  background-position-x: calc(-1 * 100vw/6);
+  transform: translateX(-1px); }
+
+.phototest .pane3 {
+  background-position-x: calc(-2 * 100vw/6);
+  transform: translateX(-2px); }
+
+.phototest .pane4 {
+  background-position-x: calc(-3 * 100vw/6);
+  transform: rotateZ(180deg); }
+
+.phototest .pane5 {
+  background-position-x: calc(-4 * 100vw/6);
+  transform: rotateZ(180deg) translateX(-1px); }
+
+.phototest .pane6 {
+  background-position-x: calc(-5 * 100vw/6);
+  transform: rotateZ(180deg) translateX(-2px); }
+
+.scene {
+  perspective: 1000px;
+  height: 100vh;
+  display: flex;
+  width: 100vw;
+  max-width: 100%;
+  overflow: hidden; }
+
+.left_panes, .right_panes {
+  width: 50vw;
+  display: inline-block; }
+
+.pane {
+  width: calc(100vw / 6);
+  display: inline-block; }
+
+.fold {
+  display: inline-flex;
+  transform-origin: left; }
+
+.fold1 {
+  width: 50vw; }
+
+.fold2 {
+  width: calc(100vw / 3); }
+
+.fold3 {
+  width: calc(100vw / 6); }
+
+.fold4 {
+  width: 50vw; }
+
+.fold5 {
+  width: calc(100vw / 3); }
+
+.fold6 {
+  width: calc(100vw / 6); }
+
+.pane1 {
+  background-color: #f3ff46; }
+
+.pane2 {
+  background-color: #b1ff42; }
+
+.pane3 {
+  background-color: #78ff3e; }
+
+.pane4 {
+  background-color: #18f84c; }
+
+.pane5 {
+  background-color: #0edd97; }
+
+.pane6 {
+  background-color: #00b8ff; }
+
+.fold {
+  animation-direction: alternate;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-play-state: running;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite; }
+
+.fold1 {
+  animation-name: fold1; }
+
+.fold2 {
+  animation-name: fold2; }
+
+.fold3 {
+  animation-name: fold3; }
+
+.fold4 {
+  animation-name: fold4; }
+
+.fold5 {
+  animation-name: fold5; }
+
+.fold6 {
+  animation-name: fold6; }
+
+@keyframes fold1 {
+  0% {
+    transform: rotate3d(0, 1, 0, 0deg) translateX(0px); }
+  30% {
+    transform: rotate3d(0, 1, 0, 0deg) translateX(0px); }
+  70% {
+    transform: rotate3d(0, 1, 0, 130deg) translateX(0px); }
+  100% {
+    transform: rotate3d(0, 1, 0, 130deg) translateZ(-110px); } }
+
+@keyframes fold2 {
+  0% {
+    transform: rotate3d(0, 1, 0, 0deg); }
+  30% {
+    transform: rotate3d(0, 1, 0, 0deg); }
+  70% {
+    transform: rotate3d(0, 1, 0, -179deg); }
+  100% {
+    transform: rotate3d(0, 1, 0, -179deg); } }
+
+@keyframes fold3 {
+  0% {
+    transform: rotate3d(0, 1, 0, 0deg); }
+  30% {
+    transform: rotate3d(0, 1, 0, 0deg); }
+  70% {
+    transform: rotate3d(0, 1, 0, 179deg); }
+  100% {
+    transform: rotate3d(0, 1, 0, 179deg); } }

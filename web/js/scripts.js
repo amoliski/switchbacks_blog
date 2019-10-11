@@ -20,7 +20,7 @@ function scroll_to_top(e){
 }
 
 function transition(fn){
-  document.addEventListener('swup:contentReplaced', fn);
+  document.addEventListener('swup:animationInStart ', function(){fn(arguments)});
 }
 
 function ready(fn) {
@@ -37,6 +37,7 @@ document.addEventListener('swup:contentReplaced', function(){
 });
 
 function apply_animations(){
+  console.log('applying animations', arguments);
   document.querySelectorAll('.slide_transition').forEach(function(e){
     e.classList.add('slide_in');
     if(e.attributes['data-delay']){
@@ -60,13 +61,10 @@ function getRelativeCoordinates (event, referenceElement) {
     x: event.pageX,
     y: event.pageY
   };
-  console.log(position);
-  console.log(referenceElement);
   const offset = {
     left: referenceElement.offsetLeft,
     top: referenceElement.offsetTop
   };
-  console.log(offset);
 
   let reference = referenceElement.offsetParent;
 

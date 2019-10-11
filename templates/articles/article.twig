@@ -240,43 +240,42 @@
     </section>
     <section class="read_more grid">
       {% if story_chapter_number < story_length - 1 %}
-      <a href="{{chapters[story_chapter_number+1].url}}">
-        <span class="sr-only">Next Article</span>
-        <i class="arrow right primary"></i>
-      </a>
-
+        {% set nextArticle = craft.entries().section('article').id(chapters[story_chapter_number+1].id).with(['heroImage']).first() %}
+        {% else %}
+          {% set nextArticle = craft.entries().section('article').with(['heroImage']).orderBy('random()').limit(1).first() %}
       {% endif %}
 
 
+        <a class="next_story" href="{{ nextArticle.url }}">
 
-        <div class="article_info">
-            {% if article.footerBlurb %}
-                <div class="center">
-                    <div class="blurb bottom_spaced">
-                        {{article.footerBlurb}}
-                    </div>
-                </div>
-            {% endif %}
-            {% if article.showTrailInfo %}
-                <div class="stats">
+          <div>
+            <hr/>
+            <span class="caption">
+              {% if story_chapter_number < story_length - 1 %}
+                Read the next chapter ( {{ story_chapter_number + 2 }} / {{ story_length }} )
+              {% else %}
+                Keep reading
+              {% endif %}
 
-                    <div class="stat_block"><div class="title">Miles</div><div class="caption primary">{{article.miles}}</div></div>
-                    <div class="stat_block"><div class="title">Days</div><div class="caption primary">{{article.days}}</div></div>
-                    <div class="stat_block"><div class="title">Difficulty</div><div class="caption primary">{{article.difficulty}}</div></div>
-                    <div class="stat_block"><div class="title">Trail</div><div class="caption primary">{{article.trailType}}</div></div>
+              <h1 style="margin-top: 2rem">{{ nextArticle.title }}</h1>
+              <p>{{ nextArticle.description }}</p>
 
-                    <div class="stat_block"><div class="title">Camping</div><div class="caption primary">{{article.camping}}</div></div>
-                    <div class="stat_block"><div class="title">Month</div><div class="caption primary">{{article.month}}</div></div>
-                    <div class="stat_block"><div class="title">Park Type</div><div class="caption primary">{{article.parkType}}</div></div>
-                    <div class="stat_block"><div class="title">Traffic</div><div class="caption primary">{{article.traffic}}</div></div>
+            </span>
+          </div>
+          <div>
+            <div
+                class="image"
+                style="background-image: url({{ get_image_from_media(article.heroImage, 500) }})">
+            </div>
+          </div>
 
-                </div>
-            {% endif %}
-            <div class="clearfix"></div>
-        </div>
+        </a>
+
         <div class="scroll_to_top">
             <!--suppress HtmlUnknownAnchorTarget -->
-            <a class="primary_button" href="#top" onclick="return scroll_to_top(event)">Back to top</a>
+            <a class="primary_button" href="#top" onclick="return scroll_to_top(event)">
+              Back to top
+            </a>
         </div>
         <div class="clearfix"></div>
     </section>

@@ -1,9 +1,5 @@
 @import 'vars';
 .__story__{
-  hr{
-    border-bottom: 1px solid white;
-    border-top: none;
-  }
 
   .main{
 
@@ -26,6 +22,7 @@
 
       .articleList{
         .article{
+          text-decoration: none;
           display: flex;
           flex-direction: row;
           margin: 8rem auto;
@@ -37,12 +34,11 @@
           .articleData{
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             h2{
               margin-top:1rem;
-              a{
-                line-height:3.5rem;
-              }
+            p{
+              max-width: 50rem;
+            }
             }
           }
 

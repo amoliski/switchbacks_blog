@@ -1,0 +1,60 @@
+
+.featured_story {
+  text-decoration: none;
+  grid-column: wide;
+  display: grid;
+  grid-template-columns: 1fr;
+  @include md {
+    grid-template-columns: 3fr 5fr;
+    p{
+      margin-right: 5rem;
+    }
+  }
+  margin-bottom: 3rem;
+
+  .title {
+    grid-row: 2;
+    @include md {
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem 0;
+    }
+  }
+
+  .metadata {
+    margin-bottom: 3rem;
+    font-family: $lekton;
+  }
+
+  .image {
+    background-size: cover;
+    grid-row: 1;
+    padding-top: 56.25%;
+    @include md {
+      grid-row: 1;
+    }
+  }
+}
+
+
+.story_block{
+  text-decoration: none;
+  @include sm(){
+    margin-bottom: 3rem;
+  }
+
+  .metadata {
+    font-family: $lekton;
+    margin-bottom: 1rem;
+  }
+
+
+  .image {
+    display: block;
+    padding-top: 66%;
+    background-size: cover;
+    background-position: bottom;
+  }
+}

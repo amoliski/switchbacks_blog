@@ -41,6 +41,16 @@
 }
 
 
+hr{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid white;
+  border-top: none;
+  & .light{
+    border-bottom-color: black;
+  }
+}
 
 .pill_button{
   cursor: pointer;
@@ -410,4 +420,43 @@ input{
     }
   }
 
+}
+
+.hover_color{
+  transition: color 0.25s ease;
+  .hover_trigger:hover &, a:hover &{
+    color: $primary;
+    color: var(--primary, $primary);
+  }
+}
+.hover_underline{
+  text-decoration: underline;
+  transition: text-decoration-color 0.5s ease;
+  text-decoration-color: white;
+  .dark &{
+    text-decoration-color: #050505;
+  }
+  .hover_trigger:hover &, a:hover &{
+    text-decoration-color: $primary;
+    text-decoration-color: var(--primary, $primary);
+  }
+}
+.hover_border, .hover_border_tight {
+  transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
+  box-shadow: 0 0 0 0 $primary inset;
+  box-shadow: 0 0 0 0 var(--primary, $primary) inset;
+}
+.hover_border{
+  .hover_trigger:hover &, a:hover &{
+    box-shadow: 0 0 0 14px $primary inset;
+    box-shadow: 0 0 0 14px var(--primary, $primary) inset;
+
+  }
+}
+.hover_border_tight{
+  .hover_trigger:hover &, a:hover &{
+    box-shadow: 0 0 0 4px $primary inset;
+    box-shadow: 0 0 0 4px var(--primary, $primary) inset;
+
+  }
 }

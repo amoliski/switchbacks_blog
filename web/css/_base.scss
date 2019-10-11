@@ -2,6 +2,7 @@
 @import 'style_guide';
 @import 'breakpoints';
 @import 'navbar';
+@import 'common_components';
 
 body{
   font-family: $cabin;
@@ -10,6 +11,11 @@ body{
 
 main{
   margin-top: 90px;
+}
+
+:root{
+  --primary: #{$primary};
+  --primary_lighten: #{$primary_lighten};
 }
 
 .no-touching{

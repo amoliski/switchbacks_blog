@@ -60,6 +60,7 @@
   }
 
   .load_more_bg{
+    cursor: pointer;
     grid-column: wide;
     background: linear-gradient(0deg, rgb(0, 0, 0) 69%, rgba(0, 0, 0, 0) 100%);
     height: 24rem;
@@ -74,7 +75,7 @@
     background: $primary;
     background: var(--primary, $primary);
     height: max-content;
-    padding: 0rem 2rem;
+    padding: 0 2rem;
     color: black;
     border-radius: 4rem;
     font-family: $lekton;

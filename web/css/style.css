@@ -75,6 +75,15 @@ input[type="search"]::-webkit-search-results-decoration {
 .fade_in {
   animation-name: fade_in; }
 
+hr {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid white;
+  border-top: none; }
+  hr .light {
+    border-bottom-color: black; }
+
 .pill_button {
   cursor: pointer;
   border-radius: 20px;
@@ -358,6 +367,35 @@ input {
       width: 100%; }
       .input-container.search label input:focus {
         outline: 0 !important; }
+
+.hover_color {
+  transition: color 0.25s ease; }
+  .hover_trigger:hover .hover_color, a:hover .hover_color {
+    color: #6df29c;
+    color: var(--primary, #6df29c); }
+
+.hover_underline {
+  text-decoration: underline;
+  transition: text-decoration-color 0.5s ease;
+  text-decoration-color: white; }
+  .dark .hover_underline {
+    text-decoration-color: #050505; }
+  .hover_trigger:hover .hover_underline, a:hover .hover_underline {
+    text-decoration-color: #6df29c;
+    text-decoration-color: var(--primary, #6df29c); }
+
+.hover_border, .hover_border_tight {
+  transition: box-shadow 0.25s cubic-bezier(0, 0.34, 0.58, 1);
+  box-shadow: 0 0 0 0 #6df29c inset;
+  box-shadow: 0 0 0 0 var(--primary, #6df29c) inset; }
+
+.hover_trigger:hover .hover_border, a:hover .hover_border {
+  box-shadow: 0 0 0 14px #6df29c inset;
+  box-shadow: 0 0 0 14px var(--primary, #6df29c) inset; }
+
+.hover_trigger:hover .hover_border_tight, a:hover .hover_border_tight {
+  box-shadow: 0 0 0 4px #6df29c inset;
+  box-shadow: 0 0 0 4px var(--primary, #6df29c) inset; }
 
 section.style_guide {
   display: flex;
