@@ -390,17 +390,64 @@
     }
   }
 
+  .next_story{
+    margin-top: 4rem;
+    margin-bottom: 6rem;
+    grid-column: wide;
+    display: grid;
+    grid-template-columns: 1fr;
+    text-decoration: none;
+    @include md(){
+      grid-template-columns: 1fr 1fr;
+    }
+    .image{
+      padding-top: 56.6%;
+      background-size: cover;
+      background-position: center;
+      margin: .8rem;
+    }
+    .title{
+      margin-top: 2rem;
+    }
 
+  }
   .read_more{
     background-color: black;
     color: white;
+  }
+  @include md{
+    .story_info{
+      margin-right: 4rem;
+    }
   }
   .scroll_to_top{
     grid-column: wide;
     margin-left: auto;
     margin-right: auto;
     margin-top: 1rem;
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
+    span {
+      transition: transform 0.8s ease;
+      transform: translateX(0px);
+      display: inline-block;
+    }
+    &:hover span{
+      transform: translateX(1rem);
+    }
+    &:before{
+      content: '^';
+      color: black;
+      height: 26px;
+      vertical-align: baseline;
+      position: absolute;
+      line-height: 40px;
+      font-size: 30px;
+      transition: transform 0.8s ease;
+      transform: translateX(-20px);
+    }
+    &:hover:before{
+      transform: translateX(4px);
+    }
   }
 
 }

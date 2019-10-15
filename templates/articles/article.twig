@@ -41,7 +41,8 @@
 
 
     {% set story = 0 %}
-    {% set afound = 0 %}
+    {% set found = 0 %}
+    {% set story_chapter_number = 0 %}
 
 
     {% set storySearch = craft.entries().section('story').search('chapterList:' ~ article.title).with(['chapterList']).all() %}
@@ -221,14 +222,13 @@
                         {% endif %}
 
                         {% set srcset = get_srcset_from_media(block.imageOne, [600,800,1400,1920,2560,3840]) %}
-
-                        <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.imageOne[0].folderPath }}{{ block.imageOne[0].filename }}"
+                        <img src="{{ get_image_from_media(block.imageOne, 1920) }}"
                              sizes="{{ sizes }}"
                              srcset="{{ srcset }}">
 
                         {% set srcset = get_srcset_from_media(block.imageTwo, [600,800,1400,1920,2560,3840]) %}
 
-                        <img src="https://dv38fo0xkn5dz.cloudfront.net/fit-in/1920x0/media/{{ block.imageTwo[0].folderPath }}{{ block.imageTwo[0].filename }}"
+                        <img src="{{ get_image_from_media(block.imageTwo, 1920) }}"
                              sizes="{{ sizes }}"
                              srcset="{{ srcset }}">
                     </div>
@@ -238,33 +238,33 @@
             {% endfor %}
         </article>
     </section>
-    <section class="read_more grid">
-      {% if story_chapter_number < story_length - 1 %}
+    <section class="read_more grid dark">
+      {% if found and story_chapter_number < story_length - 1 %}
         {% set nextArticle = craft.entries().section('article').id(chapters[story_chapter_number+1].id).with(['heroImage']).first() %}
-        {% else %}
+      {% else %}
           {% set nextArticle = craft.entries().section('article').with(['heroImage']).orderBy('random()').limit(1).first() %}
       {% endif %}
 
 
         <a class="next_story" href="{{ nextArticle.url }}">
 
-          <div>
+          <div class="story_info">
             <hr/>
             <span class="caption">
-              {% if story_chapter_number < story_length - 1 %}
+              {% if found and  story_chapter_number < story_length - 1 %}
                 Read the next chapter ( {{ story_chapter_number + 2 }} / {{ story_length }} )
               {% else %}
                 Keep reading
               {% endif %}
 
-              <h1 style="margin-top: 2rem">{{ nextArticle.title }}</h1>
+              <h1  class="hover_color title">{{ nextArticle.title }}</h1>
               <p>{{ nextArticle.description }}</p>
 
             </span>
           </div>
           <div>
             <div
-                class="image"
+                class="image hover_border"
                 style="background-image: url({{ get_image_from_media(article.heroImage, 500) }})">
             </div>
           </div>
@@ -274,7 +274,7 @@
         <div class="scroll_to_top">
             <!--suppress HtmlUnknownAnchorTarget -->
             <a class="primary_button" href="#top" onclick="return scroll_to_top(event)">
-              Back to top
+              <span>Back to top</span>
             </a>
         </div>
         <div class="clearfix"></div>
