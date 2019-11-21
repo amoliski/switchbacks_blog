@@ -4,19 +4,22 @@
 {%- header "Access-Control-Allow-Headers: *" -%}
 
 
-{%- set results = craft.entries().section('article').with(['heroImage']).all() -%}
+{%- set results = craft.entries().section('article').site('*').with(['heroImage']).all() -%}
 {%- set result = [] -%}
 
 {%- for r in results -%}
     {%- set obj = {
         'difficulty':r.difficulty,
         'title': r.title,
-        'url': r.url,
+        'url': r.uri,
         'slug': r.slug,
         'location': r.place,
         'region': r.region,
         'type': r.parkType,
-        'thumbnail': get_image_from_media(r.heroImage, 800, 450),
+        'description': r.description,
+        'thumbnail_s': get_image_from_media(r.heroImage,  700, 150),
+        'thumbnail_w': get_image_from_media(r.heroImage,  250, 150),
+        'thumbnail_l': get_image_from_media(r.heroImage,  800, 450),
         'date': r.postDate,
     } -%}
     {%- set result = result | merge([obj]) -%}

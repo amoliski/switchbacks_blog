@@ -1,0 +1,26 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * BackendGoogleAnalytics plugin for Craft CMS 3.x
+ *
+ * BackendGoogleAnalytics Settings.twig
+ *
+ * @author    Adam Moliski
+ * @copyright Copyright (c) 2019 Adam Moliski
+ * @link      moliski.net
+ * @package   BackendGoogleAnalytics
+ * @since     0.0.1
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("moliski\\awsimagetransform\\assetbundles\\awsimagetransform\\AWSImageTransformAsset") %}
+
+{{ forms.textField({
+    label: 'Cloudfront endpoint',
+    instructions: 'Enter your cloudfront url endpoint',
+    id: 'cloudfront_url',
+    name: 'cloudfront_url',
+    value: settings['cloudfront_url']})
+}}

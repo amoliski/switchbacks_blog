@@ -1,11 +1,11 @@
-{% set entryQuery = craft.entries().section('author') %}
+{% set entryQuery = craft.entries().section('author').site('*') %}
 {# Execute the query and get the results #}
 {% set entries = entryQuery.all() %}
 
 <ul>
     {% for entry in entries %}
         <li>
-            <a href="{{entry.url}}">{{entry.title}}</a>
+            <a href="/{{entry.uri}}">{{entry.title}}</a>
         </li>
 
 

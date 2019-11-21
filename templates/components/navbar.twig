@@ -1,7 +1,9 @@
 <!--suppress HtmlUnknownTarget -->
 <div class="nav_backing"></div>
 <header class="navbar dark grid" id="top">
-  <a href="/" id="brand" role="link"></a>
+  <a href="/" id="brand" role="link">
+    <span class="sr-only">Home</span>
+  </a>
 
   <button class="menu_toggle" id="menu_button" type="button">
     <span class="sr-only">Toggle main menu</span>
@@ -56,11 +58,11 @@
       'article':'#top_menu .menu_articles',
       'articles':'#top_menu .menu_articles',
       'team':'#top_menu .menu_team',
-    }
+    };
     document.addEventListener('swup:clickLink', function(){
       document.getElementById('mobile_menu').classList.remove('menu_open');
       document.getElementById('menu_button').classList.remove('menu_open');
-    })
+    });
     document.addEventListener('swup:contentReplaced', function(){
       Array.from(document.querySelectorAll('.navbar a')).forEach(function(e){
         e.classList.remove('active');

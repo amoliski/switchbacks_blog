@@ -1,4 +1,4 @@
-{% set entryQuery = craft.entries().section('article') %}
+{% set entryQuery = craft.entries().section('article').site('*') %}
 {% set entries = entryQuery.all() %}
 
 {% include 'components/html_head.twig' with {'css': 'articles'} %}
@@ -6,14 +6,16 @@
 
 <body>
 <main id="swup" class="__articles__">
-    <div class="expando">
+    <div class="expando" id="top">
         <section class="posts dark grid">
             <div class="heading wide">
                 <h1>Articles</h1>
             </div>
             <div class="wide">
-                <p class="trail_log_intro">
-                    Connect with nature, get some fresh air, find yourself, and have fun. Take the extra step (or 10,000) and join us on one of the thousands of backcountry trails the country has to offer!
+                <p class="article_intro">
+                    Most backpacking guides are bogged down with particulars and exacts. Instead of focusing on coordinates we focus on narrative.
+                    Find what you can expect to see, feel, and even smell, on detailed wilderness journeys throughout the country.
+                    Discover your next adventure through our community's wilderness experience.<br/>
                 </p>
             </div>
             <div class="wide">
@@ -22,12 +24,18 @@
             </div>
         </section>
 
-        <section class="posts medium dark grid" style="flex-grow: 1" id="posts_medium">
+        <section class="posts dark grid" style="flex-grow: 1;" id="posts">
 
         </section>
-        <section class="posts small dark grid" style="flex-grow: 1"  id="posts_small">
 
+        <section class="dark grid" id="back_to_top">
+            <div class="scroll_to_top hidden">
+                <a class="primary_button" href="#top" onclick="return scroll_to_top(event)">
+                    <span>Back to top</span>
+                </a>
+            </div>
         </section>
+
     </div>
 {% include 'components/footer.twig' %}
 </main>

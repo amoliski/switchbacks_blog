@@ -32,7 +32,7 @@
     "extra": {
         "name": "AWSImageTransform",
         "handle": "awsimage-transform",
-        "hasCpSettings": false,
+        "hasCpSettings": true,
         "hasCpSection": false,
         "changelogUrl": "https://raw.githubusercontent.com/Craft3ServerlessImageConnector/awsimage-transform/master/CHANGELOG.md",
         "class": "moliski\\awsimagetransform\\AWSImageTransform"

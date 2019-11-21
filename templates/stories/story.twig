@@ -1,4 +1,4 @@
-{% set story = craft.entries().id(entry.id).with([
+{% set story = craft.entries().site('*').id(entry.id).with([
     'chapterList',
     'chapterList.heroImage',
 ]).one()%}
@@ -9,34 +9,34 @@
 <main id="swup" class="__story__">
 
 
-<section class="main grid dark">
+<section class="main grid dark" style="min-height: calc(100vh - 53rem);">
 
-    <div class="content dark" style="grid-column: wide;">
+    <div class="content dark new" style="grid-column: wide;">
         <h1>{{ entry }}</h1>
         <div class="description">
             <p>{{ story.storyDescription }}</p>
         </div>
 
         <div class="metadata caption">
-            {% if story.storyDates %}{{- story.storyDates -}} - {% endif %}
-            {% if story.storyLocation %}{{- story.storyLocation -}} - {% endif %}
-            {{- story.chapterList | length -}}&nbsp;{{- story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
+            {% if story.storyDates %}{{- story.storyDates -}}&nbsp;-&nbsp;{% endif %}
+            {% if story.storyLocation %}{{- story.storyLocation -}}{% endif %}
         </div>
 
         <hr>
 
-        <div class="articleList">
+        <div class="article_list medium_list">
 
             {% for article in story.chapterList %}
-                    <a href="{{ article.url }}" class="article">
-                        <div class="articleImage hover_border_tight" style="background-image:url({{ get_image_from_media(article.heroImage, 250, 150) }});"></div>
+                    <a href="/{{ article.uri }}" class="article">
+                        <div class="article_image small hover_border_tight" style="background-image:url({{ get_image_from_media(article.heroImage, 700, 150) }});"></div>
+                        <div class="article_image medium hover_border_tight" style="background-image:url({{ get_image_from_media(article.heroImage, 250, 150) }});"></div>
                         <div class="articleData">
                             <h2 class="tight hover_color"> {{ article }} </h2>
 
                             <div class="caption">
                                 {{ article.place }}
                             </div>
-                            <p>
+                            <p class="article_description">
                                 {{ article.description }}
                             </p>
                         </div>

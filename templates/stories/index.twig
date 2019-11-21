@@ -4,13 +4,13 @@
 <body>
 <main id="swup" class="__stories__">
     <section class="grid head">
-        <div class="intro">
+        <div class="intro slide_transition">
             <div class="intro_text">
                 <h1>Our Stories</h1>
                 <p>Collections of articles centered around a specific place or theme</p>
             </div>
-            <div class="intro_image">
-                {% set randomEntries = craft.Entries.section('story').orderBy('RANDOM()').limit(3) %}
+            <div class="intro_image slide_transition" data-delay=".25s">
+                {% set randomEntries = craft.Entries.section('story').site('*').orderBy('RANDOM()').limit(3) %}
                 <div class="slider">
                     <div class="progress">
                         {% for slide in randomEntries.all() %}
@@ -20,7 +20,7 @@
 
                     <div class="slides">
                         {% for slide in randomEntries.all() %}
-                            <a href="{{ slide.url }}">
+                            <a href="/{{ slide.uri }}">
                                 <div class="slide">
                                     <div class="image hover_border" style="background-image: url({{ get_image_from_media(slide.storyImage, 875, 550) }});"></div>
                                     <div class="caption">{{ slide.title }}</div>
@@ -33,26 +33,28 @@
         </div>
     </section>
     <section class="stories grid">
-        {%- set main_story =  craft.Entries.section('story').orderBy('postDate desc').one() -%}
+        {%- set main_story =  craft.Entries.section('story').site('*').orderBy('postDate desc').one() -%}
 
-        <a href="{{ main_story.url }}" class="featured_story">
+        <a href="/{{ main_story.uri }}" class="featured_story">
             <div class="title">
-                <h1 class='md-only slide_transition hover_underline'  data-delay="1.75s">{{- main_story -}}</h1>
-                <h2 class='tight sm-only slide_transition'  data-delay="1.75s">{{- main_story -}}</h2>
-                <p class=" fade_transition"  data-delay="2s"> {{ main_story.storyDescription }}</p>
-                <div class="metadata caption fade_transition"  data-delay="2s">
+                <h1 class='md-only slide_transition hover_underline'  data-delay=".75s">{{- main_story -}}</h1>
+                <h2 class='tight sm-only slide_transition'  data-delay=".75s">{{- main_story -}}</h2>
+                <p class=" fade_transition"  data-delay="1s"> {{ main_story.storyDescription }}</p>
+                <div class="metadata caption fade_transition"  data-delay="1s">
                     {% if main_story.storyLocation %}{{- main_story.storyLocation -}}&nbsp;-&nbsp;{% endif %}
                     {{- main_story.chapterList | length -}}&nbsp;{{- main_story.chapterList | length == 1 ? 'Chapter' : 'Chapters' -}}
                 </div>
             </div>
-            <div class="image slide_transition hover_border"  data-delay="2s" style="background-image: url({{ get_image_from_media(main_story.storyImage, 875, 550) }})"></div>
+            <div class="image slide_transition hover_border"  data-delay="1s"
+                 style="background-image: url({{ get_image_from_media(main_story.storyImage, 875, 550) }})">
+            </div>
 
         </a>
 
         <div class="more_stories">
-            {%- set stories =  craft.Entries.section('story').orderBy('postDate desc').limit(6).offset(1) -%}
+            {%- set stories =  craft.Entries.section('story').site('*').orderBy('postDate desc').limit(6).offset(1) -%}
             {%- for story in stories.all() -%}
-                <a href="{{ story.url }}" class="story_block">
+                <a href="/{{ story.uri }}" class="story_block">
                     <div class="image slide_transition hover_border"  data-delay="2.5s" style="background-image: url({{ get_image_from_media(story.storyImage, 700, 550) }})"></div>
                     <h2 class="tight hover_underline">{{ story }}</h2>
                     <div class="metadata caption">
@@ -61,9 +63,7 @@
                     </div>
                 </a>
             {%- endfor -%}
-
         </div>
-
     </section>
 {% include 'components/share.twig' %}
 {% include 'components/footer.twig' %}

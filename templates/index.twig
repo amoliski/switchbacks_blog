@@ -5,34 +5,55 @@
 
 <body>
 <main id="swup" class="__home__">
+
+
+{% set entryQuery = craft.entries().section('article').site('*').with(['heroImage', 'article_author']).orderBy('postDate desc').limit(1) %}
+{% set entry = entryQuery.one() %}
+
+
 <section class="head dark grid">
-    {% set entryQuery = craft.entries().section('article').with(['heroImage']).orderBy('random()').limit(1) %}
-    {% set entry = entryQuery.one() %}
-    <a href="{{entry.url}}" class="recent_post">
-        <div class="title_block">
+    <a href="/{{entry.uri}}" class="recent_post">
+        <div class="title_block grid_title">
             <div class="title_content">
-                <h1 class="slide_transition hover_color">
+                <h1 class="slide_transition hover_underline">
                   {{- entry.title -}}
                 </h1>
                 {%- if entry.place != "NA" -%}
-                    <div class="caption slide_transition" data-delay="700ms">
+                    <div class="caption slide_transition location" data-delay="700ms">
                         {{- entry.place -}}
                     </div>
                 {%- endif -%}
-                <div class="description fade_transition" data-delay="1.2s">
-                  <p>{{- entry.description -}}</p>
-                </div>
             </div>
 
         </div>
-        <div href="{{entry.url}}" class="image_block vertical fade_in">
-            <img src="{{ get_image_from_media(entry.heroImage, 760, 1000) }}"/>
-        </div>
-        <div class="image_block horizontal slide_transition hover_border"
+        <div class="image_block slide_transition hover_border grid_image"
              data-delay="1.25s"
-             style="background-image: url({{ get_image_from_media(entry.heroImage, 0, 700) }})">
+             style="background-image: url({{ get_image_from_media(entry.heroImage, 0, 800) }})">
         </div>
+        <div class="title_block grid_description">
+            <div class="title_content">
+                <div class="description fade_transition" data-delay="1.2s">
+                    <p>{{- entry.description -}}</p>
+                </div>
+            </div>
+            <div class="author_block fade_transition" data-delay="1.2s">
+                <div class="author_image" style="background-image: url({{ get_image_from_media(entry.articleAuthor[0].image, 300, 300) }})"></div>
+                <div class="info">
+                    Article by <br>
+                    <span class="author_name">{{entry.articleAuthor[0].title}}</span>
+                </div>
+            </div>
+        </div>
+
     </a>
+</section>
+
+<section class="call_to_action accent grid">
+    <div class="cta_container">
+        <div class="fancy">Remember to always</div>
+        <div class="bold">Leave No Trace</div>
+        <a class="primary_button white">Refresh your etiquette</a>
+    </div>
 </section>
 
 <section class="stories light grid storylist">
@@ -40,24 +61,11 @@
         Stories
     </header>
 
-    <!--div class="story_grid">
-        <div class="story_block featured">
-            A
-        </div>
-        <div class="story_block">
-            B
-        </div>
-        <div class="story_block">
-            C
-        </div>
-    </div-->
-
-
-    {%- set main_story =  craft.Entries.section('story').with(['storyImage']).orderBy('postDate desc').limit(1).one() -%}
-    <a href="{{ main_story.url }}" class="featured_story">
+    {%- set main_story =  craft.Entries.section('story').site('*').with(['storyImage']).orderBy('postDate desc').limit(1).one() -%}
+    <a href="/{{ main_story.uri }}" class="featured_story">
         <div class="title">
             <h1 class='md-only slide_transition hover_underline'  data-delay="1.75s">{{- main_story -}}</h1>
-            <h2 class='tight sm-only slide_transition'  data-delay="1.75s">{{- main_story -}}</h2>
+            <h2 class='sm-only tight slide_transition hover_underline'  data-delay="1.75s">{{- main_story -}}</h2>
             <p class=" fade_transition"  data-delay="2s"> {{ main_story.storyDescription }}</p>
             <div class="metadata caption fade_transition"  data-delay="2s">
                 {% if main_story.storyLocation %}{{- main_story.storyLocation -}}&nbsp;-&nbsp;{% endif %}
@@ -69,9 +77,9 @@
     </a>
 
     <div class="more_stories">
-        {%- set stories =  craft.Entries.section('story').with(['storyImage']).orderBy('postDate desc').limit(2).offset(1).all() -%}
+        {%- set stories =  craft.Entries.section('story').site('*').with(['storyImage']).orderBy('postDate desc').limit(2).offset(1).all() -%}
         {%- for story in stories -%}
-            <a href="{{ story.url }}" class="story_block">
+            <a href="/{{ story.uri }}" class="story_block">
                 <div class="image slide_transition hover_border"  data-delay="2.5s" style="background-image: url({{ get_image_from_media(story.storyImage, 700, 550) }})"></div>
                 <h2 class="tight hover_underline">{{ story }}</h2>
                 <div class="metadata caption">
@@ -103,30 +111,27 @@
         </p>
     </div>
 
-    {%- set entryQuery = craft.entries().section('article').with(['heroImage']).orderBy('postDate desc').limit(9) -%}
+    {%- set entryQuery = craft.entries().section('article').site('*').with(['heroImage']).orderBy('postDate desc').limit(9) -%}
     {%- set entries = entryQuery.all() -%}
 
-    <div class="recent_articles sm">
-        {%- for entry in entries -%}
-            <a href="{{entry.url}}" class="article">
-                <div class="article_image hover_border_tight" style="background-image: url({{ get_image_from_media(entry.heroImage, 800, 450) }})"></div>
-                <div class="metadata">
-                    {% if entry.place %}<div class="location">{{ entry.place }}</div>{% endif %}
-                    <div class="title hover_color">{{entry.title}}</div>
+    <div class="article_list medium_grid">
+        {% for article in entries %}
+            <a href="/{{ article.uri }}" class="article">
+                <div class="article_image small hover_border_tight" style="background-image:url({{ get_image_from_media(article.heroImage, 700, 150) }});"></div>
+                <div class="article_image medium hover_border_tight" style="background-image:url({{ get_image_from_media(article.heroImage, 250, 150) }});"></div>
+                <div class="article_image large hover_border_tight" style="background-image:url({{ get_image_from_media(article.heroImage, 800, 450) }});"></div>
+                <div class="articleData">
+                    <h3 class="tighter hover_color"> {{ article }} </h3>
+
+                    <div class="caption">
+                        {{ article.place }}
+                    </div>
+                    <p class="article_description">
+                        {{ article.description }}
+                    </p>
                 </div>
             </a>
-        {%- endfor -%}
-    </div>
-
-    <div class="recent_articles md">
-        {%- for entry in entries -%}
-            <a href="{{entry.url}}" class="article" style="text-decoration: none;">
-                <div class="article_image hover_border" style="background-image: url({{ get_image_from_media(entry.heroImage, 800, 450) }})"></div>
-                <h3 class="tighter hover_color">{{entry.title}}</h3>
-                {% if entry.place %}<div class="caption">{{ entry.place }}</div>{% endif %}
-            </a>
-        {%- endfor -%}
-
+        {% endfor %}
     </div>
 
     <div class="read_more_stories">

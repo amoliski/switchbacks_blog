@@ -10,34 +10,24 @@
 
 namespace moliski\awsimagetransform;
 
+use moliski\awsimagetransform\models\Settings;
 
 use Craft;
 use craft\base\Plugin;
 use craft\services\Plugins;
 use craft\events\PluginEvent;
+use craft\elements\Asset;
+use craft\services\Assets;
+use craft\events\GetAssetThumbUrlEvent;
 
 use yii\base\Event;
 
 /**
- * Craft plugins are very much like little applications in and of themselves. We’ve made
- * it as simple as we can, but the training wheels are off. A little prior knowledge is
- * going to be required to write a plugin.
- *
- * For the purposes of the plugin docs, we’re going to assume that you know PHP and SQL,
- * as well as some semi-advanced concepts like object-oriented programming and PHP namespaces.
- *
- * https://craftcms.com/docs/plugins/introduction
  *
  * @author    Adam Moliski
  * @package   AWSImageTransform
  * @since     1.0.0
  *
-
- *  {%- set story_image =  'https://placehold.it/300/500'  -%}
- *  {%- if slide.storyImage | length > 0 -%}
- *    {% set image_path = ( slide.storyImage[0].folderPath ~ slide.storyImage[0].filename ) %}
- *    {% set story_image = ("https://dv38fo0xkn5dz.cloudfront.net/fit-in/875x550/media/"~ image_path ~ " ") %}
- *  {%- endif -%}
  */
 
 class AWSImageTransformProvider extends \Twig\Extension\AbstractExtension
@@ -64,7 +54,7 @@ class AWSImageTransformProvider extends \Twig\Extension\AbstractExtension
     public function get_image_from_media($media, $width=0, $height=0, $index=0){
         $result = 'https://placehold.it/'.($width > 0 ? $width : $height)."x".$height;
 
-        if(count($media) > 0){
+        if($media && count($media) > 0){
             $image_path = $media[0]->folderPath . $media[0]->filename;
             return $this->get_image($image_path, ["resize"=>["fit"=>'cover', 'height'=>$height, 'width'=>$width]]);
         }
@@ -95,26 +85,47 @@ class AWSImageTransform extends Plugin
         parent::init();
         self::$plugin = $this;
 
+        // Register the twig functions if it's not a control panel request
         if(Craft::$app->request->getIsSiteRequest()){
             $extension = new AWSImageTransformProvider();
             Craft::$app->view->registerTwigExtension($extension);
         }
 
-        //Event::on(Assets::class, Assets::EVENT_GET_ASSET_THUMB_URL, function (GetAssetThumbUrlEvent $event) {
-        //    //$config = ImagerService::getConfig();
-        //    //if ($config->useForCpThumbs && $event->asset !== null && $event->asset->kind === 'image' && \in_array(strtolower($event->asset->getExtension()), Image::webSafeFormats(), true)) {
-        //    if ($event->asset !== null && $event->asset->kind === 'image' && \in_array(strtolower($event->asset->getExtension()), Image::webSafeFormats(), true)) {
-        //        try {
-        //            $event->url = $extension.get_image()
-        //            $transformedImage = self::$plugin->imager->transformImage($event->asset, ['width' => $event->width, 'height' => $event->height, 'mode' => 'fit']);
-        //            if ($transformedImage !== null) {
-        //                $event->url = $transformedImage->url;
-        //            }
-        //        } catch (ImagerException $e) {
-        //            // just ignore
-        //        }
-        //    //}
-        //});
+       Event::on(Assets::class, Assets::EVENT_GET_ASSET_THUMB_URL, function (GetAssetThumbUrlEvent $event) {
+
+
+
+            $asset = $event->asset;
+            $width =  $event->width;
+            $height =  $event->height;
+            $result = 'https://placehold.it/'.($width > 0 ? $width : $height)."x".$height;
+
+           //$data = print_r($event->asset, true);
+           Craft::error(
+             Craft::t(
+                 'awsimage-transform',
+                 get_class($asset->volume) == 'craft\awss3\Volume',
+                 //print_r($asset->volume, true),
+                 ['name' => $this->name]
+             ),
+             __METHOD__
+         );
+
+            if(get_class($asset->volume) == 'craft\awss3\Volume'){
+                $volume = $asset->volume;
+                //print_r($volume);
+               $image_path = $event->asset->folderPath . $event->asset->filename;
+               $options = ["resize"=>["fit"=>'cover', 'height'=>$height, 'width'=>$width]];
+                $request = [
+                           "bucket"=>$volume->bucket,
+                           "key"=>$volume->subfolder."/".$image_path,
+                           "edits"=>$options,
+                       ];
+               $event -> handled = true;
+               $result = "https://d3bnfnztujavng.cloudfront.net/".base64_encode(json_encode($request));
+                $event->url = $result;
+            }
+       });
 
         // Do something after we're installed
         Event::on(
@@ -153,9 +164,35 @@ class AWSImageTransform extends Plugin
             ),
             __METHOD__
         );
+
     }
 
     // Protected Methods
     // =========================================================================
 
+    /**
+     * Creates and returns the model used to store the plugin’s settings.
+     *
+     * @return \craft\base\Model|null
+     */
+    protected function createSettingsModel()
+    {
+        return new Settings();
+    }
+
+    /**
+     * Returns the rendered settings HTML, which will be inserted into the content
+     * block on the settings page.
+     *
+     * @return string The rendered settings HTML
+     */
+    protected function settingsHtml(): string
+    {
+        return Craft::$app->view->renderTemplate(
+            'awsimage-transform/settings',
+            [
+                'settings' => $this->getSettings()
+            ]
+        );
+    }
 }

@@ -30,7 +30,7 @@
 </section>
 
 <section class="head dark grid">
-    {% set entryQuery = craft.entries().section('article').orderBy('postDate desc') %}
+    {% set entryQuery = craft.entries().section('article').site('*').orderBy('postDate desc') %}
     {% set entry = entryQuery.one() %}
     <div class="recent_post">
 
@@ -47,7 +47,7 @@
                 <div class="description">
                     {{entry.description}}
                 </div>
-                <a class="read_post" href="{{entry.url}}">
+                <a class="read_post" href="/{{entry.uri}}">
                     Read Post
                 </a>
             </div>

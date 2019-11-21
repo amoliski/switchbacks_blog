@@ -1,0 +1,80 @@
+{% include 'components/html_head.twig' with {'css': 'stories', 'title':'stories'} %}
+{% include 'components/navbar.twig' %}
+
+
+<body>
+<main id="swup" class="__guidebook__">
+
+
+  {% set sections = craft.entries().section('guidebookSection').type('guidebookSection').with(['heroImage']).all() %}
+
+
+  <section class="head light grid">
+    <div class="full guidebook_intro">
+      <div class="title_content">
+        <h1>Welcome to the <span class="fancy nowrap">(soon to be)</span> <span class="nowrap">all-in-one</span> wilderness guidebook.</h1>
+        <div class="description">
+          <p>
+            Our goal is to get more people outside by helping them climb over that not-so-steep learning curve when it comes to outdoor and wilderness literacy.
+          </p>
+          <p>
+            This is a growing project with a lot of territory to cover. <a href="/contact">Let us know</a> how we can improve, what we should add, or what could be embellished upon.
+          </p>
+        </div>
+      </div>
+      <div class="image"></div>
+    </div>
+  </section>
+
+  <section class="light grid index">
+    <div class="wide guidebook_index">
+
+      {% for section in sections %}
+        <div class="section">
+          <div class="section_head">
+            <div class="section_info">
+              <h2>{{ section }}</h2>
+              <p class="description"> {{ section.description }}</p>
+              <a class="primary_button accent" href="/{{ section.uri }}">Full Article</a>
+            </div>
+            <div class="section_image" style="background-image:url({{ get_image_from_media(section.heroImage,  250, 150) }});"></div>
+          </div>
+          <div class="overview_header">
+            Topic Overview <a class="primary_button expand_button accent">+</a><div class="spacer"></div>
+          </div>
+          <div class="topic_grid">
+            {% for topic in section.children().all() %}
+              <a  href="/{{ section.uri}}#{{ topic.slug }}">
+              <div class="flip-card" tab-index="1">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                    <div class="card_topic">
+                      <h4>{{topic}}</h4>
+                    </div>
+                    <p class="topic_description">{{ topic.topicDescription }}</p>
+                    <div class="go_to_topic">
+                      <div class="primary_button accent">
+                        <span class="sr-only">Read more</span>
+                        <i class="arrow right black"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flip-card-back">
+                    <div>{{  topic }}</div>
+                  </div>
+                </div>
+              </div>
+              </a>
+
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+
+    </div>
+  </section>
+
+
+  {% include 'components/footer.twig' %}
+</main>
+</body>

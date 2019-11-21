@@ -8,6 +8,7 @@
 
 {% set searchQuery = craft.app.request.getParam('q') %}
     {% set entries = craft.entries()
+        .site('*')
         .search(searchQuery)
         .orderBy('score')
         .all() %}
@@ -17,7 +18,7 @@
 
         <ul>
             {% for entry in entries %}
-                <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
+                <li><a href="/{{ entry.uri }}">{{ entry.title }}</a></li>
             {% endfor %}
         </ul>
     {% else %}

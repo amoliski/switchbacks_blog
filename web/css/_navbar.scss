@@ -1,25 +1,24 @@
 #brand {
   position: absolute;
-  top: 2rem;
-  width: 5rem;
-  height: 5rem;
+  top: 1.4rem;
+  width: 6rem;
+  height: 6rem;
   z-index: 10;
   grid-column: wide;
   display: block;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url(/img/sb_logo.png);
-  filter: hue-rotate(84deg);
-  border-radius: 5rem;
+  background-image: url(/img/logo.svg);
+border-radius: 5rem;
   &.focus-visible:focus {
-    background-color: #84848414;
+    background-color: #6df29c42;
     outline: none;
   }
 }
 
 .nav_backing{
-  background-color: black;
+  background-color: $black;
   top: 0;
   left: 0;
   right: 0;
@@ -56,7 +55,7 @@
     display: block;
     width: 40px;
     height: 2px;
-    background-color: white;
+    background-color: $white;
     position: relative;
     transition: transform .2s ease, background-color .2s ease;
 
@@ -66,7 +65,7 @@
       content: '';
       width: 40px;
       height: 2px;
-      background-color: white;
+      background-color: $white;
       position: relative;
       transition: transform .2s ease, background-color .2s ease;
     }
@@ -129,13 +128,13 @@ header.navbar {
         justify-content: center;
 
         a {
-          color: white;
+          color: $white;
           text-decoration: none;
           text-align: center;
           display: inline-block;
           padding: 3px;
           line-height: 1.7rem;
-          border-bottom: 1px solid white;
+          border-bottom: 1px solid $white;
           margin-bottom: 1.3rem;
 
           &:focus {
@@ -201,7 +200,7 @@ header.navbar {
         transition: margin-right .3s ease, border .3s;
 
         &.active {
-          color: white;
+          color: $white;
           border-bottom: 2px solid $primary;
           border-bottom: 2px solid var(--primary, $primary);
         }

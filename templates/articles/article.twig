@@ -1,4 +1,4 @@
-{% set article = craft.entries().id(entry.id).with([
+{% set article = craft.entries().site('*').id(entry.id).with([
     'heroImage',
     'articleAuthor'
 ]).one()%}
@@ -45,7 +45,7 @@
     {% set story_chapter_number = 0 %}
 
 
-    {% set storySearch = craft.entries().section('story').search('chapterList:' ~ article.title).with(['chapterList']).all() %}
+    {% set storySearch = craft.entries().section('story').site('*').search('chapterList:' ~ article.title).with(['chapterList']).all() %}
     {%  if storySearch | length > 0 %}
         {% set found = 1 %}
         {% set story = storySearch[0] %}
@@ -58,7 +58,7 @@
             {% endif %}
         {% endfor %}
     {% endif %}
-    <section class="head grid">
+    <section class="head grid dark">
         <div class="title_block">
             <h1 class="slide_transition">
                 {{article.title}}
@@ -70,7 +70,9 @@
 
             {% if article.articleAuthor | length > 0 %}
                 <div class="author_block fade_transition" data-delay="1.2s">
-                    <div class="image" style="background-image: url({{ get_image_from_media(article.articleAuthor[0].image, 300, 300) }})"></div>
+                    <div class="image"
+                         style="background-image: url({{ get_image_from_media(article.articleAuthor[0].image, 300, 300) }})">
+                    </div>
                     <div class="info">
                         <div data-xlink="/author/{{article.articleAuthor[0].slug}}">Article by {{article.articleAuthor[0].title}}</div>
                         <div>{{(article.articleDate  ?? article.postDate) | date("F d, Y")}}</div>
@@ -97,9 +99,9 @@
                         <div class="title">{{story.title}}</div>
                         <div class="chapter-nav">
                             {% if story_chapter_number > 0 %}
-                                <a href="{{chapters[story_chapter_number - 1].url}}">
+                                <a href="/{{chapters[story_chapter_number - 1].uri}}">
                                     <span class="sr-only">Previous Article</span>
-                                    <i class="arrow left primary"></i>
+                                    <i class="arrow left black"></i>
                                 </a>
                             {% else %}
                                 <a disabled>
@@ -109,9 +111,9 @@
                             {% endif %}
                             <div class='chapter_display'>{{ story_chapter_number + 1 }} / {{ story_length }}</div>
                             {% if story_chapter_number < story_length - 1 %}
-                                <a href="{{chapters[story_chapter_number+1].url}}">
+                                <a href="/{{chapters[story_chapter_number+1].uri}}">
                                     <span class="sr-only">Next Article</span>
-                                    <i class="arrow right primary"></i>
+                                    <i class="arrow right black"></i>
                                 </a>
                             {% else %}
                                 <a disabled>
@@ -127,7 +129,7 @@
             {% if article.showTrailInfo %}
                 <div class="stat_display">
                     <input id="show_stats" type="checkbox"/>
-                    <label for="show_stats" class="caption primary"> Trail Info</label>
+                    <label for="show_stats" class="caption primary_button"> Trail Info</label>
                     <div class="stats">
                         {% if article.miles %}<div class="stat_block"><div class="title">Miles</div><div class="caption primary">{{article.miles}}</div></div>{% endif %}
                         {% if article.days %}<div class="stat_block"><div class="title">Days</div><div class="caption primary">{{article.days}}</div></div>{% endif %}
@@ -152,101 +154,19 @@
             <button class='option large_text'>A <span class="sr-only">Change text size: large</span></button>
         </div>
 
-        <article>
-            {% for block in article.mainContent.with(['image:image']).all() %}
-                {% if block.type == "paragraph" %}
+        {%  include 'components/render_article.twig' %}
 
-                    {{ block.textMarkdown|markdown }}
-
-                {% elseif block.type == "blockQuote" %}
-                    <blockquote>
-                        {{ block.quote | markdown }}
-                        <footer>{{ block.author }}</footer>
-                    </blockquote>
-
-                {% elseif block.type == "sectionTitle" %}
-
-                    <h2>{{block.text}}</h2>
-
-                {% elseif block.type == "image" %}
-                    <figure class="single_image {{block.imageSize ? block.imageSize:''}}">
-
-                        {% set sizes = '100vw' %}
-                        {% if block.imageSize %}
-                            {% if block.imageSize == 'align-center' %}
-                                {% set sizes = '(max-width: 900px) 100vw, 800px' %}
-                            {% elseif block.imageSize == 'align-half' %}
-                                {% set sizes = '(max-width: 900px) 100vw, 1400px' %}
-                            {% endif %}
-                        {% endif %}
-                        {% set srcset = get_srcset_from_media(block.image, [600,800,1400,1920,2560,3840]) %}
-                        <img src="{{get_image_from_media(block.image, 1920)}}"
-                             sizes="{{ sizes }}"
-                             srcset="{{ srcset }}"
-                             alt="{{ block.image[0].description ?? ""}}">
-                        <figcaption class="{{block.captionLocation}} {{block.imageSize ? block.imageSize:''}}"> {{ block.caption }}</figcaption>
-                    </figure>
-
-                {% elseif block.type == "caltopoMap" %}
-                    <figure class="caltopo_map {{block.size ? block.size:''}}">
-                        <iframe src="https://caltopo.com/m/{{block.mapCode}}"></iframe>
-                    </figure>
-
-
-                {% elseif block.type == "list" %}
-                    <ul>
-                        {% for row in block.list %}
-                            <li>{{ row.item }}</li>
-                        {% endfor %}
-                    </ul>
-
-                {% elseif block.type == "youtubeVideo" %}
-                    <div
-                            class="video youtube_video {{block.videoSize ? block.videoSize:''}}"
-                            data-id="video_{{ loop.index }}"
-                            data-videos="{% for row in block.videos %}{{ row.videoID }},{{ row.startTime }},{{ row.playbackSpeed }};{% endfor %}"
-                            data-settings="{{ block.videoOptions.contains('showControls') ? '1':'0' }},{{ block.videoOptions.contains('startMuted') ? '1':'0' }},{{ block.videoOptions.contains('autoPlay') ? '1':'0' }},{{ block.videoOptions.contains('loop') ? '1':'0' }}"
-                    >
-                        <div id="video_{{ loop.index }}" style="width:100%"></div>
-                    </div>
-                    <script></script>
-                {% elseif block.type == "doubleImage" %}
-                    <div class="double_image">
-                        {% set sizes = '50vw' %}
-                        {% if block.imageSize %}
-                            {% if block.imageSize == 'align-center' %}
-                                {% set sizes = '(max-width: 900px) 50vw, 400px' %}
-                            {% elseif block.imageSize == 'align-half' %}
-                                {% set sizes = '(max-width: 900px) 50vw, 700px' %}
-                            {% endif %}
-                        {% endif %}
-
-                        {% set srcset = get_srcset_from_media(block.imageOne, [600,800,1400,1920,2560,3840]) %}
-                        <img src="{{ get_image_from_media(block.imageOne, 1920) }}"
-                             sizes="{{ sizes }}"
-                             srcset="{{ srcset }}">
-
-                        {% set srcset = get_srcset_from_media(block.imageTwo, [600,800,1400,1920,2560,3840]) %}
-
-                        <img src="{{ get_image_from_media(block.imageTwo, 1920) }}"
-                             sizes="{{ sizes }}"
-                             srcset="{{ srcset }}">
-                    </div>
-                {% endif %}
-
-
-            {% endfor %}
-        </article>
     </section>
-    <section class="read_more grid dark">
+
+    <section class="read_more grid dark {{ last_block_full_image ? 'no_top_margin' : '' }}">
       {% if found and story_chapter_number < story_length - 1 %}
-        {% set nextArticle = craft.entries().section('article').id(chapters[story_chapter_number+1].id).with(['heroImage']).first() %}
+        {% set nextArticle = craft.entries().section('article').site('*').id(chapters[story_chapter_number+1].id).with(['heroImage']).one() %}
       {% else %}
-          {% set nextArticle = craft.entries().section('article').with(['heroImage']).orderBy('random()').limit(1).first() %}
+          {% set nextArticle = craft.entries().section('article').site('*').with(['heroImage']).orderBy('random()').one() %}
       {% endif %}
 
 
-        <a class="next_story" href="{{ nextArticle.url }}">
+        <a class="next_story" href="/{{ nextArticle.uri }}">
 
           <div class="story_info">
             <hr/>
@@ -265,7 +185,7 @@
           <div>
             <div
                 class="image hover_border"
-                style="background-image: url({{ get_image_from_media(article.heroImage, 500) }})">
+                style="background-image: url({{ get_image_from_media(nextArticle.heroImage, 500) }})">
             </div>
           </div>
 
@@ -284,23 +204,5 @@
 
     {% include 'components/share.twig' %}
     {% include 'components/footer.twig' %}
-    <script>
-        (function(){
-            const size_picker = document.querySelector('.story .text-size-picker');
-            const article = document.querySelector('.story article');
-            size_picker.querySelector('.small_text').addEventListener('click', function(){
-                article.classList.add('small_text');
-                article.classList.remove('large_text');
-            });
-            size_picker.querySelector('.regular_text').addEventListener('click', function(){
-                article.classList.remove('small_text');
-                article.classList.remove('large_text');
-            });
-            size_picker.querySelector('.large_text').addEventListener('click', function(){
-                article.classList.remove('small_text');
-                article.classList.add('large_text');
-            });
-        })()
-    </script>
 </main>
 </body>

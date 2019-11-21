@@ -1,4 +1,5 @@
 @import'vars';
+@import'breakpoints';
 
 @keyframes slide_in {
   0% {
@@ -22,14 +23,22 @@
     opacity: 1;
   }
 }
+@keyframes fade_in_half {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
 
-.slide_in, .fade_in{
+.slide_in, .fade_in, .fade_in_half{
   animation-duration: 750ms;
   animation-timing-function: ease-out;
   animation-delay: 500ms;
   animation-iteration-count: 1;
   animation-direction: normal;
-  animation-fill-mode: backwards;
+  animation-fill-mode: both;
   animation-play-state: running;
 }
 
@@ -39,27 +48,30 @@
 .fade_in{
   animation-name: fade_in;
 }
+.fade_in_half{
+  animation-name: fade_in_half;
+}
 
 
 hr{
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid $white;
   border-top: none;
   & .light{
-    border-bottom-color: black;
+    border-bottom-color: $black;
   }
 }
 
 .pill_button{
   cursor: pointer;
   border-radius: 20px;
-  background-color: black;
+  background-color: $black;
   border: 1px solid $primary_faded;
   transition: border-color .2s, background .1s linear .2s, color .1s linear .2s;
-  color: white;
-  font-family: $lekton;
+  color: $white;
+  font-family: $cabin;
   margin-right: 2rem;
   margin-bottom: 1rem;
   padding: .5rem 1.6rem;
@@ -71,7 +83,7 @@ hr{
     border-color: var(--primary, $primary);
   }
   &.active {
-    color: black;
+    color: $black;
     background-color: $primary;
     background-color: var(--primary, $primary);
     border: 1px solid $primary;
@@ -105,9 +117,18 @@ hr{
   }
 }
 
+body{
+  background-color: $white;
+}
+
 h1, h1>a{
   font-size: 3.5rem;
   line-height: 4rem;
+  @include sm(){
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+  }
+
   font-family: $baskerville;
   font-weight: bold;
   text-decoration: none;
@@ -129,8 +150,14 @@ h2, h2>a{
   line-height: 2.5rem;
   font-family: $baskerville;
   font-weight: normal;
-  margin-top: 10rem;
-  margin-bottom: 5rem;
+  margin-top: 6rem;
+  margin-bottom: 1rem;
+
+  @include sm(){
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+  }
+
   &.tight{
     margin-top: 2.5rem;
     margin-bottom: 1rem;
@@ -192,6 +219,10 @@ p{
     font-weight: normal;
     font-size: 1.9rem;
     line-height: 3.8rem;
+    @include sm(){
+      font-size: 1.6rem;
+      line-height: 2.5rem;
+    }
     letter-spacing: 0.6px;
   }
   .large_text &, .large_text article &{
@@ -241,6 +272,10 @@ blockquote{
   line-height: 2rem;
   letter-spacing: 0.4px;
   font-family: $lekton;
+  font-weight: normal;
+  &.light{
+    font-weight: 100;
+  }
   .large_text &{
   font-size: 2.5rem;
   line-height: 3rem;
@@ -255,16 +290,20 @@ a{
   font-family: $lekton;
   font-weight: bold;
   font-size: 1.5rem;
-  color: black;
+  color: $black;
   letter-spacing: 0.2px;
   .dark &{
-    color: white;
+    color: $white;
   }
   article &{
     font-family: $cabin;
     letter-spacing: 0.6px;
     font-size: 1.9rem;
     line-height: 3.8rem;
+    @include sm(){
+      font-size: 1.6rem;
+      line-height: 2.5rem;
+    }
 
     .large_text &{
       font-size: 2.5rem;
@@ -279,7 +318,8 @@ a{
 
 }
 
-a.primary_button, button.primary_button{
+.primary_button{
+  font-family: $cabin;
   background-color: $primary;
   background-color: var(--primary, $primary);
   transition: background-color 0.5s ease;
@@ -292,16 +332,30 @@ a.primary_button, button.primary_button{
   padding: 1rem 2rem;
   border-radius: 100rem;
   white-space: nowrap;
+
+  &.accent{
+    background-color: $accent;
+    &:hover{
+      background-color: lighten($accent, 10);
+    }
+  }
+  &.white{
+    background-color: $white;
+    &:hover{
+      background-color: white;
+    }
+  }
+
   .dark &{
     color: $black;
   }
 }
 
 .dark{
-  background-color: black;
-  color: white;
+  background-color: $black;
+  color: $white;
   a{
-    color: white;
+    color: $white;
   }
 }
 
@@ -325,6 +379,14 @@ a.primary_button, button.primary_button{
       c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z"/> \
     </svg>')
 }
+@function topo($fill-color){
+  @return svg-encode('<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" \
+    x="0px" y="0px" viewBox="0 0 31.49 31.49" style="" xml:space="preserve"> \
+    <path fill="' + $fill-color + '" d="M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111 \
+      C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587 \
+      c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z"/> \
+    </svg>')
+}
 
 i.arrow{
   display: inline-block;
@@ -333,6 +395,7 @@ i.arrow{
   height: 2rem;
   background: url(icon_arrow($white)) no-repeat;
   &.primary{background: url(icon_arrow($primary)) no-repeat;}
+  &.black{background: url(icon_arrow($black)) no-repeat;}
   &.disabled{background: url(icon_arrow($grey)) no-repeat;}
 
   &.left{
@@ -388,7 +451,7 @@ input{
   }
   width: 25rem;
   border-radius: 40rem;
-  border: 1px solid black;
+  border: 1px solid $black;
 
 
   label{
@@ -432,9 +495,9 @@ input{
 .hover_underline{
   text-decoration: underline;
   transition: text-decoration-color 0.5s ease;
-  text-decoration-color: white;
+  text-decoration-color: $white;
   .dark &{
-    text-decoration-color: #050505;
+    text-decoration-color: $black;
   }
   .hover_trigger:hover &, a:hover &{
     text-decoration-color: $primary;

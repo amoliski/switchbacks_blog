@@ -4,14 +4,16 @@
   .main{
 
     .content{
-      background-color: black;
-      color: white;
+      background-color: $black;
+      color: $white;
       padding-top: 2rem;
 
 
-      .description{
+      .description p{
         margin-top: 2rem;
         margin-bottom: 2rem;
+        line-height: 2.4rem;
+        color: scale_color($white, $alpha:-20%);
         @include md(){
           width: 50%;
         }
@@ -20,58 +22,6 @@
         margin-bottom: 4rem;
       }
 
-      .articleList{
-        .article{
-          text-decoration: none;
-          display: flex;
-          flex-direction: row;
-          margin: 8rem auto;
-          @include sm{
-            margin: 4rem auto;
-          }
-          justify-content: left;
-
-          .articleData{
-            display: flex;
-            flex-direction: column;
-            h2{
-              margin-top:1rem;
-            p{
-              max-width: 50rem;
-            }
-            }
-          }
-
-          .articleImage{
-            width: 25rem;
-            height: 15rem;
-            background-color: white;
-            background-size: cover;
-            margin-right: 5rem;
-          }
-
-        }
-        @include sm{
-          .article{
-            flex-direction: column;
-            align-items:center;
-            margin: 4rem auto;
-            .articleData{
-              align-items: center;
-              h2{
-                margin-top: 2rem;
-                text-align: center;
-              }
-              .caption{
-                text-align: center;
-              }
-            }
-            .articleImage{
-              margin-right: 0;
-            }
-          }
-        }
-      }
     }
   }
 }

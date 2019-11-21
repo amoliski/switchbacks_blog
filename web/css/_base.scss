@@ -13,6 +13,10 @@ main{
   margin-top: 90px;
 }
 
+.test{
+  color: red;
+}
+
 :root{
   --primary: #{$primary};
   --primary_lighten: #{$primary_lighten};
@@ -56,10 +60,17 @@ main{
 .wide{
   grid-column: wide;
 }
+.content{
+  grid-column: content;
+}
+.full{
+  grid-column: full;
+}
 
 .transparent{
   opacity: 0;
 }
+
 .fade_in{
   opacity: 1;
   transition: opacity .3s;
@@ -105,7 +116,8 @@ section.page_footer{
 
         background-size: contain;
         background-repeat: no-repeat;
-        background-image: url(/img/logo_white.png);
+        background-image: url(/img/logo.svg);
+        filter: brightness(100);
       }
       .tripleu:before {
         content: 'w';
@@ -120,7 +132,7 @@ section.page_footer{
       justify-content: space-between;
 
       @media screen and (max-width: $break-small) {
-       flex-direction: column
+        flex-direction: column
       }
       a{
         text-decoration: none;
@@ -171,7 +183,6 @@ section.share{
   90%  {background-position-x: 100%;}
   100%  {background-position-x: 100%;}
 }
-
 
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome

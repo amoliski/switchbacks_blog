@@ -1,4 +1,4 @@
-
+(function(){
 // c = element to scroll to or top position in pixels
 // e = duration of the scroll in ms, time scrolling
 // d = (optative) ease function. Default easeOutCuaic
@@ -19,8 +19,21 @@ function scroll_to_top(e){
   return false;
 }
 
+  function scroll_to_id(element){
+    let height = document.body.scrollHeight || 1;
+    let el = document.getElementById(element)
+    if(el){
+      smoothScrollTo(document.getElementById(element).offsetTop, height/8)
+    }
+
+    return false;
+  }
+window.scroll_to_top = scroll_to_top;
+window.scroll_to_id = scroll_to_id;
+window.smoothScrollTo = smoothScrollTo;
+
 function transition(fn){
-  document.addEventListener('swup:animationInStart ', function(){fn(arguments)});
+  document.addEventListener('swup:animationInStart', function(){fn(arguments)});
 }
 
 function ready(fn) {
@@ -32,12 +45,7 @@ function ready(fn) {
   }
 }
 
-document.addEventListener('swup:contentReplaced', function(){
-
-});
-
 function apply_animations(){
-  console.log('applying animations', arguments);
   document.querySelectorAll('.slide_transition').forEach(function(e){
     e.classList.add('slide_in');
     if(e.attributes['data-delay']){
@@ -53,8 +61,8 @@ function apply_animations(){
     }
   });
 }
-transition(apply_animations);
 
+transition(apply_animations);
 
 function getRelativeCoordinates (event, referenceElement) {
   const position = {
@@ -69,7 +77,6 @@ function getRelativeCoordinates (event, referenceElement) {
   let reference = referenceElement.offsetParent;
 
   while(reference){
-    console.log(reference);
     offset.left += reference.offsetLeft;
     offset.top += reference.offsetTop;
     reference = reference.offsetParent;
@@ -82,8 +89,6 @@ function getRelativeCoordinates (event, referenceElement) {
 
 }
 
-
-
 function scroll_hider(){
   let nav = document.getElementById('top');
 
@@ -94,6 +99,13 @@ function scroll_hider(){
   function show_nav() {
     nav.classList.remove('scroll_hide')
   }
+
+  window.addEventListener('blur', function(){
+    if(document.querySelectorAll('iframe').length > 0){
+      console.log(arguments);
+      show_nav();
+    }
+  }, true);
 
 
   let last_scroll_pos = window.scrollY;
@@ -113,6 +125,7 @@ function scroll_hider(){
 }
 scroll_hider();
 
+/** Analytics **/
 (function(){
   let set_up_ga = function(){
     window.dataLayer = window.dataLayer || [];
@@ -130,15 +143,16 @@ scroll_hider();
   document.addEventListener('swup:contentReplaced', register_hit);
 })();
 
+/** Articles page **/
 (function() {
   let posts = [];
   let categories = {};
   let read_more = false;
   let article_count = 0;
-  let category_count = 0;
-  let active_category = "Date";
+  let active_category = "All";
   let active_subcategory = 'All';
   let loaded=false;
+
 
   let month_names = {
     '01': "January",
@@ -154,7 +168,6 @@ scroll_hider();
     '11': "November",
     '12': "December",
   };
-
   let difficulty_sort = {
     'Easy': 1,
     'Moderate': 2,
@@ -185,109 +198,72 @@ scroll_hider();
     return div.firstChild;
   }
 
-  function create_sm_article(data, fade_in, hide_location) {
-    let thumb = data["thumbnail"];
-    let title = data.title;
-    let url = data.url;
+  function create_article(data, fade_in, hide_location) {
     let location = data.location;
     let classes = ['article', fade_in?'transparent':''].join(' ');
-    let template = (
-      '<div class="'+classes+'">'+
-      '<a href="' + url + '">' +
-      '<div class="article_image" style="background-image:url(' + thumb + ')"></div>' +
-      '</a>' +
-      '<div class="metadata">' +
-      '<div class="title"><a href="' + url + '">' + title + '</a></div>' +
-      ((location && !hide_location) ? '<div class="location">' + location + '</div>' : '') +
-      '<a href="' + url + '" class="read_more">Read Article</a>' +
-      '</div>' +
-      '</div>'
-    );
-    return createElementFromHTML(template);
-  }
 
-  function create_md_article(data, fade_in, hide_location) {
-    let thumb = data["thumbnail"];
-    let title = data.title;
-    let url = data.url;
-    let location = data.location;
-    let classes = ['article', fade_in?'transparent':''].join(' ');
     let template = (
-      '<div class="'+classes+'">'+
-      '   <a href="' + url + '">' +
-      '       <div class="article_image" style="background-image: url(' + thumb + ')"></div>' +
-      '   </a>' +
-      '   <h3 class="tighter"><a href="' + url + '">' + title + '</a></h3>' +
-      ((location && !hide_location) ? '<div class="caption">' + location + '</div>' : '') +
-      '</div>'
+      '<a href="/'+data.url+'" class="'+classes+'">'+
+      '<div class="article_image small hover_border_tight" style="background-image:url('+ data.thumbnail_s +');"></div>'+
+      '<div class="article_image medium hover_border_tight" style="background-image:url('+ data.thumbnail_w +');"></div>'+
+      '<div class="article_image large hover_border_tight" style="background-image:url('+ data.thumbnail_l +');"></div>'+
+      '<div class="articleData">'+
+      '<h3 class="tighter hover_color"> '+ data.title +' </h3>'+
+        ((location && !hide_location) ?'<div class="caption">'+ location +'</div>':''+
+      '<p class="article_description">'+ data.description +'</p>'+
+      '</div>'+
+      '</a>')
     );
     return createElementFromHTML(template);
   }
 
   function clear_articles() {
-    document.getElementById('posts_small').innerHTML = "";
-    document.getElementById('posts_medium').innerHTML = "";
+    document.getElementById('posts').innerHTML = "";
   }
 
   function add_category_title(name) {
-    let sm_container = document.getElementById('posts_small');
-    let md_container = document.getElementById('posts_medium');
-    if (!read_more) {
-      category_count += 1;
-      if (category_count > 4) {
-        throw {name: "ArticleLimit",message: ""};
-      }
-    }
+    let posts_container = document.getElementById('posts');
+
     let template = (
       "<div class='wide'>" +
       "<h3 class='section_heading'>" + name + "</h3>" +
       "<div class='section_break'/>" +
       "</div>"
     );
-    sm_container.append(createElementFromHTML(template));
-    md_container.append(createElementFromHTML(template));
+    posts_container.append(createElementFromHTML(template));
   }
 
   function add_subcategory_title(name) {
-    let sm_container = document.getElementById('posts_small');
-    let md_container = document.getElementById('posts_medium');
-    if (!read_more) {
-      category_count += 1;
-      if (category_count > 4) {
-        throw {name: "ArticleLimit",message: ""};
-      }
-    }
+    let posts_container = document.getElementById('posts');
     let template = (
       "<div class='wide'>" +
       "<h4 class='subsection_heading'>" + name + "</h4>" +
       "</div>"
     );
-    sm_container.append(createElementFromHTML(template));
-    md_container.append(createElementFromHTML(template));
+    posts_container.append(createElementFromHTML(template));
   }
 
   function add_articles(articles, fade_in, hide_location) {
-    let sm_container = document.getElementById('posts_small');
-    let md_container = document.getElementById('posts_medium');
-    let template = "<div class='section_container wide'></div>";
-
-    let sm = createElementFromHTML(template);
-    sm_container.append(sm);
-    let md = createElementFromHTML(template);
-    md_container.append(md);
+    let posts_container = document.getElementById('posts');
+    let all = createElementFromHTML("<div class='section_container article_list medium_grid'></div>");
+    posts_container.append(all);
 
     for (let i = 0; i < articles.length; i++) {
-      sm.append(create_sm_article(articles[i], fade_in, hide_location));
-      md.append(create_md_article(articles[i], fade_in, hide_location));
+      all.append(create_article(articles[i], fade_in, hide_location));
       if (!read_more) {
         article_count += 1;
-        if (article_count > 9) {
+        if (article_count > 11) {
           throw {name: "ArticleLimit",message: ""};
         }
       }
     }
   }
 
+  function render_all(fade_in) {
+    let category = categories['All'];
+    update_submenu("All", []);
+    add_articles(category, fade_in);
+  }
   function render_dates(fade_in) {
     let category = categories['Date'];
     let years = Object.keys(category);
@@ -311,7 +287,6 @@ scroll_hider();
       }
     }
   }
-
   function render_regions(fade_in) {
     let category = categories['Region'];
     // ['Northeast', 'Southwest', ...]
@@ -331,7 +306,6 @@ scroll_hider();
       add_articles(region, fade_in);
     }
   }
-
   function render_difficulty(fade_in) {
     let category = categories['Difficulty'];
     // ['Easy', 'Difficult', ...]
@@ -354,7 +328,6 @@ scroll_hider();
       add_articles(difficulty, fade_in);
     }
   }
-
   function render_parks(fade_in) {
     let category = categories['Park'];
     let parks = Object.keys(category);
@@ -381,6 +354,7 @@ scroll_hider();
 
   function load_all() {
     read_more = true;
+    document.querySelector('.scroll_to_top').classList.remove('hidden');
     render_active_category(true)
   }
 
@@ -400,18 +374,16 @@ scroll_hider();
   }
 
   function render_active_category(fade_in) {
-    let sm_container = document.getElementById('posts_small');
-    let md_container = document.getElementById('posts_medium');
+    let posts = document.getElementById('posts');
     clear_articles();
-
     article_count = 0;
-    category_count = 0;
     try {
       ({
         'Date': render_dates,
         'Region': render_regions,
         'Difficulty': render_difficulty,
         'Park': render_parks,
+        'All': render_all,
       }[active_category] || function () {
       })(fade_in)
     } catch (e) {
@@ -421,18 +393,14 @@ scroll_hider();
           '<button class="load_more pill_button active">Load More</button>' +
           '</div>';
 
-        let sm_button = createElementFromHTML(template);
-        let md_button = createElementFromHTML(template);
-        sm_button.addEventListener('click', load_all);
-        md_button.addEventListener('click', load_all);
-        sm_container.append(sm_button);
-        md_container.append(md_button);
+        let more_button = createElementFromHTML(template);
+        more_button.addEventListener('click', load_all);
+        posts.append(more_button);
       }else{
         throw e;
       }
     }
-    reveal_articles("#posts_medium .transparent");
-    reveal_articles("#posts_small .transparent");
+    reveal_articles("#posts .transparent");
 
   }
 
@@ -458,6 +426,11 @@ scroll_hider();
     }
     active_menu = title;
     submenu.innerHTML = "";
+
+    if (title === 'All'){
+      return;
+    }
+
     let create_sub_button = function (sub_category) {
       let template = (
         '<button ' + (
@@ -488,18 +461,14 @@ scroll_hider();
     for (let p = 0; p < options.length; p++) {
       submenu.append(create_sub_button(options[p]));
     }
-
-
   }
 
   function position_ripple(button, event){
-    console.log(event);
     let width = button.getClientRects()[0].width;
     let height = button.getClientRects()[0].height;
     let size = Math.max(width, height) * 2;
     let relco = getRelativeCoordinates(event, button);
 
-    console.log(((-1 * (size / 2)) + relco.x));
 
     button.children[0].style.width = size + "px";
     button.children[0].style.height = size + "px";
@@ -544,11 +513,11 @@ scroll_hider();
   }
 
   function create_filter_buttons() {
-    let container = document.getElementById('trail_log_menu');
-    for (let category in categories) {
-      if (!categories.hasOwnProperty(category)) continue;
-      container.appendChild(create_button(category));
-    }
+    const container = document.getElementById('trail_log_menu');
+    const categories = ['All', 'Date', 'Difficulty', 'Park'];
+    categories.forEach(function(e){
+      container.appendChild(create_button(e));
+    });
   }
 
   function process_articles() {
@@ -559,6 +528,7 @@ scroll_hider();
       let year = date[0];
       let month = date[1];
       add_to_category_path(post, ['Date', year, month]);
+      add_to_category_path(post, ['All'])
 
       // Region
       //let region = post.region || 'None';
@@ -574,6 +544,7 @@ scroll_hider();
       add_to_category_path(post, ['Park', type, park])
     }
   }
+
   function render(){
     create_filter_buttons();
     render_active_category(active_category, true);
@@ -617,10 +588,8 @@ scroll_hider();
       autohide: 1,
       modestbranding: 1,
       rel: 0,
-      origin: 'https://www.switchbacks.info',
       controls: show_controls,
       disablekb: 1,
-      enablejsapi: 1,
       iv_load_policy: 3
     };
     let currVid =  0; // Math.floor(Math.random() * video_list.length);
@@ -713,11 +682,29 @@ scroll_hider();
   ready(init)
 })();
 
-/**Hero Loader**/
+/**Hero Loader, font size switcher**/
 (function(){
   let do_heroloader = function(){
     let placeholder = document.querySelector('.__article__ .loadingPlaceholder');
     let hero = document.querySelector('.__article__ .heroImage');
+
+    const size_picker = document.querySelector('.__article__ .story .text-size-picker');
+    const article = document.querySelector('.__article__ .story article');
+    if(size_picker && article){
+
+      size_picker.querySelector('.small_text').addEventListener('click', function(){
+        article.classList.add('small_text');
+        article.classList.remove('large_text');
+      });
+      size_picker.querySelector('.regular_text').addEventListener('click', function(){
+        article.classList.remove('small_text');
+        article.classList.remove('large_text');
+      });
+      size_picker.querySelector('.large_text').addEventListener('click', function(){
+        article.classList.remove('small_text');
+        article.classList.add('large_text');
+      });
+    }
 
     if(placeholder){
       hero.classList.add('transparent');
@@ -755,7 +742,7 @@ scroll_hider();
 })();
 
 
-
+/** Slider **/
 (function(){
   let init = function(){
     if(document.querySelector('main').classList.contains('__stories__')) {
@@ -816,4 +803,22 @@ scroll_hider();
     }
   };
   ready(init);
+})();
+
+/** Topic_scroll **/
+(function(){
+  let init = function(){
+    if(document.querySelector('main').classList.contains('__guidebook_section__')) {
+      if(document.location.hash){
+        scroll_to_id(document.location.hash.slice(1));
+        history.replaceState("", document.title, window.location.pathname
+            + window.location.search);
+      }
+    }
+  };
+  ready(init);
+})();
+
+
+
 })();

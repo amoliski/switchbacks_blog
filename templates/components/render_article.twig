@@ -1,0 +1,94 @@
+<article>
+  {%  set last_block_full_image = 0 %}
+
+  {% for block in article.mainContent.with(['image:image']).all() %}
+    {%  set last_block_full_image = 0 %}
+    {% if block.type == "paragraph" %}
+
+      {{ block.textMarkdown|markdown }}
+
+    {% elseif block.type == "blockQuote" %}
+      <blockquote>
+        {{ block.quote | markdown }}
+        <footer>{{ block.author }}</footer>
+      </blockquote>
+
+    {% elseif block.type == "sectionTitle" %}
+
+      <h2>{{block.text}}</h2>
+
+    {% elseif block.type == "image" %}
+      <figure class="single_image {{block.imageSize ? block.imageSize:''}}">
+        {%  if block.imageSize == 'align-full' %}
+          {%  set last_block_full_image = 1 %}
+        {% endif %}
+
+        {% set sizes = '100vw' %}
+        {% if block.imageSize %}
+          {% if block.imageSize == 'align-center' %}
+            {% set sizes = '(max-width: 900px) 100vw, 800px' %}
+          {% elseif block.imageSize == 'align-half' %}
+            {% set sizes = '(max-width: 900px) 100vw, 1400px' %}
+          {% endif %}
+        {% endif %}
+        {% set srcset = get_srcset_from_media(block.image, [600,800,1400,1920,2560,3840]) %}
+        <img src="{{get_image_from_media(block.image, 1920)}}"
+             sizes="{{ sizes }}"
+             srcset="{{ srcset }}"
+             alt="{{ block.image[0].description ?? ""}}"
+             loading="lazy">
+        <figcaption class="{{block.captionLocation}} {{block.imageSize ? block.imageSize:''}}"> {{ block.caption }}</figcaption>
+      </figure>
+
+    {% elseif block.type == "caltopoMap" %}
+      <figure class="caltopo_map {{block.size ? block.size:''}}">
+        <iframe src="https://caltopo.com/m/{{block.mapCode}}" style="touch-action: none;"></iframe>
+      </figure>
+
+
+    {% elseif block.type == "list" %}
+      <ul>
+        {% for row in block.list %}
+          <li>{{ row.item }}</li>
+        {% endfor %}
+      </ul>
+
+    {% elseif block.type == "youtubeVideo" %}
+      <div
+          class="video youtube_video {{block.videoSize ? block.videoSize:''}}"
+          data-id="video_{{ loop.index }}"
+          data-videos="{% for row in block.videos %}{{ row.videoID }},{{ row.startTime }},{{ row.playbackSpeed }};{% endfor %}"
+          data-settings="{{ block.videoOptions.contains('showControls') ? '1':'0' }},{{ block.videoOptions.contains('startMuted') ? '1':'0' }},{{ block.videoOptions.contains('autoPlay') ? '1':'0' }},{{ block.videoOptions.contains('loop') ? '1':'0' }}"
+      >
+        <div id="video_{{ loop.index }}" style="width:100%"></div>
+      </div>
+      <script></script>
+    {% elseif block.type == "doubleImage" %}
+      <div class="double_image">
+        {% set sizes = '50vw' %}
+        {% if block.imageSize %}
+          {% if block.imageSize == 'align-center' %}
+            {% set sizes = '(max-width: 900px) 50vw, 400px' %}
+          {% elseif block.imageSize == 'align-half' %}
+            {% set sizes = '(max-width: 900px) 50vw, 700px' %}
+          {% endif %}
+        {% endif %}
+
+        {% set srcset = get_srcset_from_media(block.imageOne, [600,800,1400,1920,2560,3840]) %}
+        <img src="{{ get_image_from_media(block.imageOne, 1920) }}"
+             sizes="{{ sizes }}"
+             srcset="{{ srcset }}"
+             loading="lazy">
+
+        {% set srcset = get_srcset_from_media(block.imageTwo, [600,800,1400,1920,2560,3840]) %}
+
+        <img src="{{ get_image_from_media(block.imageTwo, 1920) }}"
+             sizes="{{ sizes }}"
+             srcset="{{ srcset }}"
+             loading="lazy">
+      </div>
+    {% endif %}
+
+
+  {% endfor %}
+</article>

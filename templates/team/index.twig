@@ -1,7 +1,7 @@
 {% include 'components/html_head.twig' with {'css': 'team', 'title':'team'} %}
 {% include 'components/navbar.twig' %}
 
-{% set entryQuery = craft.entries().section('author').orderBy('postDate asc') %}
+{% set entryQuery = craft.entries().section('author').site('*').orderBy('postDate asc') %}
 {% set entries = entryQuery.all() %}
 <body>
 <main id="swup" class="__team__">
