@@ -10,60 +10,23 @@
 <body>
 <main id="swup" class="__guidebook_section__">
 
-  {% if entry.heroImage | length > 0 %}
-    <style>
-      .loadingPlaceholder{
-        background-image: url({{ get_image_from_media(article.heroImage, 50) }})
-      }
-
-      .heroImage {
-        background-image: url({{ get_image_from_media(article.heroImage, 1920) }})
-      }
-      @media screen and (min-width: 1920px) {
-        .heroImage {
-          background-image: url({{ get_image_from_media(article.heroImage, 1440) }})
-        }
-      }
-      @media screen and (min-width: 1440px) {
-        .heroImage {
-          background-image: url({{ get_image_from_media(article.heroImage, 2560) }})
-        }
-      }
-      @media screen and (min-width: 2560px) {
-        .heroImage {
-          background-image: url({{ get_image_from_media(article.heroImage, 3840) }})
-        }
-      }
-      @media screen and (min-width: 3840px) {
-        .heroImage {
-          background-image: url({{ get_image_from_media(article.heroImage, 3840) }})
-        }
-      }
-    </style>
-  {% endif %}
-
-  <section class="head grid dark">
-    <div class="title_block">
+  <section class="head grid accent">
+    <div class="title_block" style="margin: 9rem 4rem 2rem;">
       <h1 class="slide_transition">
         {{article.title}}
       </h1>
-      <a href="/guidebook">Back to the guidebooks</a>
     </div>
 
-    {% if article.heroImage | length == 1 %}
-      <div class="heroImageContainer">
-        <div class="heroImage"></div>
-        <div class="loadingPlaceholder"></div>
-      </div>
-    {% endif %}
-
-    <div class="article_info">
+    <div class="article_info" style="margin: 1rem 3rem 4rem">
       <div class="blurb_and_chapters">
         <div class="blurb">
           {{article.description ? article.description : ''}}
         </div>
       </div>
+
+      <a class="primary_button white" style="align-self: flex-start;" href="/guidebook">Back to the guidebooks</a>
     </div>
+    <div class="fancy_border"></div>
   </section>
 
       {% set articles = entry.children.with([
@@ -76,6 +39,11 @@
         <div class="content">
         <h1>{{ article }}</h1>
         {%  include 'components/render_article.twig' %}
+        </div>
+        <div>
+          <a class="primary_button accent" href="#top" onclick="return scroll_to_top(event)">
+            <span>Back to top</span>
+          </a>
         </div>
       </section>
       {% endfor %}

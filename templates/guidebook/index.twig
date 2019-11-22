@@ -31,6 +31,8 @@
 
       {% for section in sections %}
         <div class="section">
+
+
           <div class="section_head">
             <div class="section_info">
               <h2>{{ section }}</h2>
@@ -39,35 +41,31 @@
             </div>
             <div class="section_image" style="background-image:url({{ get_image_from_media(section.heroImage,  250, 150) }});"></div>
           </div>
-          <div class="overview_header">
-            Topic Overview <a class="primary_button expand_button accent">+</a><div class="spacer"></div>
+
+
+          <div class="overview_header" onclick="toggle_section('topic_grid_{{ section.slug }}')">
+            <button class="primary_button expand_button accent" >+</button>Topic Overview
           </div>
-          <div class="topic_grid">
+
+          <div class="topic_grid closed" id="topic_grid_{{ section.slug }}">
             {% for topic in section.children().all() %}
-              <a  href="/{{ section.uri}}#{{ topic.slug }}">
-              <div class="flip-card" tab-index="1">
-                <div class="flip-card-inner">
-                  <div class="flip-card-front">
-                    <div class="card_topic">
-                      <h4>{{topic}}</h4>
-                    </div>
-                    <p class="topic_description">{{ topic.topicDescription }}</p>
-                    <div class="go_to_topic">
-                      <div class="primary_button accent">
-                        <span class="sr-only">Read more</span>
-                        <i class="arrow right black"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flip-card-back">
-                    <div>{{  topic }}</div>
-                  </div>
+
+              <div class="section_topic">
+                <h4 class="hover_trigger"> <a href="/{{ section.uri}}#{{ topic.slug }}"  class="hover_underline">{{topic}}</a></h4>
+                <p class="topic_description">{{ topic.topicDescription }}</p>
+
+                <div class="go_to_topic">
+                  <a href="/{{ section.uri}}#{{ topic.slug }}" class="primary_button accent">
+                    <span class="sr-only">Read more</span>
+                    <i class="arrow right black"></i>
+                  </a>
                 </div>
               </div>
-              </a>
 
             {% endfor %}
           </div>
+
+          <div class="spacer"></div>
         </div>
       {% endfor %}
 
