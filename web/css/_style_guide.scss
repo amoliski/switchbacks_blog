@@ -129,9 +129,13 @@ h1, h1>a{
     margin-bottom: 2rem;
   }
 
-  font-family: $baskerville;
-  font-weight: bold;
+  // font-family: $baskerville;
+  // font-weight: bold;
   text-decoration: none;
+
+  font-family: $flecha;
+  font-weight: normal;
+  font-style: normal;
 
   .large_text &{
     font-size: 5rem;
@@ -148,8 +152,13 @@ h1, h1>a{
 h2, h2>a{
   font-size: 2.5rem;
   line-height: 2.5rem;
-  font-family: $baskerville;
+  // font-family: $baskerville;
+  // font-weight: normal;
+
+  font-family: $flecha;
   font-weight: normal;
+  font-style: normal;
+
   margin-top: 6rem;
   margin-bottom: 1rem;
 
@@ -167,9 +176,6 @@ h2, h2>a{
     margin-bottom: 1rem;
   }
   text-decoration: none;
-  + figure {
-    margin-top: -2rem !important;
-  }
 
   .large_text &{
     font-size: 3.5rem;

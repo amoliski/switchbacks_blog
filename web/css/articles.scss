@@ -1,6 +1,11 @@
 @import 'vars';
 
 .__articles__{
+
+  .span_full{
+    grid-column: 1 / -1;
+  }
+
   section.posts {
     flex-grow: 1;
     background: $black;
@@ -68,7 +73,7 @@
 
   .load_more_bg{
     cursor: pointer;
-    grid-column: wide;
+    grid-column: 1/-1;
     background: linear-gradient(
       to top,
       rgba(7, 17, 18, 1) 57.5%,
@@ -92,6 +97,9 @@
       top: -28rem;
     }
   }
+  .not_yet{
+    display: none;
+  }
   .load_more{
     background: $primary;
     background: var(--primary, $primary);
@@ -103,6 +111,7 @@
     font-weight: bold;
     font-size: 1.5rem;
     line-height: 3rem;
+    margin:0;
   }
 
 }

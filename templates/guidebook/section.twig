@@ -11,20 +11,22 @@
 <main id="swup" class="__guidebook_section__">
 
   <section class="head grid accent">
-    <div class="title_block" style="margin: 9rem 4rem 2rem;">
-      <h1 class="slide_transition">
-        {{article.title}}
-      </h1>
-    </div>
 
-    <div class="article_info" style="margin: 1rem 3rem 4rem">
-      <div class="blurb_and_chapters">
-        <div class="blurb">
-          {{article.description ? article.description : ''}}
-        </div>
+    <div class="guidebook_info">
+      <div class="guidebook_title" >
+        <h1 class="slide_transition" data-delay="0s">
+          {{article.title}}
+        </h1>
       </div>
 
-      <a class="primary_button white" style="align-self: flex-start;" href="/guidebook">Back to the guidebooks</a>
+      <div class="description slide_transition" data-delay=".25s">
+          {{article.description ? article.description : ''}}
+      </div>
+
+      <div class="return slide_transition" data-delay=".5s">
+        <a class="primary_button white" style="align-self: flex-start;" href="/guidebook">Back to the guidebooks</a>
+      </div>
+
     </div>
     <div class="fancy_border"></div>
   </section>
@@ -35,18 +37,19 @@
       ]).all()%}
 
       {%  for article in articles %}
-      <section class="light story grid" id="{{ article.slug }}">
+      <section class="light story grid slide_transition" id="{{ article.slug }}" data-delay=".75s">
         <div class="content">
         <h1>{{ article }}</h1>
         {%  include 'components/render_article.twig' %}
         </div>
-        <div>
+        <div class="back_to_top">
           <a class="primary_button accent" href="#top" onclick="return scroll_to_top(event)">
             <span>Back to top</span>
           </a>
         </div>
       </section>
       {% endfor %}
+  <div style="height: 15rem; grid-column: content"> </div>
 
 
 

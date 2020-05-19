@@ -1,33 +1,37 @@
+
 (function(){
-// c = element to scroll to or top position in pixels
-// e = duration of the scroll in ms, time scrolling
-// d = (optative) ease function. Default easeOutCuaic
-function smoothScrollTo(c,e,d){d||(d=easeOutCuaic);var a=document.documentElement;
-  if(0===a.scrollTop){var b=a.scrollTop;++a.scrollTop;a=b+1===a.scrollTop--?a:document.body}
-  b=a.scrollTop;0>=e||("object"===typeof b&&(b=b.offsetTop),
-  "object"===typeof c&&(c=c.offsetTop),function(a,b,c,f,d,e,h){
-    function g(){0>f||1<f||0>=d?a.scrollTop=c:(a.scrollTop=b-(b-c)*h(f),
-      f+=d*e,setTimeout(g,e))}g()}(a,b,c,0,1/e,20,d))};
-function easeOutCuaic(t){t--;return t*t*t+1;}
+function nativeSmoothScrollTo(o){
+  if(o.getBoundingClientRect){
+    window.scroll({behavior:"smooth",left:0,top:o.getBoundingClientRect().top+window.pageYOffset})
+  } else if(typeof o === "number"){
+    window.scroll({behavior:"smooth",left:0,top:o})
+  }
+}
+function smoothScrollTo(o,t){
+  var e=document.scrollingElement||document.documentElement,l=e.scrollTop,n=o-l,r=+new Date;
+  !function c(s){var i,m,a,u=+new Date-r;e.scrollTop=parseInt((i=u,m=l,a=n,(i/=t/2)<1?a/2*i*i+m:-a/2*(--i*(i-2)-1)+m)),u<t?requestAnimationFrame(c):e.scrollTop=o}()
+}
+function scrollToElem(o){if(o){var t=document.querySelector(o);t&&("scrollBehavior"in document.documentElement.style?nativeSmoothScrollTo(t):smoothScrollTo(t.offsetTop,600))}}
+function scrollToY(o){ if ("scrollBehavior"in document.documentElement.style) {nativeSmoothScrollTo(o);} else {smoothScrollTo(o, 600);}}
 
 function scroll_to_top(e){
   if(e){
     e.preventDefault();
   }
-  let height = document.body.scrollHeight || 1;
-  smoothScrollTo(0, height/8);
+  scrollToY(0);
   return false;
 }
 
-  function scroll_to_id(element){
-    let height = document.body.scrollHeight || 1;
-    let el = document.getElementById(element)
-    if(el){
-      smoothScrollTo(document.getElementById(element).offsetTop, height/8)
-    }
-
-    return false;
+function scroll_to_id(element){
+  let height = document.body.scrollHeight || 1;
+  let el = document.getElementById(element)
+  if(el){
+    smoothScrollTo(document.getElementById(element).offsetTop, height/8)
   }
+
+  return false;
+}
+
 window.scroll_to_top = scroll_to_top;
 window.scroll_to_id = scroll_to_id;
 window.smoothScrollTo = smoothScrollTo;
@@ -56,8 +60,8 @@ function apply_animations(){
   document.querySelectorAll('.fade_transition').forEach(function(e){
     e.classList.add('fade_in');
     if(e.attributes['data-delay']){
-      e.style.animationDelay = e.attributes['data-delay'].value;
       e.style.webkitAnimationDelay = e.attributes['data-delay'].value;
+      e.style.animationDelay = e.attributes['data-delay'].value;
     }
   });
 }
@@ -147,7 +151,6 @@ scroll_hider();
 (function() {
   let posts = [];
   let categories = {};
-  let read_more = false;
   let article_count = 0;
   let active_category = "All";
   let active_subcategory = 'All';
@@ -200,13 +203,13 @@ scroll_hider();
 
   function create_article(data, fade_in, hide_location) {
     let location = data.location;
-    let classes = ['article', fade_in?'transparent':''].join(' ');
+    let classes = ['not_yet', 'article', fade_in?'transparent':''].join(' ');
 
     let template = (
       '<a href="/'+data.url+'" class="'+classes+'">'+
       '<div class="article_image small hover_border_tight" style="background-image:url('+ data.thumbnail_s +');"></div>'+
       '<div class="article_image medium hover_border_tight" style="background-image:url('+ data.thumbnail_w +');"></div>'+
-      '<div class="article_image large hover_border_tight" style="background-image:url('+ data.thumbnail_l +');"></div>'+
+      '<div class="article_image large hover_border_tight" style="background-image:url('+ data.thumbnail_m +');"></div>'+
       '<div class="articleData">'+
       '<h3 class="tighter hover_color"> '+ data.title +' </h3>'+
         ((location && !hide_location) ?'<div class="caption">'+ location +'</div>':''+
@@ -221,26 +224,24 @@ scroll_hider();
     document.getElementById('posts').innerHTML = "";
   }
 
-  function add_category_title(name) {
-    let posts_container = document.getElementById('posts');
-
+  function get_category_title(name, fade_in) {
+    let classes = ['span_full not_yet', fade_in ? 'transparent' : ''].join(' ');
     let template = (
-      "<div class='wide'>" +
+      "<div class='"+classes+"'>" +
       "<h3 class='section_heading'>" + name + "</h3>" +
       "<div class='section_break'/>" +
       "</div>"
     );
-    posts_container.append(createElementFromHTML(template));
+    return createElementFromHTML(template);
   }
 
-  function add_subcategory_title(name) {
-    let posts_container = document.getElementById('posts');
+  function get_subcategory_title(name) {
     let template = (
-      "<div class='wide'>" +
+      "<div class='span_full not_yet transparent'>" +
       "<h4 class='subsection_heading'>" + name + "</h4>" +
       "</div>"
     );
-    posts_container.append(createElementFromHTML(template));
+    return createElementFromHTML(template);
   }
 
   function add_articles(articles, fade_in, hide_location) {
@@ -249,24 +250,41 @@ scroll_hider();
     posts_container.append(all);
 
     for (let i = 0; i < articles.length; i++) {
-      all.append(create_article(articles[i], fade_in, hide_location));
-      if (!read_more) {
-        article_count += 1;
-        if (article_count > 11) {
-          throw {name: "ArticleLimit",message: ""};
-        }
-      }
+      all.append(
+        create_article(
+          articles[i],
+          fade_in,
+          hide_location
+        )
+      );
     }
   }
 
   function render_all(fade_in) {
+    let posts = document.getElementById('posts');
+
     let category = categories['All'];
     update_submenu("All", []);
-    add_articles(category, fade_in);
+    article_count = 0;
+    for (let i = 0; i < category.length; i++) {
+      article_count ++;
+      posts.append(
+        create_article(
+          category[i],
+          fade_in,
+          false
+        )
+      );
+    }
   }
+
   function render_dates(fade_in) {
+
+    let posts = document.getElementById('posts');
     let category = categories['Date'];
+
     let years = Object.keys(category);
+
     // Reverse chronological
     years.sort().reverse();
 
@@ -278,15 +296,25 @@ scroll_hider();
         continue;
       }
       let months = Object.keys(year);
-
       months.sort().reverse();
+
       for (let j = 0; j < months.length; j++) {
         let category_name = month_names[months[j]] + " " + years[i];
-        add_category_title(category_name, fade_in);
-        add_articles(year[months[j]], fade_in);
+        posts.append(get_category_title(category_name, fade_in));
+        let articles = year[months[j]];
+        for (let k = 0; k < articles.length; k++) {
+          posts.append(
+            create_article(
+              articles[k],
+              fade_in,
+              false
+            )
+          );
+        }
       }
     }
   }
+
   function render_regions(fade_in) {
     let category = categories['Region'];
     // ['Northeast', 'Southwest', ...]
@@ -306,7 +334,9 @@ scroll_hider();
       add_articles(region, fade_in);
     }
   }
+
   function render_difficulty(fade_in) {
+    let posts = document.getElementById('posts');
     let category = categories['Difficulty'];
     // ['Easy', 'Difficult', ...]
     let difficulties = Object.keys(category);
@@ -315,47 +345,81 @@ scroll_hider();
       return (difficulty_sort[a] || 10) - (difficulty_sort[b] || 10)
     });
 
+    article_count = 0;
 
     update_submenu("Difficulty", difficulties);
 
-    for (let i = 0; i < difficulties.length; i++) {
-      let difficulty_name = difficulties[i];
+    for (let j = 0; j < difficulties.length; j++) {
+      let difficulty_name = difficulties[j];
       if (active_subcategory !== "All" && active_subcategory !== difficulty_name) {
         continue;
       }
-      let difficulty = category[difficulty_name];
-      add_category_title(difficulty_name, fade_in);
-      add_articles(difficulty, fade_in);
+      posts.append(get_category_title(difficulty_name, fade_in));
+
+      let articles = category[difficulty_name];
+      for (let k = 0; k < articles.length; k++) {
+        posts.append(
+          create_article(
+            articles[k],
+            fade_in,
+            false
+          )
+        );
+        article_count += 1;
+      }
     }
   }
+
   function render_parks(fade_in) {
+    let posts = document.getElementById('posts');
     let category = categories['Park'];
+
     let parks = Object.keys(category);
     parks.sort();
 
     update_submenu("Park Type", parks);
+
     for (let i = 0; i < parks.length; i++) {
       let park_type_name = parks[i];
       if (active_subcategory !== "All" && active_subcategory !== park_type_name) {
         continue;
       }
 
-      let park_type = category[park_type_name];
-      add_category_title(park_type_name, fade_in);
+      let park_type = category[park_type_name];;
+      posts.append(get_category_title(park_type_name, fade_in));
+
       let park_names = Object.keys(park_type);
       park_names.sort();
 
       for (let j = 0; j < park_names.length; j++) {
-        add_subcategory_title(park_names[j], fade_in);
-        add_articles(park_type[park_names[j]], fade_in, true);
+        let articles = park_type[park_names[j]];
+        for (let k = 0; k < articles.length; k++) {
+          posts.append(
+            create_article(
+              articles[k],
+              fade_in,
+              false
+            )
+          );
+        }
       }
     }
   }
 
-  function load_all() {
-    read_more = true;
+  function load_next_chunk() {
     document.querySelector('.scroll_to_top').classList.remove('hidden');
-    render_active_category(true)
+
+    let next_chunk = document.querySelectorAll("#posts .transparent.not_yet");
+
+    if(next_chunk.length < 12){
+      document.querySelector('.load_more_bg').style.display = 'none';
+    }
+
+    for(let e = 0; e < next_chunk.length && e < 12; e++){
+      next_chunk[e].classList.remove('not_yet');
+    }
+
+    reveal_articles('#posts .transparent:not(.not_yet)');
   }
 
   function reveal_articles(selector) {
@@ -377,30 +441,24 @@ scroll_hider();
     let posts = document.getElementById('posts');
     clear_articles();
     article_count = 0;
-    try {
+
       ({
         'Date': render_dates,
         'Region': render_regions,
         'Difficulty': render_difficulty,
         'Park': render_parks,
         'All': render_all,
-      }[active_category] || function () {
-      })(fade_in)
-    } catch (e) {
-      if(e.name === 'ArticleLimit'){
-        let template = '' +
-          '<div class="load_more_bg">' +
-          '<button class="load_more pill_button active">Load More</button>' +
-          '</div>';
+      }[active_category] || function (){})(fade_in);
+      let template = '' +
+        '<div class="load_more_bg">' +
+        '<button class="load_more pill_button active">Load More</button>' +
+        '</div>';
+      let more_button = createElementFromHTML(template);
+      more_button.addEventListener('click', load_next_chunk);
+      posts.append(more_button);
 
-        let more_button = createElementFromHTML(template);
-        more_button.addEventListener('click', load_all);
-        posts.append(more_button);
-      }else{
-        throw e;
-      }
-    }
-    reveal_articles("#posts .transparent");
+    load_next_chunk();
+
 
   }
 
