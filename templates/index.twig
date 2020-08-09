@@ -18,11 +18,16 @@
                 <h1 class="slide_transition hover_underline">
                   {{- entry.title -}}
                 </h1>
-                {%- if entry.place != "NA" -%}
-                    <div class="caption slide_transition location" data-delay="700ms">
-                        {{- entry.place -}}
-                    </div>
-                {%- endif -%}
+                <div class="location_block">
+                    {% if entry.locationAbbreviation and entry.locationAbbreviation != "NA" %}
+                        <div class="token slide_transition">
+                            {{entry.locationAbbreviation}}
+                        </div>
+                    {% endif %}
+                    {% if entry.place != "NA" %}
+                        <div class="caption inline slide_transition" >{{entry.place}}</div>
+                    {% endif %}
+                </div>
             </div>
 
         </div>
@@ -124,7 +129,7 @@
                     <h3 class="tighter hover_color"> {{ article }} </h3>
 
                     <div class="caption">
-                        {{ article.place }}
+                        <div class="token">{{article.locationAbbreviation}}</div>{{ article.place }}
                     </div>
                     <p class="article_description">
                         {{ article.description }}

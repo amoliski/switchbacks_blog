@@ -4,7 +4,6 @@
 </form>
 
 {% if craft.app.request.getParam('q') %}
-<h1>Search Results</h1>
 
 {% set searchQuery = craft.app.request.getParam('q') %}
     {% set entries = craft.entries()

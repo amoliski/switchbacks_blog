@@ -109,11 +109,17 @@
         flex-direction: column;
       }
 
-      .caption, .description {
+      .description {
         margin-top: 1rem;
+        p {
+          font-size: 17px;
+          line-height: 1.25em;
+        }
       }
     }
-
+    .location_block {
+      margin-top: 10px;
+    }
     .author_block {
       margin: .5rem 0 .5rem;
       display: flex;

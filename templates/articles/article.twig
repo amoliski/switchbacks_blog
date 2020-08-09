@@ -50,7 +50,10 @@
     {% set story_chapter_number = 0 %}
 
 
-    {% set storySearch = craft.entries().section('story').site('*').search('chapterList:' ~ article.title).with(['chapterList']).all() %}
+    {% set storySearch = craft.entries().section('story').site('*')
+      .search('chapterList:' ~ article.title)
+      .with(['chapterList']).all()
+    %}
     {%  if storySearch | length > 0 %}
         {% set found = 1 %}
         {% set story = storySearch[0] %}
@@ -68,10 +71,16 @@
             <h1 class="slide_transition">
                 {{article.title}}
             </h1>
-
-            {% if article.place != "NA" %}
-                <div class="caption slide_transition" >{{article.place}}</div>
+            <div class="location_block">
+            {% if article.locationAbbreviation and article.locationAbbreviation != "NA" %}
+              <div class="token slide_transition">
+                {{article.locationAbbreviation}}
+              </div>
             {% endif %}
+            {% if article.place != "NA" %}
+                <div class="caption inline slide_transition" >{{article.place}}</div>
+            {% endif %}
+            </div>
 
             {% if article.articleAuthor | length > 0 %}
                 <div class="author_block fade_transition" data-delay="1.2s">

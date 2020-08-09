@@ -203,6 +203,7 @@ scroll_hider();
 
   function create_article(data, fade_in, hide_location) {
     let location = data.location;
+    let locationAbbreviation = data.locationAbbreviation;
     let classes = ['not_yet', 'article', fade_in?'transparent':''].join(' ');
 
     let template = (
@@ -212,7 +213,7 @@ scroll_hider();
       '<div class="article_image large hover_border_tight" style="background-color: #4e5953; background-image:url('+ data.thumbnail_m +');"></div>'+
       '<div class="articleData">'+
       '<h3 class="tighter hover_color"> '+ data.title +' </h3>'+
-        ((location && !hide_location) ?'<div class="caption">'+ location +'</div>':''+
+        ((location && !hide_location) ?'<div class="caption"><div class="token">'+locationAbbreviation+'</div>'+ location +'</div>':''+
       '<p class="article_description">'+ data.description +'</p>'+
       '</div>'+
       '</a>')

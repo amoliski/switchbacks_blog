@@ -162,8 +162,8 @@ h1, h1 > a {
     line-height: 2.5rem; }
 
 h2, h2 > a {
-  font-size: 2.5rem;
-  line-height: 2.5rem;
+  font-size: 3.5rem;
+  line-height: 3.5rem;
   font-family: "Flecha M Medium", "Libre Baskerville", serif;
   font-weight: normal;
   font-style: normal;
@@ -210,13 +210,13 @@ h3, h3 > a {
     line-height: 1.75rem; }
 
 p {
-  font-family: "Cabin", sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: normal;
   font-size: 1.4rem;
   letter-spacing: .05rem;
   line-height: 2rem; }
   article p {
-    font-family: "Cabin", sans-serif;
+    font-family: "Lato", sans-serif;
     font-weight: normal;
     font-size: 1.9rem;
     line-height: 3.8rem;
@@ -268,8 +268,11 @@ blockquote {
   font-size: 1.4rem;
   line-height: 2rem;
   letter-spacing: 0.4px;
-  font-family: "Lekton", sans-serif;
-  font-weight: normal; }
+  font-family: "Lato", sans-serif;
+  font-style: italic;
+  font-weight: lighter; }
+  .caption.inline, figcaption.inline {
+    display: inline-block; }
   .caption.light, figcaption.light {
     font-weight: 100; }
   .large_text .caption, .large_text figcaption {
@@ -453,6 +456,13 @@ input {
   box-shadow: 0 0 0 4px #6df29c inset;
   box-shadow: 0 0 0 4px var(--primary, #6df29c) inset; }
 
+.location_block {
+  display: flex;
+  margin-top: 0.5rem;
+  align-items: center; }
+  .location_block .token {
+    margin-right: 10px; }
+
 .token {
   font-family: "Lato", sans-serif;
   font-weight: 700;
@@ -461,11 +471,15 @@ input {
   color: black;
   border-radius: 11px;
   font-size: 10px;
-  padding: 0 2px;
   letter-spacing: 2px;
   width: 3.5em;
   text-align: center;
-  line-height: 1.7em; }
+  line-height: 1.7em;
+  padding: 1px 2px 0; }
+
+a.token {
+  color: black;
+  text-decoration: none; }
 
 #brand {
   position: absolute;
@@ -691,8 +705,17 @@ header.navbar {
       .article_list .article .articleData h2 {
         margin-top: 2rem;
         text-align: start; }
+      .article_list .article .articleData h3 {
+        margin-top: 2rem; }
       .article_list .article .articleData .caption {
-        text-align: start; }
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        text-align: start;
+        font-weight: 300;
+        font-size: 1.6rem; }
+        .article_list .article .articleData .caption .token {
+          margin-right: 10px; }
     .article_list .article .article_image {
       height: 15rem;
       background-position: center;
@@ -709,7 +732,7 @@ header.navbar {
       display: grid;
       grid-column: wide;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-column-gap: 1rem; } }
+      grid-column-gap: 3rem; } }
   @media screen and (min-width: 768px) and (max-width: 1100px) {
     .article_list.medium_grid {
       grid-template-columns: 1fr 1fr;
@@ -723,7 +746,7 @@ header.navbar {
           width: 100%;
           height: 0;
           position: relative;
-          padding-top: 75%;
+          padding-top: 66%;
           background-size: cover; }
           .article_list.medium_grid .article .article_image.medium {
             display: none; }
@@ -1156,10 +1179,8 @@ section.share {
     @media (min-width: 768px) {
       .__article__ .head .title_block, .__guidebook_section__ .head .title_block {
         margin: 7rem 10rem 2rem; } }
-    .__article__ .head .title_block .caption, .__guidebook_section__ .head .title_block .caption {
-      margin-top: 0.5rem; }
     .__article__ .head .title_block .author_block, .__guidebook_section__ .head .title_block .author_block {
-      margin: 3rem 0 4rem;
+      margin: 2rem 0 3rem;
       display: flex;
       flex-direction: row;
       align-items: center; }
@@ -1172,8 +1193,12 @@ section.share {
         width: 4.5rem;
         border-radius: 10rem;
         background-size: cover;
-        background-position: center; }
+        background-position: center;
+        border: 1px solid #6df29c; }
       .__article__ .head .title_block .author_block .info, .__guidebook_section__ .head .title_block .author_block .info {
+        font-family: "Lato", sans-serif;
+        font-weight: 300;
+        font-size: 1.4rem;
         margin-left: 2rem;
         display: inline-block; }
         .__article__ .head .title_block .author_block .info div, .__guidebook_section__ .head .title_block .author_block .info div {
@@ -1184,7 +1209,8 @@ section.share {
           text-decoration: none;
           font-family: "Cabin", sans-serif;
           letter-spacing: 0.6px;
-          font-size: 1.5rem; }
+          font-size: 1.5rem;
+          font-weight: normal; }
   .__article__ .head .heroImageContainer, .__guidebook_section__ .head .heroImageContainer {
     position: relative;
     overflow: hidden;
@@ -1756,8 +1782,13 @@ section.share {
     .__home__ .head .title_block .title_content {
       display: flex;
       flex-direction: column; }
-    .__home__ .head .title_block .caption, .__home__ .head .title_block .description {
+    .__home__ .head .title_block .description {
       margin-top: 1rem; }
+      .__home__ .head .title_block .description p {
+        font-size: 17px;
+        line-height: 1.25em; }
+  .__home__ .head .location_block {
+    margin-top: 10px; }
   .__home__ .head .author_block {
     margin: .5rem 0 .5rem;
     display: flex;

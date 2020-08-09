@@ -39,12 +39,9 @@
       @include md{
         margin: 7rem 10rem 2rem;
       }
-      .caption{
-        margin-top: 0.5rem;
-      }
 
       .author_block {
-        margin: 3rem 0 4rem;
+        margin: 2rem 0 3rem;
         @include sm(){
           margin: 2rem 0 1rem;
         }
@@ -58,8 +55,12 @@
           border-radius: 10rem;
           background-size: cover;
           background-position: center;
+          border: 1px solid $primary;
         }
         .info {
+          font-family: $lato;
+          font-weight: 300;
+          font-size: 1.4rem;
           margin-left: 2rem;
           display: inline-block;
           div{
@@ -72,6 +73,7 @@
             font-family: $cabin;
             letter-spacing: 0.6px;
             font-size: 1.5rem;
+            font-weight: normal;
           }
         }
       }
