@@ -188,7 +188,7 @@
           background-color: var(--primary);
 
           &[disabled]{
-            background-color: scale_color($black, $lightness: 10%, $saturation: -50%);
+            background-color: scale_color($deep_green, $lightness: 10%, $saturation: -50%);
             opacity: 0.5;
             opacity: 0.5;
             pointer-events: none;
@@ -420,6 +420,14 @@
     .align-half{
       grid-column: wide;
     }
+    .small500px{
+      grid-column: wide;
+      max-width: 500px;
+    }
+    .small250px{
+      grid-column: wide;
+      max-width: 250px;
+    }
 
     .align-full{
       grid-column: full;
@@ -456,7 +464,7 @@
 
   }
   .read_more{
-    background-color: $black;
+    background-color: $deep_green;
     color: $white;
   }
   @include md{

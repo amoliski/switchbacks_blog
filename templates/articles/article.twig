@@ -3,7 +3,12 @@
     'articleAuthor'
 ]).one()%}
 
-{% include 'components/html_head.twig' with {'css': 'article', 'title': article.title} %}
+{% include 'components/html_head.twig' with {
+  'css': 'article',
+  'title': article.title,
+  'heroImage': article.heroImage,
+  'description': article.description,
+} %}
 {% include 'components/navbar.twig' %}
 <body>
 <main id="swup" class="__article__">

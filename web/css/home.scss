@@ -10,7 +10,7 @@
     height: auto;
     min-height: initial;
     max-height: initial;
-    background-color: $black;
+    background-color: $deep_green;
 
 
 
@@ -25,7 +25,8 @@
       margin-top: 5rem;
       margin-bottom: 5rem;
       @include md(){
-        grid-template-columns: minmax(33rem, 1fr) 5fr;
+        grid-template-columns: minmax(60rem, 1fr) 5fr;
+        // Todo: Check this out grid-template-columns: minmax(33rem, 1fr) 5fr;
         grid-template-areas: " title image "
                              " description image ";
         margin-top: 15rem;

@@ -1,56 +1,6 @@
 @import'vars';
 @import'breakpoints';
-
-@keyframes slide_in {
-  0% {
-    transform: translateY(5rem);
-    opacity: 0;
-  }
-  30%{
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fade_in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes fade_in_half {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0.5;
-  }
-}
-
-.slide_in, .fade_in, .fade_in_half{
-  animation-duration: 750ms;
-  animation-timing-function: ease-out;
-  animation-delay: 500ms;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-fill-mode: both;
-  animation-play-state: running;
-}
-
-.slide_in{
-  animation-name: slide_in;
-}
-.fade_in{
-  animation-name: fade_in;
-}
-.fade_in_half{
-  animation-name: fade_in_half;
-}
+@import 'animations';
 
 
 hr{
@@ -65,9 +15,10 @@ hr{
 }
 
 .pill_button{
+  min-width: 7em;
   cursor: pointer;
   border-radius: 20px;
-  background-color: $black;
+  background-color: $deep_green;
   border: 1px solid $primary_faded;
   transition: border-color .2s, background .1s linear .2s, color .1s linear .2s;
   color: $white;
@@ -118,12 +69,12 @@ hr{
 }
 
 body{
-  background-color: $white;
+  background-color: $cream;
 }
 
 h1, h1>a{
-  font-size: 3.5rem;
-  line-height: 4rem;
+  font-size: 5rem;
+  line-height: 5rem;
   @include sm(){
     margin-top: 5rem;
     margin-bottom: 2rem;
@@ -152,8 +103,6 @@ h1, h1>a{
 h2, h2>a{
   font-size: 2.5rem;
   line-height: 2.5rem;
-  // font-family: $baskerville;
-  // font-weight: normal;
 
   font-family: $flecha;
   font-weight: normal;
@@ -369,7 +318,7 @@ button.primary_button{
 }
 
 .dark{
-  background-color: $black;
+  background-color: $deep_green;
   color: $white;
   a{
     color: $white;
@@ -542,4 +491,19 @@ input{
     box-shadow: 0 0 0 4px var(--primary, $primary) inset;
 
   }
+}
+
+.token{
+  font-family: $lato;
+  font-weight: 700;
+  display: inline-block;
+  background-color: #6df29c;
+  color: black;
+  border-radius: 11px;
+  font-size: 10px;
+  padding: 0 2px;
+  letter-spacing: 2px;
+  width: 3.5em;
+  text-align: center;
+  line-height: 1.7em;
 }

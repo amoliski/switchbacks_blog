@@ -1,0 +1,11 @@
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  {% for entry in craft.entries().section('article').site('*').orderBy('postDate desc').all() %}
+    <url>
+      <loc>{{ entry.url }}</loc>
+    </url>
+  {% endfor %}
+</urlset>

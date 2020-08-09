@@ -3,7 +3,6 @@
 {%- header "Access-Control-Allow-Origin: *" -%}
 {%- header "Access-Control-Allow-Headers: *" -%}
 
-
 {%- set results = craft.entries().section('article').site('*').with(['heroImage']).all() -%}
 {%- set result = [] -%}
 

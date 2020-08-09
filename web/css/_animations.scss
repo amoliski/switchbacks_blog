@@ -1,0 +1,51 @@
+
+@keyframes slide_in {
+  0% {
+    transform: translateY(5rem);
+    opacity: 0;
+  }
+  30%{
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade_in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade_in_half {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.slide_in, .fade_in, .fade_in_half{
+  animation-duration: 750ms;
+  animation-timing-function: ease-out;
+  animation-delay: 500ms;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: both;
+  animation-play-state: running;
+}
+
+.slide_in{
+  animation-name: slide_in;
+}
+.fade_in{
+  animation-name: fade_in;
+}
+.fade_in_half{
+  animation-name: fade_in_half;
+}

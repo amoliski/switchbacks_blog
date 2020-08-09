@@ -14,7 +14,7 @@
       <li><a class="mobile menu_articles" href="/articles">Articles</a></li>
       <li><a class="mobile menu_stories" href="/stories">Stories</a></li>
       <li><a class="mobile menu_guidebook" href="#">Guidebook</a></li>
-      <li><a class="mobile menu_team" href="/team">Team</a></li>
+      <li><a class="mobile menu_team" href="/team">About</a></li>
       <li><a class="mobile menu_contact solid" href="/contact">Contact</a></li>
     </ul>
   </nav>
@@ -40,11 +40,11 @@
           </a></li-->
       <li>
         <a href="/team" class="menu_team {% if craft.app.requestedParams[0] in ['team', 'articles/team.twig'] %} active {% endif %}">
-          Team
+          About
         </a>
       </li>
       <li>
-        <a href="/contact" class="menu_contact solid">
+        <a href="/contact" class="menu_contact solid {% if craft.app.requestedParams[0] in ['contact'] %} active {% endif %}">
           Contact
         </a>
       </li>

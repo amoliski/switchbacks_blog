@@ -10,7 +10,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-image: url(/img/logo.svg);
-border-radius: 5rem;
+  border-radius: 5rem;
   &.focus-visible:focus {
     background-color: #6df29c42;
     outline: none;
@@ -18,7 +18,7 @@ border-radius: 5rem;
 }
 
 .nav_backing{
-  background-color: $black;
+  background-color: $deep_green;
   top: 0;
   left: 0;
   right: 0;
@@ -97,8 +97,14 @@ header.navbar {
   top: 0;
   font-size: 2rem;
   font-family: $cabin;
-  background-color: $black;
+  background-color: $deep_green;
   user-select: none;
+
+  & a{
+    font-family: $cabin;
+    font-weight: normal;
+    padding-bottom: 2px;
+  }
 
   &.scroll_hide{
     transform: translateY(-90px);
@@ -164,8 +170,8 @@ header.navbar {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    font-family: $lekton;
-    background-color: $black;
+    font-family: $cabin;
+    background-color: $deep_green;
     color: $grey;
     grid-column: full;
     height: 5rem;
@@ -206,22 +212,20 @@ header.navbar {
         }
 
         &.solid {
-          font-weight: bold;
           padding: .6rem 1.4rem;
-          background-color: var(--primary, $primary);
+          background-color: $deep_green;
           transition: background-color 0.5s ease;
-
-          &:hover {
-            background-color: $primary_lighten;
-            background-color: var(--primary, $primary_lighten);
-          }
-
-          color: black;
           border-radius: 3rem;
-          border-bottom: none;
+          border: 1.5pt solid var(--primary, $primary);
 
           &.active {
-            border-bottom: none;
+            color: $white;
+            border: 1.5pt solid var(--primary, $primary);
+          }
+
+          &:hover {
+            //background-color: $primary_lighten;
+            //background-color: var(--primary, $primary_lighten);
           }
         }
       }

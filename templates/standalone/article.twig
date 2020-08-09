@@ -1,0 +1,126 @@
+{% set article = craft.entries().site('*').id(entry.id).with([
+    'heroImage',
+    'articleAuthor'
+]).one()%}
+
+
+
+{% include 'components/html_head.twig' with {
+    'css': 'article',
+    'title': article.title,
+    'heroImage': article.heroImage,
+    'description': article.description,
+} %}
+{% include 'components/navbar.twig' %}
+<body>
+
+
+<main id="swup" class="__article__">
+    {{ dump(article) }}
+    {% if article.heroImage | length > 0 %}
+        <style>
+            .loadingPlaceholder{
+                background-image: url({{ get_image_from_media(article.heroImage, 50) }})
+            }
+
+            .heroImage {
+                background-image: url({{ get_image_from_media(article.heroImage, 1920) }})
+            }
+            @media screen and (min-width: 1920px) {
+                .heroImage {
+                    background-image: url({{ get_image_from_media(article.heroImage, 1440) }})
+                }
+            }
+            @media screen and (min-width: 1440px) {
+                .heroImage {
+                    background-image: url({{ get_image_from_media(article.heroImage, 2560) }})
+                }
+            }
+            @media screen and (min-width: 2560px) {
+                .heroImage {
+                    background-image: url({{ get_image_from_media(article.heroImage, 3840) }})
+                }
+            }
+            @media screen and (min-width: 3840px) {
+                .heroImage {
+                    background-image: url({{ get_image_from_media(article.heroImage, 3840) }})
+                }
+            }
+        </style>
+    {% endif %}
+
+
+    {% set story = 0 %}
+    {% set found = 0 %}
+    {% set story_chapter_number = 0 %}
+
+
+    {% set storySearch = craft.entries().section('story').site('*').search('chapterList:' ~ article.title).with(['chapterList']).all() %}
+    {%  if storySearch | length > 0 %}
+        {% set found = 1 %}
+        {% set story = storySearch[0] %}
+        {% set chapters = story.chapterList %}
+        {% set story_length = chapters | length %}
+        {% set story_chapter_number = 0 %}
+        {% for chapter in story.chapterList %}
+            {% if chapter.slug == article.slug %}
+                {% set story_chapter_number = loop.index0 %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <section class="head grid dark">
+        <div class="title_block">
+            <h1 class="slide_transition">
+                {{article.title}}
+            </h1>
+
+            {% if article.place != "NA" %}
+                <div class="caption slide_transition" >{{article.place}}</div>
+            {% endif %}
+
+            {% if article.articleAuthor | length > 0 %}
+                <div class="author_block fade_transition" data-delay="1.2s">
+                    <div class="image"
+                         style="background-image: url({{ get_image_from_media(article.articleAuthor[0].image, 300, 300) }})">
+                    </div>
+                    <div class="info">
+                        <div data-xlink="/author/{{article.articleAuthor[0].slug}}">Article by {{article.articleAuthor[0].title}}</div>
+                        <div>{{(article.articleDate  ?? article.postDate) | date("F d, Y")}}</div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        {% if article.heroImage | length == 1 %}
+            <div class="heroImageContainer">
+                <div class="heroImage"></div>
+                <div class="loadingPlaceholder"></div>
+            </div>
+        {% endif %}
+
+        <div class="article_info">
+            <div class="blurb_and_chapters">
+                <div class="blurb">
+                    {{article.description ? article.description : ''}}
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="story grid">
+        <div class="text-size-picker">
+            <button class='option small_text'>A <span class="sr-only">Change text size: small</span></button>
+            <button class='option regular_text'>A <span class="sr-only">Change text size: medium</span></button>
+            <button class='option large_text'>A <span class="sr-only">Change text size: large</span></button>
+        </div>
+
+        {%  include 'components/render_article.twig' %}
+
+    </section>
+
+
+    {% include 'components/share.twig' %}
+    {% include 'components/footer.twig' %}
+</main>
+</body>

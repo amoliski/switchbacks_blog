@@ -94,9 +94,10 @@ hr {
     border-bottom-color: #071112; }
 
 .pill_button {
+  min-width: 7em;
   cursor: pointer;
   border-radius: 20px;
-  background-color: #071112;
+  background-color: #001a11;
   border: 1px solid #3eee7c;
   transition: border-color .2s, background .1s linear .2s, color .1s linear .2s;
   color: #f8f8f5;
@@ -140,11 +141,11 @@ hr {
     pointer-events: none; }
 
 body {
-  background-color: #f8f8f5; }
+  background-color: #fefff9; }
 
 h1, h1 > a {
-  font-size: 3.5rem;
-  line-height: 4rem;
+  font-size: 5rem;
+  line-height: 5rem;
   text-decoration: none;
   font-family: "Flecha M Medium", "Libre Baskerville", serif;
   font-weight: normal;
@@ -330,7 +331,7 @@ button.primary_button {
   cursor: pointer; }
 
 .dark {
-  background-color: #071112;
+  background-color: #001a11;
   color: #f8f8f5; }
   .dark a {
     color: #f8f8f5; }
@@ -451,6 +452,20 @@ input {
 .hover_trigger:hover .hover_border_tight, a:hover .hover_border_tight {
   box-shadow: 0 0 0 4px #6df29c inset;
   box-shadow: 0 0 0 4px var(--primary, #6df29c) inset; }
+
+.token {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  display: inline-block;
+  background-color: #6df29c;
+  color: black;
+  border-radius: 11px;
+  font-size: 10px;
+  padding: 0 2px;
+  letter-spacing: 2px;
+  width: 3.5em;
+  text-align: center;
+  line-height: 1.7em; }
 
 section.style_guide {
   display: flex;

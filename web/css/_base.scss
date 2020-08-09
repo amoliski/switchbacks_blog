@@ -35,7 +35,7 @@ main{
           [wide-start]
           minmax(0, 15rem)
           [content-start]
-          minmax(auto, 80rem)
+          minmax(auto, 100rem)
           [content-end]
           minmax(0, 15rem)
           [wide-end]
@@ -90,7 +90,7 @@ main{
   }
 }
 section.page_footer{
-  background-color: $black;
+  background-color: $deep_green;
   border-top: .6rem solid $primary;
   border-top: .6rem solid var(--primary, $primary);
   padding-top: 2rem;

@@ -8,7 +8,7 @@
 
   section.posts {
     flex-grow: 1;
-    background: $black;
+    background: $deep_green;
     background-size: 25%;
 
     .heading {
@@ -76,16 +76,16 @@
     grid-column: 1/-1;
     background: linear-gradient(
       to top,
-      rgba(7, 17, 18, 1) 57.5%,
-      rgba(7, 17, 18, 0.825) 64.5%,
-      rgba(7, 17, 18, 0.648) 70.6%,
-      rgba(7, 17, 18, 0.45) 76.4%,
-      rgba(7, 17, 18, 0.259) 82.4%,
-      rgba(7, 17, 18, 0.104) 88.5%,
-      rgba(7, 17, 18, 0.013) 96.9%,
-      rgba(7, 17, 18, 0) 100%
+      rgba(0, 26, 17, 1) 57.5%,
+      rgba(0, 26, 17, 0.825) 64.5%,
+      rgba(0, 26, 17, 0.648) 70.6%,
+      rgba(0, 26, 17, 0.45) 76.4%,
+      rgba(0, 26, 17, 0.259) 82.4%,
+      rgba(0, 26, 17, 0.104) 88.5%,
+      rgba(0, 26, 17, 0.013) 96.9%,
+      rgba(0, 26, 17, 0) 100%
     );
-
+    transform: scaleX(1.02);
     position: relative;
     top: -36rem;
     margin-bottom: -35rem;

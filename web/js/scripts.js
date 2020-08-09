@@ -207,9 +207,9 @@ scroll_hider();
 
     let template = (
       '<a href="/'+data.url+'" class="'+classes+'">'+
-      '<div class="article_image small hover_border_tight" style="background-image:url('+ data.thumbnail_s +');"></div>'+
-      '<div class="article_image medium hover_border_tight" style="background-image:url('+ data.thumbnail_w +');"></div>'+
-      '<div class="article_image large hover_border_tight" style="background-image:url('+ data.thumbnail_m +');"></div>'+
+      '<div class="article_image small hover_border_tight" style="background-color: #4e5953; background-image:url('+ data.thumbnail_s +');"></div>'+
+      '<div class="article_image medium hover_border_tight" style="background-color: #4e5953; background-image:url('+ data.thumbnail_w +');"></div>'+
+      '<div class="article_image large hover_border_tight" style="background-color: #4e5953; background-image:url('+ data.thumbnail_m +');"></div>'+
       '<div class="articleData">'+
       '<h3 class="tighter hover_color"> '+ data.title +' </h3>'+
         ((location && !hide_location) ?'<div class="caption">'+ location +'</div>':''+
@@ -217,7 +217,8 @@ scroll_hider();
       '</div>'+
       '</a>')
     );
-    return createElementFromHTML(template);
+    var element =  createElementFromHTML(template);
+    return element;
   }
 
   function clear_articles() {
@@ -632,6 +633,22 @@ scroll_hider();
     }
   });
 })();
+
+/**Captcha for contact form**/
+ready(function(){
+  if(window.location.pathname.split('/').slice(-1)[0] !== 'contact'){
+    return;
+  }
+  document.querySelector('button[type=submit]').addEventListener('click', function(e) {
+    //e.preventDefault();
+    grecaptcha.ready(function() {
+      grecaptcha.execute('6LeX-qkZAAAAAFtPcUmqD1lXrbYDRLaGG58P2e57', {action: 'submit'}).then(function(token) {
+        // Add your logic to submit to your backend server here.
+      });
+    });
+    //return false;
+  });
+});
 
 
 /**Activate Youtube Videos**/
