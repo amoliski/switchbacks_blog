@@ -93,6 +93,9 @@ hr {
   hr .light {
     border-bottom-color: #071112; }
 
+.light {
+  background: #f8f8f5; }
+
 .pill_button {
   min-width: 7em;
   cursor: pointer;
@@ -144,8 +147,8 @@ body {
   background-color: #fefff9; }
 
 h1, h1 > a {
-  font-size: 5rem;
-  line-height: 5rem;
+  font-size: 4rem;
+  line-height: 4rem;
   text-decoration: none;
   font-family: "Flecha M Medium", "Libre Baskerville", serif;
   font-weight: normal;
@@ -240,27 +243,27 @@ p {
   background-size: 25rem;
   grid-column: full; }
 
-blockquote {
+blockquote, blockquote > p {
   font-family: "Lekton", sans-serif;
   font-size: 1.8rem;
   line-height: 3.8rem;
   letter-spacing: 0.5px;
   text-align: center; }
-  blockquote footer {
+  blockquote footer, blockquote > p footer {
     font-family: "Cabin", sans-serif;
     font-size: 1.5rem;
     font-weight: bold;
     letter-spacing: 0.2px; }
-    .large_text blockquote footer {
+    .large_text blockquote footer, .large_text blockquote > p footer {
       font-size: 2.5rem;
       line-height: 3rem; }
-    .small_text blockquote footer {
+    .small_text blockquote footer, .small_text blockquote > p footer {
       font-size: 1.3rem;
       line-height: 1.6rem; }
-  .large_text blockquote {
+  .large_text blockquote, .large_text blockquote > p {
     font-size: 2.5rem;
     line-height: 3rem; }
-  .small_text blockquote {
+  .small_text blockquote, .small_text blockquote > p {
     font-size: 1.3rem;
     line-height: 1.6rem; }
 
@@ -333,8 +336,11 @@ button.primary_button {
   border: none;
   cursor: pointer; }
 
+body {
+  background: #071112 url(/img/topo_pattern_dark.svg) repeat top/603px; }
+
 .dark {
-  background-color: #001a11;
+  background: transparent;
   color: #f8f8f5; }
   .dark a {
     color: #f8f8f5; }

@@ -3,7 +3,7 @@
 
 <body>
 <main id="swup" class="__stories__">
-    <section class="grid head">
+    <section class="grid head light">
         <div class="intro slide_transition">
             <div class="intro_text">
                 <h1>Our Stories</h1>
@@ -32,7 +32,7 @@
              </div>
         </div>
     </section>
-    <section class="stories grid">
+    <section class="stories grid dark" style="padding-top: 2em; padding-bottom: 2em;">
         {%- set main_story =  craft.Entries.section('story').site('*').orderBy('postDate desc').one() -%}
 
         <a href="/{{ main_story.uri }}" class="featured_story">

@@ -10,9 +10,8 @@
     height: auto;
     min-height: initial;
     max-height: initial;
-    background-color: $deep_green;
-
-
+    // background-color: $deep_green;
+    background: $dark_topo;
 
     .recent_post {
       grid-column: wide;

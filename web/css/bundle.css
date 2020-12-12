@@ -93,6 +93,9 @@ hr {
   hr .light {
     border-bottom-color: #071112; }
 
+.light {
+  background: #f8f8f5; }
+
 .pill_button {
   min-width: 7em;
   cursor: pointer;
@@ -144,8 +147,8 @@ body {
   background-color: #fefff9; }
 
 h1, h1 > a {
-  font-size: 5rem;
-  line-height: 5rem;
+  font-size: 4rem;
+  line-height: 4rem;
   text-decoration: none;
   font-family: "Flecha M Medium", "Libre Baskerville", serif;
   font-weight: normal;
@@ -240,27 +243,27 @@ p {
   background-size: 25rem;
   grid-column: full; }
 
-blockquote {
+blockquote, blockquote > p {
   font-family: "Lekton", sans-serif;
   font-size: 1.8rem;
   line-height: 3.8rem;
   letter-spacing: 0.5px;
   text-align: center; }
-  blockquote footer {
+  blockquote footer, blockquote > p footer {
     font-family: "Cabin", sans-serif;
     font-size: 1.5rem;
     font-weight: bold;
     letter-spacing: 0.2px; }
-    .large_text blockquote footer {
+    .large_text blockquote footer, .large_text blockquote > p footer {
       font-size: 2.5rem;
       line-height: 3rem; }
-    .small_text blockquote footer {
+    .small_text blockquote footer, .small_text blockquote > p footer {
       font-size: 1.3rem;
       line-height: 1.6rem; }
-  .large_text blockquote {
+  .large_text blockquote, .large_text blockquote > p {
     font-size: 2.5rem;
     line-height: 3rem; }
-  .small_text blockquote {
+  .small_text blockquote, .small_text blockquote > p {
     font-size: 1.3rem;
     line-height: 1.6rem; }
 
@@ -333,8 +336,11 @@ button.primary_button {
   border: none;
   cursor: pointer; }
 
+body {
+  background: #071112 url(/img/topo_pattern_dark.svg) repeat top/603px; }
+
 .dark {
-  background-color: #001a11;
+  background: transparent;
   color: #f8f8f5; }
   .dark a {
     color: #f8f8f5; }
@@ -499,7 +505,7 @@ a.token {
     outline: none; }
 
 .nav_backing {
-  background-color: #001a11;
+  background: #071112 url(/img/topo_pattern_dark.svg) repeat top/603px;
   top: 0;
   left: 0;
   right: 0;
@@ -559,7 +565,7 @@ header.navbar {
   top: 0;
   font-size: 2rem;
   font-family: "Cabin", sans-serif;
-  background-color: #001a11;
+  background: #071112 url(/img/topo_pattern_dark.svg) repeat top/603px;
   user-select: none; }
   header.navbar a {
     font-family: "Cabin", sans-serif;
@@ -611,7 +617,6 @@ header.navbar {
     justify-content: flex-end;
     align-items: center;
     font-family: "Cabin", sans-serif;
-    background-color: #001a11;
     color: #8b8b8b;
     grid-column: full;
     height: 5rem;
@@ -790,7 +795,7 @@ header.navbar {
     transform: translateX(1rem); }
   .scroll_to_top:before {
     content: '^';
-    color: #001a11;
+    color: #071112;
     height: 26px;
     vertical-align: baseline;
     position: absolute;
@@ -798,8 +803,12 @@ header.navbar {
     font-size: 30px;
     transition: transform 0.8s ease;
     transform: translateX(-20px); }
+  .scroll_to_top.hov_fix:before {
+    transform: translateX(-40px); }
   .scroll_to_top:hover:before {
     transform: translateX(4px); }
+  .scroll_to_top.hov_fix:hover:before {
+    transform: translateX(-12px) translateY(-3px); }
   .scroll_to_top.hidden {
     display: none; }
 
@@ -868,7 +877,6 @@ main {
     flex-grow: 1; }
 
 section.page_footer {
-  background-color: #001a11;
   border-top: 0.6rem solid #6df29c;
   border-top: 0.6rem solid var(--primary, #6df29c);
   padding-top: 2rem;
@@ -1379,7 +1387,8 @@ section.share {
   margin: 0;
   overflow-x: hidden;
   font-size: 2rem;
-  margin-bottom: 10rem; }
+  margin-bottom: 10rem;
+  background-color: #f8f8f5; }
   .__article__ .story .text-size-picker, .__guidebook_section__ .story .text-size-picker {
     position: absolute;
     top: -2px;
@@ -1502,7 +1511,6 @@ section.share {
     margin-top: 2rem; }
 
 .__article__ .read_more, .__guidebook_section__ .read_more {
-  background-color: #001a11;
   color: #f8f8f5; }
 
 @media (min-width: 768px) {
@@ -1520,9 +1528,7 @@ section.share {
   grid-column: 1 / -1; }
 
 .__articles__ section.posts {
-  flex-grow: 1;
-  background: #001a11;
-  background-size: 25%; }
+  flex-grow: 1; }
   .__articles__ section.posts .heading {
     grid-column: wide;
     padding-top: 2em;
@@ -1570,16 +1576,13 @@ section.share {
   margin-bottom: 1.5rem; }
 
 .__articles__ .load_more_bg {
-  cursor: pointer;
-  grid-column: 1/-1;
-  background: linear-gradient(to top, #001a11 57.5%, rgba(0, 26, 17, 0.825) 64.5%, rgba(0, 26, 17, 0.648) 70.6%, rgba(0, 26, 17, 0.45) 76.4%, rgba(0, 26, 17, 0.259) 82.4%, rgba(0, 26, 17, 0.104) 88.5%, rgba(0, 26, 17, 0.013) 96.9%, rgba(0, 26, 17, 0) 100%);
-  transform: scaleX(1.02);
-  position: relative;
-  top: -36rem;
-  margin-bottom: -35rem;
   display: flex;
   justify-content: center;
-  padding-top: 16rem; }
+  grid-column: 1/-1;
+  transform: scaleX(1.02);
+  position: relative;
+  padding-top: 2rem;
+  padding-bottom: 40px; }
   @media (max-width: 768px) {
     .__articles__ .load_more_bg {
       height: 12rem;
@@ -1588,25 +1591,11 @@ section.share {
 .__articles__ .not_yet {
   display: none; }
 
-.__articles__ .load_more {
-  background: #6df29c;
-  background: var(--primary, #6df29c);
-  height: max-content;
-  padding: 0 2rem;
-  color: black;
-  border-radius: 4rem;
-  font-family: "Lekton", sans-serif;
-  font-weight: bold;
-  font-size: 1.5rem;
-  line-height: 3rem;
-  margin: 0; }
-
 :root {
   --primary: #6df29c;
   --primary_lighten: #9cf6bc; }
 
 .__story__ .main .content {
-  background-color: #001a11;
   color: #f8f8f5;
   padding-top: 2rem; }
   .__story__ .main .content .description p {
@@ -1714,7 +1703,7 @@ section.share {
   height: auto;
   min-height: initial;
   max-height: initial;
-  background-color: #001a11; }
+  background: #071112 url(/img/topo_pattern_dark.svg) repeat top/603px; }
   .__home__ .head .recent_post {
     grid-column: wide;
     text-decoration: none;

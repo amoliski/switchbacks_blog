@@ -18,7 +18,7 @@
 }
 
 .nav_backing{
-  background-color: $deep_green;
+  background: $dark_topo;
   top: 0;
   left: 0;
   right: 0;
@@ -97,7 +97,7 @@ header.navbar {
   top: 0;
   font-size: 2rem;
   font-family: $cabin;
-  background-color: $deep_green;
+  background: $dark_topo;
   user-select: none;
 
   & a{
@@ -171,7 +171,6 @@ header.navbar {
     justify-content: flex-end;
     align-items: center;
     font-family: $cabin;
-    background-color: $deep_green;
     color: $grey;
     grid-column: full;
     height: 5rem;

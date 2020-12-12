@@ -14,6 +14,9 @@ hr{
   }
 }
 
+.light {
+  background: $white;
+}
 .pill_button{
   min-width: 7em;
   cursor: pointer;
@@ -73,8 +76,8 @@ body{
 }
 
 h1, h1>a{
-  font-size: 5rem;
-  line-height: 5rem;
+  font-size: 4rem;
+  line-height: 4rem;
   @include sm(){
     margin-top: 5rem;
     margin-bottom: 2rem;
@@ -199,7 +202,7 @@ p{
   grid-column: full;
 }
 
-blockquote{
+blockquote, blockquote > p{
   font-family: $lekton;
   font-size: 1.8rem;
   line-height: 3.8rem;
@@ -321,8 +324,12 @@ button.primary_button{
   cursor: pointer;
 }
 
+body{
+  background: $dark_topo;
+}
+
 .dark{
-  background-color: $deep_green;
+  background: transparent;
   color: $white;
   a{
     color: $white;

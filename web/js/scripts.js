@@ -208,9 +208,9 @@ scroll_hider();
 
     let template = (
       '<a href="/'+data.url+'" class="'+classes+'">'+
-      '<div class="article_image small hover_border_tight" style="background-color: #4e5953; background-image:url('+ data.thumbnail_s +');"></div>'+
-      '<div class="article_image medium hover_border_tight" style="background-color: #4e5953; background-image:url('+ data.thumbnail_w +');"></div>'+
-      '<div class="article_image large hover_border_tight" style="background-color: #4e5953; background-image:url('+ data.thumbnail_m +');"></div>'+
+      '<div class="article_image small hover_border_tight" style="background-color: #001a11; background-image:url('+ data.thumbnail_s +');"></div>'+
+      '<div class="article_image medium hover_border_tight" style="background-color: #001a11; background-image:url('+ data.thumbnail_w +');"></div>'+
+      '<div class="article_image large hover_border_tight" style="background-color: #001a11; background-image:url('+ data.thumbnail_m +');"></div>'+
       '<div class="articleData">'+
       '<h3 class="tighter hover_color"> '+ data.title +' </h3>'+
         ((location && !hide_location) ?'<div class="caption"><div class="token">'+locationAbbreviation+'</div>'+ location +'</div>':''+
@@ -409,12 +409,15 @@ scroll_hider();
   }
 
   function load_next_chunk() {
-    document.querySelector('.scroll_to_top').classList.remove('hidden');
+    let lmb = document.querySelector('.load_more');
+    if (lmb.classList) {
+      lmb.classList.remove('hidden');
+    }
 
     let next_chunk = document.querySelectorAll("#posts .transparent.not_yet");
 
     if(next_chunk.length < 12){
-      document.querySelector('.load_more_bg').style.display = 'none';
+      document.querySelector('.load_more').style.display = 'none';
     }
 
     for(let e = 0; e < next_chunk.length && e < 12; e++){
@@ -451,13 +454,24 @@ scroll_hider();
         'Park': render_parks,
         'All': render_all,
       }[active_category] || function (){})(fade_in);
-      let template = '' +
-        '<div class="load_more_bg">' +
-        '<button class="load_more pill_button active">Load More</button>' +
-        '</div>';
-      let more_button = createElementFromHTML(template);
-      more_button.addEventListener('click', load_next_chunk);
-      posts.append(more_button);
+      let template = '<div class="load_more_bg"></div>';
+      let more_button_container = createElementFromHTML(template);
+      posts.append(more_button_container);
+
+      template = ''+
+      '<a class="primary_button scroll_to_top hov_fix" href="#top" style="margin: 0 10px;" onclick="return scroll_to_top(event)">'+
+      '  <span>Back to top</span>'+
+      '</a>';
+      let scroll_to_top_button = createElementFromHTML(template);
+      more_button_container.appendChild(scroll_to_top_button);
+
+      template = ''+
+        '<a class="primary_button load_more" style="margin: 0 10px;" href="javascript:void(0);">'+
+        '  <span>Load More Posts</span>'+
+        '</a>';
+      let load_more_button = createElementFromHTML(template);
+      load_more_button.addEventListener('click', load_next_chunk);
+      more_button_container.appendChild(load_more_button);
 
     load_next_chunk();
 

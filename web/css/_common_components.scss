@@ -169,7 +169,7 @@
   }
   &:before{
     content: '^';
-    color: $deep_green;
+    color: $black;
     height: 26px;
     vertical-align: baseline;
     position: absolute;
@@ -178,8 +178,14 @@
     transition: transform 0.8s ease;
     transform: translateX(-20px);
   }
-  &:hover:before{
+  &.hov_fix:before{
+    transform: translateX(-40px);
+  }
+  &:hover:before {
     transform: translateX(4px);
+  }
+  &.hov_fix:hover:before{
+    transform: translateX(-12px) translateY(-3px);
   }
   &.hidden{
     display: none;

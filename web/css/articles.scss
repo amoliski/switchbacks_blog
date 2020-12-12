@@ -8,8 +8,8 @@
 
   section.posts {
     flex-grow: 1;
-    background: $deep_green;
-    background-size: 25%;
+    //background: $deep_green;
+    //background-size: 25%;
 
     .heading {
       grid-column: wide;
@@ -72,26 +72,27 @@
   }
 
   .load_more_bg{
-    cursor: pointer;
-    grid-column: 1/-1;
-    background: linear-gradient(
-      to top,
-      rgba(0, 26, 17, 1) 57.5%,
-      rgba(0, 26, 17, 0.825) 64.5%,
-      rgba(0, 26, 17, 0.648) 70.6%,
-      rgba(0, 26, 17, 0.45) 76.4%,
-      rgba(0, 26, 17, 0.259) 82.4%,
-      rgba(0, 26, 17, 0.104) 88.5%,
-      rgba(0, 26, 17, 0.013) 96.9%,
-      rgba(0, 26, 17, 0) 100%
-    );
-    transform: scaleX(1.02);
-    position: relative;
-    top: -36rem;
-    margin-bottom: -35rem;
+    // background: linear-gradient(
+    //   to top,
+    //   rgba(0, 26, 17, 1) 57.5%,
+    //   rgba(0, 26, 17, 0.825) 64.5%,
+    //   rgba(0, 26, 17, 0.648) 70.6%,
+    //   rgba(0, 26, 17, 0.45) 76.4%,
+    //   rgba(0, 26, 17, 0.259) 82.4%,
+    //   rgba(0, 26, 17, 0.104) 88.5%,
+    //   rgba(0, 26, 17, 0.013) 96.9%,
+    //   rgba(0, 26, 17, 0) 100%
+    // );
     display: flex;
     justify-content: center;
-    padding-top: 16rem;
+    grid-column: 1/-1;
+    transform: scaleX(1.02);
+    position: relative;
+    padding-top: 2rem;
+    padding-bottom: 40px;
+
+
+
     @include sm(){
       height: 12rem;
       top: -28rem;
@@ -99,19 +100,6 @@
   }
   .not_yet{
     display: none;
-  }
-  .load_more{
-    background: $primary;
-    background: var(--primary, $primary);
-    height: max-content;
-    padding: 0 2rem;
-    color: black;
-    border-radius: 4rem;
-    font-family: $lekton;
-    font-weight: bold;
-    font-size: 1.5rem;
-    line-height: 3rem;
-    margin:0;
   }
 
 }

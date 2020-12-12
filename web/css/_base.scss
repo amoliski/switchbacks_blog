@@ -90,7 +90,6 @@ main{
   }
 }
 section.page_footer{
-  background-color: $deep_green;
   border-top: .6rem solid $primary;
   border-top: .6rem solid var(--primary, $primary);
   padding-top: 2rem;

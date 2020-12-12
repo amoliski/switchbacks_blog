@@ -38,7 +38,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script defer src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swup@2.0.5/dist/swup.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LeX-qkZAAAAAFtPcUmqD1lXrbYDRLaGG58P2e57"></script>
 
     <!--script src="https://cdn.jsdelivr.net/npm/@swup/debug-plugin@1.0.3/dist/SwupDebugPlugin.min.js"></script-->
 
@@ -66,7 +65,7 @@
     <script defer>
         setTimeout(function() {
             let swup = new Swup({
-                plugins: [/**new SwupDebugPlugin(),**/ new SwupOverlayTheme({color: "#001a11"})],
+                plugins: [/**new SwupDebugPlugin(),**/ new SwupOverlayTheme({color: ""})],
                 animateHistoryBrowsing: false,
                 linkSelector:[
                     'a[href^="/"]:not([data-no-swup])',
@@ -80,8 +79,11 @@
             swup.on('animationOutDone', function(){window.scrollTo(0, 0);});
         })
     </script>
+    <style>
+        .swup-transition-overlay {
+            background: #071112;
+        }
+    </style>
     <script defer src="/js/scripts.js"></script>
-
-
 
 </head>
